@@ -66,10 +66,10 @@ export function Skills() {
       <dl className="mt-8 flex max-w-3xl flex-col gap-8">
         {groups.map((group) => (
           <div key={group.label}>
-            <dt className="font-mono text-caption uppercase text-text-subtle">
+            <dt className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
               {group.label}
             </dt>
-            <dd className="mt-2 font-mono text-code text-text-muted leading-relaxed">
+            <dd className="mt-2 font-mono text-caption text-text-muted leading-relaxed">
               {group.items.join(" · ")}
             </dd>
           </div>
