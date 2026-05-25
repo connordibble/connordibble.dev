@@ -1,6 +1,14 @@
+import { PillLink } from "./pill-link";
 import { SectionLabel } from "./section-label";
 
-const links = [
+type ContactLink = {
+  href: string;
+  label: string;
+  external: boolean;
+  ariaLabel: string;
+};
+
+const links: ContactLink[] = [
   {
     href: "mailto:dibbleconnor@gmail.com",
     label: "Email",
@@ -34,17 +42,12 @@ export function Contact() {
       <ul className="mt-8 flex flex-wrap gap-3">
         {links.map((link) => (
           <li key={link.href}>
-            <a
+            <PillLink
               href={link.href}
-              aria-label={link.ariaLabel}
-              {...(link.external
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              className="inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150 hover:border-border-strong hover:text-accent"
-            >
-              <span>{link.label}</span>
-              <span aria-hidden="true">→</span>
-            </a>
+              label={link.label}
+              external={link.external}
+              ariaLabel={link.ariaLabel}
+            />
           </li>
         ))}
       </ul>
