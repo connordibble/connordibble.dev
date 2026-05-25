@@ -44,7 +44,7 @@ export function Experience() {
             <p className="mt-1 font-mono text-caption text-text-muted">
               {role.company} · {role.dates}
             </p>
-            <p className="mt-4 text-body text-text-muted leading-relaxed">
+            <p className="mt-4 text-body text-text-muted leading-relaxed text-pretty">
               {role.description}
             </p>
           </li>

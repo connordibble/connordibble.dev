@@ -4,7 +4,7 @@ export function About() {
   return (
     <section id="about" className="container-wide pt-8 pb-12 sm:pt-12 sm:pb-20">
       <SectionLabel>About</SectionLabel>
-      <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed">
+      <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
         I build the infrastructure that turns design decisions into production
         code. At State Farm, that means leading the Digital Experience platform
         and owning SFDS, the enterprise design system used by 1000+ engineers

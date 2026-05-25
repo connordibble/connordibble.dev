@@ -37,7 +37,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </p>
         ) : null}
       </header>
-      <p className="mt-3 text-body text-text-muted leading-relaxed">
+      <p className="mt-3 text-body text-text-muted leading-relaxed text-pretty">
         {description}
       </p>
       <ul className="mt-5 flex flex-wrap gap-2">
