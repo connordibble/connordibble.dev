@@ -165,6 +165,13 @@ body::before {
   border-radius: var(--radius-xs);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle:hover {
+    background: var(--color-panel-hover);
+    color: var(--color-accent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

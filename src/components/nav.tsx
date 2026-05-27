@@ -163,7 +163,7 @@ function ThemeToggle() {
       onClick={() => {
         applyTheme(nextTheme);
       }}
-      className="group relative inline-flex h-10 w-10 items-center justify-center rounded-sm text-text-muted transition-[background-color,color,transform] duration-150 hover:bg-panel-hover hover:text-accent active:scale-[0.96] active:bg-border active:text-accent aria-pressed:text-accent"
+      className="theme-toggle group relative inline-flex h-10 w-10 items-center justify-center rounded-sm text-text-muted transition-[background-color,color,transform] duration-150 active:scale-[0.96] active:bg-border active:text-accent aria-pressed:text-accent"
     >
       <SunIcon
         className={[
