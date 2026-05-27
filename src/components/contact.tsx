@@ -39,7 +39,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="container-wide relative isolate py-16 sm:py-24"
+      className="container-wide relative isolate py-12 sm:py-16"
     >
       <svg
         viewBox="0 0 200 200"

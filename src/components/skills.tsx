@@ -61,9 +61,9 @@ const groups: Group[] = [
 
 export function Skills() {
   return (
-    <section id="skills" className="container-wide py-16 sm:py-24">
+    <section id="skills" className="container-wide py-12 sm:py-16">
       <SectionLabel mark="grid">Skills</SectionLabel>
-      <dl className="mt-8 flex max-w-3xl flex-col gap-8">
+      <dl className="mt-8 grid max-w-3xl grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
         {groups.map((group) => (
           <div key={group.label}>
             <dt className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">

@@ -2,7 +2,7 @@ import { SectionLabel } from "./section-label";
 
 export function About() {
   return (
-    <section id="about" className="container-wide pt-8 pb-12 sm:pt-12 sm:pb-20">
+    <section id="about" className="container-wide pt-8 pb-10 sm:pt-10 sm:pb-14">
       <SectionLabel mark="rings">About</SectionLabel>
       <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
         I build the infrastructure that turns design decisions into production
