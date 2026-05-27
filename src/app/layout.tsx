@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -39,11 +40,29 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0908",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f2f3f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0908" },
+  ],
+  colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
 };
+
+const themeInitScript = `
+(function() {
+  try {
+    var key = "connordibble-theme";
+    var stored = localStorage.getItem(key);
+    var theme = stored === "light" || stored === "dark"
+      ? stored
+      : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    document.documentElement.dataset.theme = theme;
+  } catch (_) {
+    document.documentElement.dataset.theme = "dark";
+  }
+})();
+`;
 
 export default function RootLayout({
   children,
@@ -53,6 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-text font-sans">
@@ -63,6 +83,9 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <Script id="theme-init" strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
       </body>
     </html>
   );
