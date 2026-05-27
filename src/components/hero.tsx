@@ -5,8 +5,11 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="container-wide relative isolate pt-20 pb-8 sm:pt-28 sm:pb-10"
+      className="container-wide relative isolate overflow-hidden pt-20 pb-8 sm:pt-28 sm:pb-10"
     >
+      <BrandMark
+        className="pointer-events-none absolute top-3 right-[-2.25rem] -z-10 h-64 w-64 text-border opacity-[0.14] sm:top-8 sm:right-[-1.5rem] sm:h-72 sm:w-72 md:hidden"
+      />
       <BrandMark
         className="pointer-events-none absolute top-1/2 right-0 -z-10 hidden h-80 w-80 -translate-y-1/2 text-border-strong opacity-50 md:block"
       />
