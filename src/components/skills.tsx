@@ -62,7 +62,7 @@ const groups: Group[] = [
 export function Skills() {
   return (
     <section id="skills" className="container-wide py-16 sm:py-24">
-      <SectionLabel>Skills</SectionLabel>
+      <SectionLabel mark="grid">Skills</SectionLabel>
       <dl className="mt-8 flex max-w-3xl flex-col gap-8">
         {groups.map((group) => (
           <div key={group.label}>

@@ -34,7 +34,7 @@ const roles: Role[] = [
 export function Experience() {
   return (
     <section id="experience" className="container-wide py-16 sm:py-24">
-      <SectionLabel>Experience</SectionLabel>
+      <SectionLabel mark="ticks">Experience</SectionLabel>
       <ol className="mt-8 flex max-w-3xl flex-col gap-12">
         {roles.map((role) => (
           <li key={role.title}>

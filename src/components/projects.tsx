@@ -35,7 +35,7 @@ const projects: Project[] = [
 export function Projects() {
   return (
     <section id="projects" className="container-wide py-16 sm:py-24">
-      <SectionLabel>Projects</SectionLabel>
+      <SectionLabel mark="asterisk">Projects</SectionLabel>
       <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
         {projects.map((project) => (
           <li key={project.title}>

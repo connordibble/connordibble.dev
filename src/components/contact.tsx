@@ -37,8 +37,23 @@ const links: ContactLink[] = [
 
 export function Contact() {
   return (
-    <section id="contact" className="container-wide py-16 sm:py-24">
-      <SectionLabel>Contact</SectionLabel>
+    <section
+      id="contact"
+      className="container-wide relative isolate py-16 sm:py-24"
+    >
+      <svg
+        viewBox="0 0 200 200"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="0.5"
+        aria-hidden="true"
+        className="pointer-events-none absolute top-12 right-0 -z-10 hidden h-64 w-64 text-border-strong opacity-50 md:block"
+      >
+        <circle cx="100" cy="100" r="40" />
+        <circle cx="100" cy="100" r="70" />
+        <circle cx="100" cy="100" r="99" />
+      </svg>
+      <SectionLabel mark="triangle">Contact</SectionLabel>
       <ul className="mt-8 flex flex-wrap gap-3">
         {links.map((link) => (
           <li key={link.href}>

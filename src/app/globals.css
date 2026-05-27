@@ -110,6 +110,17 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("/noise.svg");
+}
+
 ::selection {
   background: var(--color-accent-soft);
   color: var(--color-text);
