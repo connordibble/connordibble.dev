@@ -1,34 +1,24 @@
-import type { ComponentPropsWithoutRef } from "react";
+import Link from "next/link";
+import type { Project } from "@/data/projects";
 
-export type Project = {
-  title: string;
-  owner?: string;
-  description: string;
-  tags: string[];
-  href?: string;
-};
+const cardClass = [
+  "group relative block h-full bg-panel border border-border rounded-md p-6",
+  "transition-colors duration-150 ease-out",
+  "hover:bg-panel-raised hover:border-border-strong",
+].join(" ");
 
-export function ProjectCard({ project }: { project: Project }) {
-  const { title, owner, description, tags, href } = project;
+function CardBody({ project }: { project: Project }) {
+  const { title, owner, description, tags, externalUrl } = project;
+  const arrow = externalUrl ? "↗" : "→";
 
-  const cardClass = [
-    "group relative block h-full bg-panel border border-border rounded-md p-6",
-    "transition-colors duration-150 ease-out",
-    href ? "hover:bg-panel-raised hover:border-border-strong" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const inner = (
+  return (
     <>
-      {href ? (
-        <span
-          aria-hidden
-          className="pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100 group-hover:text-accent"
-        >
-          ↗
-        </span>
-      ) : null}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100 group-hover:text-accent"
+      >
+        {arrow}
+      </span>
       <header className="pr-6">
         <h3 className="text-section-title font-medium text-text">{title}</h3>
         {owner ? (
@@ -52,18 +42,25 @@ export function ProjectCard({ project }: { project: Project }) {
       </ul>
     </>
   );
+}
 
-  if (href) {
-    const external = href.startsWith("http");
-    const linkProps: ComponentPropsWithoutRef<"a"> = external
-      ? { target: "_blank", rel: "noopener noreferrer" }
-      : {};
+export function ProjectCard({ project }: { project: Project }) {
+  if (project.externalUrl) {
     return (
-      <a href={href} className={cardClass} {...linkProps}>
-        {inner}
+      <a
+        href={project.externalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cardClass}
+      >
+        <CardBody project={project} />
       </a>
     );
   }
 
-  return <div className={cardClass}>{inner}</div>;
+  return (
+    <Link href={`/projects/${project.slug}`} className={cardClass}>
+      <CardBody project={project} />
+    </Link>
+  );
 }

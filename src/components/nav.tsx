@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#skills", label: "Skills" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Nav() {
@@ -57,23 +58,23 @@ export function Nav() {
       ].join(" ")}
     >
       <nav className="container-wide flex h-16 items-center justify-between">
-        <a
-          href="#top"
+        <Link
+          href="/"
           onClick={() => setOpen(false)}
           className="whitespace-nowrap font-mono text-caption text-text hover:text-accent transition-colors duration-150"
         >
           Connor Dibble
-        </a>
+        </Link>
 
         <ul className="hidden sm:flex items-center gap-6">
           {links.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
                 className="font-mono text-caption text-text-muted hover:text-accent transition-colors duration-150"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -120,13 +121,13 @@ export function Nav() {
                       open && !shouldReduceMotion ? 0.05 + i * 0.025 : 0,
                   }}
                 >
-                  <a
+                  <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
                     className="block py-4 font-mono text-body text-text hover:text-accent transition-colors duration-150"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
