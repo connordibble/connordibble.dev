@@ -24,6 +24,7 @@ export function Hero() {
         design intent into production-ready code.
       </p>
       <div className="mt-8 flex flex-wrap items-center gap-3">
+        <PillLink href="/writing" label="Writing" />
         <PillLink
           href="https://github.com/connordibble"
           label="GitHub"
