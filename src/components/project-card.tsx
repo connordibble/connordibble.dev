@@ -8,15 +8,17 @@ const cardClass = [
 
 function CardBody({ project }: { project: Project }) {
   const { title, owner, description, tags, externalUrl } = project;
-  const arrow = externalUrl ? "↗" : "→";
+  const arrowClass =
+    "project-card-link-arrow pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-all duration-200 ease-out";
 
   return (
     <>
-      <span
-        aria-hidden
-        className="project-card-link-arrow pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-all duration-200 ease-out"
-      >
-        {arrow}
+      <span aria-hidden className={arrowClass}>
+        {externalUrl ? (
+          <span className="block origin-center -rotate-45">→</span>
+        ) : (
+          "→"
+        )}
       </span>
       <header className="pr-6">
         <h3 className="text-section-title font-medium text-text">{title}</h3>

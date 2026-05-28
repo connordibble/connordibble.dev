@@ -18,14 +18,11 @@ export function Projects() {
       </ul>
       <div className="mt-6 flex justify-end">
         <Link
-          href="/projects#projects-top"
+          href="/projects"
           className="arrow-link text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
         >
           <span>View all projects</span>
-          <span
-            aria-hidden
-            className="arrow-link-icon transition-transform duration-150 ease-out"
-          >
+          <span aria-hidden>
             →
           </span>
         </Link>
