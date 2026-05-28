@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Connor Dibble — Senior Software Engineer";
+export const alt = "Connor Dibble — Frontend Platform & Design Systems";
 
 export const size = {
   width: 1200,
@@ -70,7 +70,7 @@ export default function OpenGraphImage() {
                 marginBottom: 18,
               }}
             >
-              Senior Software Engineer
+              Frontend Platform & Design Systems
             </div>
             <div
               style={{
@@ -91,7 +91,7 @@ export default function OpenGraphImage() {
                 maxWidth: 690,
               }}
             >
-              Enterprise design systems. AI tooling. Production code.
+              Design systems. AI tooling. Production-ready code.
             </div>
             <div
               style={{

@@ -9,8 +9,8 @@ export function About() {
         code. At State Farm, that means leading the Digital Experience platform
         and owning SFDS, the enterprise design system used by 1000+ engineers
         and designers across one of the largest insurance companies in the US.
-        Outside that, I run Proceris, where I build productivity tooling and
-        automations for partners across industries.
+        Outside work, I build small AI products through Proceris, focused on
+        productivity tooling and workflow automation.
       </p>
     </section>
   );

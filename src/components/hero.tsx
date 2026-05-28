@@ -13,13 +13,15 @@ export function Hero() {
       <BrandMark
         className="pointer-events-none absolute top-1/2 right-0 -z-10 hidden h-80 w-80 -translate-y-1/2 text-border-strong opacity-50 md:block"
       />
-      <p className="text-body-small text-text-subtle">Senior Software Engineer</p>
+      <p className="text-body-small text-text-subtle">
+        Senior Software Engineer, Frontend Platform & Design Systems
+      </p>
       <h1 className="mt-3 text-[40px] sm:text-display font-semibold tracking-tight text-text text-pretty">
         Connor Dibble
       </h1>
       <p className="mt-6 max-w-144 text-body text-text-muted leading-relaxed text-pretty">
-        Enterprise design systems. AI tooling. The platform that turns design
-        intent into production code.
+        Enterprise design systems, AI tooling, and frontend platforms that turn
+        design intent into production-ready code.
       </p>
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <PillLink

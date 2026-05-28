@@ -23,8 +23,8 @@ export const projects: Project[] = [
     slug: "designrail",
     title: "DesignRail",
     description:
-      "A design-system handoff control plane for AI-assisted implementation. Normalizes Figma input into reviewable component intent, maps it to Shoelace primitives, runs compliance checks (accessibility, tokens, variants, React readiness), and persists human decisions through a GraphQL API so mapping quality can be audited over time. Mock-mode by default; optional Figma API and MCP integration.",
-    tags: ["React", "GraphQL", "Drizzle", "TypeScript"],
+      "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Turns Figma-style component intent into Shoelace Web Component mappings, runs compliance checks, and persists review decisions through GraphQL.",
+    tags: ["React", "GraphQL", "Drizzle", "Shoelace", "Figma MCP"],
     externalUrl: "https://github.com/connordibble/DesignRail",
   },
   {
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     title: "SFDS",
     owner: "State Farm — closed source",
     description:
-      "State Farm's canonical enterprise design system, sanctioned by leadership as the migration target for statefarm.com and used by 1000+ engineers and designers. Includes sf-ui, a framework-agnostic component library on Lit/Web Components with 70+ primitives; a Figma Variables → W3C design token plugin in TypeScript; and an npm + CDN release pipeline with versioned docs and governance for cross-team adoption.",
+      "State Farm's canonical enterprise design system and migration target for statefarm.com. I led sf-ui, a framework-agnostic Lit/Web Components library with 70+ primitives, plus the Figma Variables → W3C token pipeline and npm/CDN release governance for 1000+ engineers and designers.",
     tags: ["Web Components", "Design Tokens", "Figma API", "npm + CDN"],
     detail: {
       headline:
@@ -40,11 +40,11 @@ export const projects: Project[] = [
       sections: [
         {
           heading: "Problem",
-          body: "State Farm's frontend ecosystem spanned eight product teams shipping inconsistent UI across Angular, React, and bespoke component libraries. Brand drift, accessibility gaps, and duplicated engineering effort compounded with every release. The org needed a single canonical system that any team could adopt without rewriting its stack.",
+          body: "State Farm's frontend ecosystem spans hundreds of product teams shipping inconsistent UI across Angular, React, Next.js, JSP, and other frameworks. Despite past efforts at unifying the design ecosystem, brand drift, accessibility gaps, and duplicated engineering effort compounded with every release. The org needed a single framework-agnostic system that any team could adopt without rewriting its stack.",
         },
         {
           heading: "Approach",
-          body: "Architected sf-ui — a framework-agnostic component library built on Lit and native Web Components. Framework-agnostic specifically: the same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline, not a transcription exercise. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
+          body: "Architected sf-ui — a framework-agnostic component library built with web components in Lit. Framework-agnostic specifically: the same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline, not a transcription exercise. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
         },
         {
           heading: "Impact",
@@ -52,7 +52,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Stack",
-          body: "Lit · Web Components · TypeScript · Figma Plugin API · W3C Design Tokens · npm · CDN distribution · Storybook · GitLab CI/CD",
+          body: "Lit · Web Components · TypeScript · Figma Plugin API · W3C Design Tokens · npm · CDN distribution · GitLab CI/CD",
         },
       ],
     },
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     title: "ResearchLog",
     owner: "Proceris — closed source",
     description:
-      "R&D tax credit documentation SaaS. Ingests engineering activity from GitHub (PRs, issues, commits), classifies it against the IRS Section 41 four-part test with Claude, and captures contemporaneous evidence so teams can defend their credit at audit time instead of reconstructing it at year-end. Row-level security throughout; classification jobs run async via Inngest.",
+      "R&D tax-credit documentation SaaS that maps real engineering work to IRS Section 41 evidence. Ingests GitHub activity, classifies PRs, issues, and commits with Claude, and keeps reviewer overrides tenant-scoped with Supabase RLS.",
     tags: ["Angular", "NestJS", "Supabase", "Inngest"],
     detail: {
       headline:
@@ -92,7 +92,7 @@ export const projects: Project[] = [
     title: "PaceAI",
     owner: "Proceris — closed source",
     description:
-      "Turns long-form workout video into timestamped equipment control profiles for connected fitness hardware. Multimodal ingestion (video + audio + trainer-cue extraction), an LLM agent layer encoding exercise science (RPE, heart-rate zones, work-to-rest ratios, progressive overload), and structured output that maps directly into a partner OEM's production control schema. Human-in-the-loop review UI; on-prem deployment for enterprise data residency.",
+      "AI workflow that turns long-form workout video into timestamped equipment-control profiles. Combines video/audio ingestion, trainer-cue extraction, exercise-science reasoning, and a human review UI for partner OEM workflows.",
     tags: ["Node.js", "Python", "FFmpeg", "Multimodal"],
     detail: {
       headline:
