@@ -1,26 +1,38 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import {
+  useEffect,
+  useState,
+  useSyncExternalStore,
+  type MouseEvent,
+} from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 type Theme = "dark" | "light";
+type NavLink =
+  | { href: string; label: string; type: "route" }
+  | { href: "/"; label: string; targetId: string; type: "section" };
 
 const themeStorageKey = "connordibble-theme";
 const themeChangeEvent = "connordibble-theme-change";
+const pendingScrollTargetKey = "connordibble-pending-scroll-target";
 
-const links = [
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/writing", label: "Writing" },
-  { href: "/#experience", label: "Experience" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/#contact", label: "Contact" },
+const links: NavLink[] = [
+  { href: "/about", label: "About", type: "route" },
+  { href: "/projects", label: "Projects", type: "route" },
+  { href: "/writing", label: "Writing", type: "route" },
+  { href: "/", label: "Experience", targetId: "experience", type: "section" },
+  { href: "/", label: "Skills", targetId: "skills", type: "section" },
+  { href: "/", label: "Contact", targetId: "contact", type: "section" },
 ];
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -55,6 +67,46 @@ export function Nav() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const targetId = getPendingScrollTarget();
+    if (!targetId) return;
+
+    clearPendingScrollTarget();
+    requestAnimationFrame(() => {
+      scrollToSection(targetId);
+    });
+  }, [pathname]);
+
+  const handleHomeClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    setOpen(false);
+    if (isModifiedClick(event) || pathname !== "/") return;
+
+    event.preventDefault();
+    clearCurrentHash();
+    window.scrollTo({ top: 0, behavior: getScrollBehavior() });
+  };
+
+  const handleSectionClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    targetId: string,
+  ) => {
+    setOpen(false);
+    if (isModifiedClick(event)) return;
+
+    event.preventDefault();
+    clearCurrentHash();
+
+    if (pathname === "/") {
+      scrollToSection(targetId);
+      return;
+    }
+
+    setPendingScrollTarget(targetId);
+    router.push("/", { scroll: false });
+  };
+
   return (
     <header
       className={[
@@ -65,8 +117,8 @@ export function Nav() {
     >
       <nav className="container-wide flex h-16 items-center justify-between">
         <Link
-          href="/#top"
-          onClick={() => setOpen(false)}
+          href="/"
+          onClick={handleHomeClick}
           className="text-link whitespace-nowrap font-mono text-caption text-text transition-colors duration-150"
         >
           Connor Dibble
@@ -74,9 +126,14 @@ export function Nav() {
 
         <ul className="hidden sm:flex items-center gap-6">
           {links.map((link) => (
-            <li key={link.href}>
+            <li key={link.label}>
               <Link
                 href={link.href}
+                onClick={
+                  link.type === "section"
+                    ? (event) => handleSectionClick(event, link.targetId)
+                    : () => setOpen(false)
+                }
                 className="text-link font-mono text-caption text-text-muted transition-colors duration-150"
               >
                 {link.label}
@@ -117,7 +174,7 @@ export function Nav() {
             <ul className="container-wide flex flex-col py-2">
               {links.map((link, i) => (
                 <motion.li
-                  key={link.href}
+                  key={link.label}
                   initial={shouldReduceMotion ? false : { opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={
@@ -132,7 +189,11 @@ export function Nav() {
                 >
                   <Link
                     href={link.href}
-                    onClick={() => setOpen(false)}
+                    onClick={
+                      link.type === "section"
+                        ? (event) => handleSectionClick(event, link.targetId)
+                        : () => setOpen(false)
+                    }
                     className="text-link block py-4 font-mono text-body text-text transition-colors duration-150"
                   >
                     {link.label}
@@ -145,6 +206,61 @@ export function Nav() {
       </AnimatePresence>
     </header>
   );
+}
+
+function isModifiedClick(event: MouseEvent<HTMLAnchorElement>): boolean {
+  return (
+    event.button !== 0 ||
+    event.metaKey ||
+    event.altKey ||
+    event.ctrlKey ||
+    event.shiftKey
+  );
+}
+
+function getScrollBehavior(): ScrollBehavior {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth";
+}
+
+function scrollToSection(targetId: string) {
+  document
+    .getElementById(targetId)
+    ?.scrollIntoView({ behavior: getScrollBehavior(), block: "start" });
+}
+
+function clearCurrentHash() {
+  if (!window.location.hash) return;
+  window.history.replaceState(
+    window.history.state,
+    "",
+    `${window.location.pathname}${window.location.search}`,
+  );
+}
+
+function getPendingScrollTarget(): string | null {
+  try {
+    return sessionStorage.getItem(pendingScrollTargetKey);
+  } catch {
+    return null;
+  }
+}
+
+function setPendingScrollTarget(targetId: string) {
+  try {
+    sessionStorage.setItem(pendingScrollTargetKey, targetId);
+  } catch {
+    // A navigation to home still gives the user a sensible fallback.
+  }
+}
+
+function clearPendingScrollTarget() {
+  try {
+    sessionStorage.removeItem(pendingScrollTargetKey);
+  } catch {
+    // Ignore storage failures; the scroll target is progressive enhancement.
+  }
 }
 
 function ThemeToggle() {
