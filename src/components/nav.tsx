@@ -10,8 +10,9 @@ const themeStorageKey = "connordibble-theme";
 const themeChangeEvent = "connordibble-theme-change";
 
 const links = [
-  { href: "/#about", label: "About" },
-  { href: "/#projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/writing", label: "Writing" },
   { href: "/#experience", label: "Experience" },
   { href: "/#skills", label: "Skills" },
   { href: "/#contact", label: "Contact" },
@@ -64,7 +65,7 @@ export function Nav() {
     >
       <nav className="container-wide flex h-16 items-center justify-between">
         <Link
-          href="/"
+          href="/#top"
           onClick={() => setOpen(false)}
           className="text-link whitespace-nowrap font-mono text-caption text-text transition-colors duration-150"
         >
@@ -173,7 +174,7 @@ function ThemeToggle() {
       />
       <MoonIcon
         className={[
-          "absolute h-4 w-4 transition-all duration-150",
+          "absolute h-[1.125rem] w-[1.125rem] transition-all duration-150",
           theme === "dark" ? "scale-100 opacity-100" : "scale-75 opacity-0",
         ].join(" ")}
       />
@@ -299,12 +300,16 @@ function SunIcon({ className }: { className?: string }) {
 function MoonIcon({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 20 20"
-      fill="currentColor"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       aria-hidden="true"
       className={className}
     >
-      <path d="M14.75 13.36c-4.02.58-7.44-2.84-6.86-6.86.12-.83.42-1.61.86-2.29.22-.34-.1-.75-.48-.62A6.73 6.73 0 0 0 3.8 10a6.7 6.7 0 0 0 6.7 6.7 6.73 6.73 0 0 0 6.41-4.47c.13-.38-.28-.7-.62-.48-.68.44-1.46.74-2.29.86Z" />
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
     </svg>
   );
 }

@@ -171,22 +171,21 @@ body::before {
 }
 
 .pill-link:active,
-.project-card-link:active {
+.project-card-link:active,
+.writing-card-link:active {
   border-color: var(--color-border-strong);
 }
 
-.project-card-link:active {
+.project-card-link:active,
+.writing-card-link:active {
   background: var(--color-panel-raised);
 }
 
-.project-card-link:focus-visible .project-card-link-arrow {
+.project-card-link:focus-visible .project-card-link-arrow,
+.writing-card-link:focus-visible .writing-card-link-arrow {
   color: var(--color-accent);
   opacity: 1;
   transform: translate(0.125rem, -0.125rem);
-}
-
-.arrow-link:focus-visible .arrow-link-icon {
-  transform: translateX(0.125rem);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -199,19 +198,17 @@ body::before {
     color: var(--color-accent);
   }
 
-  .project-card-link:hover {
+  .project-card-link:hover,
+  .writing-card-link:hover {
     background: var(--color-panel-raised);
     border-color: var(--color-border-strong);
   }
 
-  .project-card-link:hover .project-card-link-arrow {
+  .project-card-link:hover .project-card-link-arrow,
+  .writing-card-link:hover .writing-card-link-arrow {
     color: var(--color-accent);
     opacity: 1;
     transform: translate(0.125rem, -0.125rem);
-  }
-
-  .arrow-link:hover .arrow-link-icon {
-    transform: translateX(0.125rem);
   }
 
   .theme-toggle:hover {
