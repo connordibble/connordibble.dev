@@ -17,10 +17,13 @@ export default function ProjectsPage() {
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="container-wide pt-20 pb-8 sm:pt-28 sm:pb-10">
+        <section
+          id="projects-top"
+          className="container-wide pt-20 pb-8 sm:pt-28 sm:pb-10"
+        >
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150 hover:text-accent"
+            className="text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
           >
             <span aria-hidden>←</span>
             <span>Home</span>

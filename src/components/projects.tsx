@@ -18,13 +18,13 @@ export function Projects() {
       </ul>
       <div className="mt-6 flex justify-end">
         <Link
-          href="/projects"
-          className="group inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150 hover:text-accent"
+          href="/projects#projects-top"
+          className="arrow-link text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
         >
           <span>View all projects</span>
           <span
             aria-hidden
-            className="transition-transform duration-150 ease-out group-hover:translate-x-0.5"
+            className="arrow-link-icon transition-transform duration-150 ease-out"
           >
             →
           </span>

@@ -66,7 +66,7 @@ export function Nav() {
         <Link
           href="/"
           onClick={() => setOpen(false)}
-          className="whitespace-nowrap font-mono text-caption text-text hover:text-accent transition-colors duration-150"
+          className="text-link whitespace-nowrap font-mono text-caption text-text transition-colors duration-150"
         >
           Connor Dibble
         </Link>
@@ -76,7 +76,7 @@ export function Nav() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="font-mono text-caption text-text-muted hover:text-accent transition-colors duration-150"
+                className="text-link font-mono text-caption text-text-muted transition-colors duration-150"
               >
                 {link.label}
               </Link>
@@ -92,7 +92,7 @@ export function Nav() {
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((o) => !o)}
-            className="sm:hidden -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-sm text-text hover:text-accent transition-colors duration-150"
+            className="text-link sm:hidden -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-sm text-text transition-colors duration-150"
           >
             <Hamburger open={open} reduceMotion={shouldReduceMotion} />
           </button>
@@ -132,7 +132,7 @@ export function Nav() {
                   <Link
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block py-4 font-mono text-body text-text hover:text-accent transition-colors duration-150"
+                    className="text-link block py-4 font-mono text-body text-text transition-colors duration-150"
                   >
                     {link.label}
                   </Link>
@@ -163,7 +163,7 @@ function ThemeToggle() {
       onClick={() => {
         applyTheme(nextTheme);
       }}
-      className="theme-toggle group relative inline-flex h-10 w-10 items-center justify-center rounded-sm text-text-muted transition-[background-color,color,transform] duration-150 active:scale-[0.96] active:bg-border active:text-accent aria-pressed:text-accent"
+      className="theme-toggle group relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm text-text-muted transition-[background-color,color,transform] duration-150 active:scale-[0.96] active:bg-border active:text-accent aria-pressed:text-accent"
     >
       <SunIcon
         className={[

@@ -2,9 +2,8 @@ import Link from "next/link";
 import type { Project } from "@/data/projects";
 
 const cardClass = [
-  "group relative block h-full bg-panel border border-border rounded-md p-6",
+  "project-card-link relative block h-full bg-panel border border-border rounded-md p-6",
   "transition-colors duration-150 ease-out",
-  "hover:bg-panel-raised hover:border-border-strong",
 ].join(" ");
 
 function CardBody({ project }: { project: Project }) {
@@ -15,7 +14,7 @@ function CardBody({ project }: { project: Project }) {
     <>
       <span
         aria-hidden
-        className="pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100 group-hover:text-accent"
+        className="project-card-link-arrow pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-all duration-200 ease-out"
       >
         {arrow}
       </span>

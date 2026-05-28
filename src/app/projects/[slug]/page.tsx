@@ -47,8 +47,8 @@ export default async function ProjectDetailPage({
       <main id="main-content" tabIndex={-1} className="flex-1">
         <article className="container-wide pt-20 pb-16 sm:pt-28 sm:pb-24">
           <Link
-            href="/projects"
-            className="inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150 hover:text-accent"
+            href="/projects#projects-top"
+            className="text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
           >
             <span aria-hidden>←</span>
             <span>All projects</span>
@@ -94,8 +94,8 @@ export default async function ProjectDetailPage({
 
           <div className="mt-16 border-t border-border pt-8">
             <Link
-              href="/projects"
-              className="group inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150 hover:text-accent"
+              href="/projects#projects-top"
+              className="text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
             >
               <span aria-hidden>←</span>
               <span>All projects</span>
