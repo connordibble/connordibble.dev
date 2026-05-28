@@ -13,21 +13,21 @@ const roles: Role[] = [
     company: "State Farm",
     dates: "Mar 2026 – Present",
     description:
-      "Set technical direction across the statefarm.com Digital Experience suite — 8 product teams, 40–50 engineers, and an executive-backed migration toward 100% SFDS adoption. Built an AI design-to-code pipeline on Figma MCP that compressed supported Figma-to-Web-Component workflows from multi-week handoff cycles to roughly one day.",
+      "Set technical direction across the statefarm.com Digital Experience suite: 8 product teams, 40–50 engineers, and an executive-backed migration toward 100% SFDS adoption. Built an AI design-to-code pipeline on Figma MCP and custom skills that translates fully designed Figma pages into sf-ui Web Component implementations.",
   },
   {
     title: "Lead Software Engineer — State Farm Design System (SFDS)",
     company: "State Farm",
     dates: "May 2023 – Mar 2026",
     description:
-      "Led engineering for SFDS, State Farm's canonical enterprise design system. Architected sf-ui — a framework-agnostic Lit/Web Components library of 70+ primitives — and a Figma Variables → W3C design token plugin in TypeScript. Own npm + CDN release governance for 1000+ engineers and designers.",
+      "Led engineering for SFDS, State Farm's canonical enterprise design system. Architected sf-ui, a framework-agnostic Lit/Web Components library of 70+ primitives, and a Figma Variables → W3C design token plugin in TypeScript. Owned npm + CDN release governance for 1000+ engineers and designers.",
   },
   {
     title: "Software Engineer — Drive Safe & Save Telematics",
     company: "State Farm",
     dates: "May 2020 – May 2023",
     description:
-      "Built Node.js Lambda APIs and Java Spring backend services for the Drive Safe & Save telematics enrollment experience on statefarm.com. Led product-suite frontend direction across React apps, components, and micro-frontends.",
+      "Built Node.js Lambda APIs and Java Spring backend services for the Drive Safe & Save telematics enrollment experience on statefarm.com. Owned frontend direction for the product suite across React apps and micro-frontends.",
   },
 ];
 

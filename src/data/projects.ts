@@ -23,7 +23,7 @@ export const projects: Project[] = [
     slug: "designrail",
     title: "DesignRail",
     description:
-      "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Turns Figma-style component intent into Shoelace Web Component mappings, runs compliance checks, and persists review decisions through GraphQL.",
+      "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Translates Figma component intent into Web Component mappings, validates compliance, and tracks review decisions via a GraphQL API.",
     tags: ["React", "GraphQL", "Drizzle", "Shoelace", "Figma MCP"],
     externalUrl: "https://github.com/connordibble/DesignRail",
   },
@@ -40,15 +40,15 @@ export const projects: Project[] = [
       sections: [
         {
           heading: "Problem",
-          body: "State Farm's frontend ecosystem spans hundreds of product teams shipping inconsistent UI across Angular, React, Next.js, JSP, and other frameworks. Despite past efforts at unifying the design ecosystem, brand drift, accessibility gaps, and duplicated engineering effort compounded with every release. The org needed a single framework-agnostic system that any team could adopt without rewriting its stack.",
+          body: "State Farm's frontend ecosystem spans hundreds of product teams shipping inconsistent UI across Angular, React, Next.js, JSP, and other frameworks. Past unification efforts didn't hold: brand drift and accessibility gaps compounded with every release, with duplicated engineering effort as the ongoing tax. The org needed a single framework-agnostic system any team could adopt without rewriting its stack.",
         },
         {
           heading: "Approach",
-          body: "Architected sf-ui — a framework-agnostic component library built with web components in Lit. Framework-agnostic specifically: the same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline, not a transcription exercise. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
+          body: "Architected sf-ui, a framework-agnostic Lit component library. The same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Used Web Components and Shadow DOM to encapsulate behavior and styling while keeping the integration surface simple for product teams. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
         },
         {
           heading: "Impact",
-          body: "70+ primitives shipped. Earned C-suite buy-in as the official migration target for statefarm.com. Adopted across all eight Digital Experience product teams. Governance model — versioned releases, deprecation windows, compliance review — became the template for cross-org platform delivery.",
+          body: "70+ primitives shipped. Earned C-suite buy-in as the official migration target for statefarm.com. Adopted across all eight statefarm.com Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became the template for cross-org platform delivery.",
         },
         {
           heading: "Stack",
@@ -70,11 +70,11 @@ export const projects: Project[] = [
       sections: [
         {
           heading: "Problem",
-          body: "Engineering orgs claiming the R&D tax credit reconstruct their year of work from spotty Slack archives and memory in the days before the filing deadline. Documentation is fragile, the four-part test is applied unevenly, and most orgs leave money on the table by claiming conservatively to avoid audit risk.",
+          body: "Engineering orgs claiming the R&D tax credit typically reconstruct their year of work from spotty Slack archives and stale memory right before the filing deadline. Documentation gaps mean the four-part test gets applied inconsistently, and orgs routinely under-claim to stay safe from audit risk.",
         },
         {
           heading: "Approach",
-          body: "ResearchLog connects to GitHub via an installable App, ingests activity (PRs, issues, commits) into a tenant-scoped Postgres, and classifies each unit of work against the IRS Section 41 four-part test using Claude. Manager and admin reviewers can override classifications inline; the override surface itself uses an RLS-scoped Supabase client so reviewers only see what they're authorized to see. Async classification jobs run at PR/epic granularity (not per-commit) via Inngest, keeping LLM cost predictable.",
+          body: "ResearchLog installs as a GitHub App, ingests PR/issue/commit activity into tenant-scoped Postgres, and classifies each work unit against the IRS Section 41 four-part test using Claude. Reviewers can override classifications inline; the override surface uses an RLS-scoped Supabase client so tenant isolation is enforced at the database level. Classification jobs run at PR/epic granularity via Inngest to keep LLM costs predictable.",
         },
         {
           heading: "Architecture",
@@ -100,15 +100,15 @@ export const projects: Project[] = [
       sections: [
         {
           heading: "Problem",
-          body: "Connected fitness OEMs hand-program every video workout — trainer cues, pacing changes, terrain shifts, intensity zones — into device control profiles. With thousands of videos in a library and roughly two hours of manual programming per video, throughput is the constraint on content velocity. Programmers want their judgment in the loop; they don't want to retype the same incline curve a thousand times.",
+          body: "Connected fitness OEMs hand-program every video workout (trainer cues, pacing changes, terrain shifts, intensity zones) into device control profiles. With libraries in the thousands and roughly two hours of manual work per video, content throughput is the bottleneck. Programmers want their judgment in the loop; they just don't want to retype the same incline curve a thousand times.",
         },
         {
           heading: "Approach",
-          body: "A three-stage pipeline. Stage one: multimodal ingestion. Video and audio are processed in parallel — FFmpeg for frame and waveform extraction, transcription for trainer dialogue. Stage two: an LLM agent layer encoding exercise science domain knowledge (RPE, heart-rate zones, work-to-rest ratios, progressive overload, manufacturer-specific incline ranges) combines extracted cues with programmer intent (series goals, trainer style, progression notes) to draft a control profile. Stage three: a human-in-the-loop review UI lets programmers approve, edit, or reject the draft before it exports directly into the partner OEM's production control schema.",
+          body: "A three-stage pipeline. Stage one: multimodal ingestion. Video and audio are processed in parallel: FFmpeg for frame and waveform extraction, transcription for trainer dialogue. Stage two: an LLM agent encodes exercise science domain knowledge (RPE, heart-rate zones, work-to-rest ratios, progressive overload, manufacturer incline ranges) and combines extracted cues with programmer intent (series goals, trainer style, progression notes) to draft a control profile. Stage three: a human-in-the-loop review UI where programmers approve, edit, or reject the draft before it exports into the partner OEM's production control schema.",
         },
         {
           heading: "Deployment",
-          body: "Built for enterprise data-residency requirements: pipeline runs in a secure cloud environment by default, with an on-prem deployment option for partners that can't ship video outside their own network. Structured output maps directly into the partner's existing tooling — no rebuild required to consume PaceAI-generated profiles.",
+          body: "Built for enterprise data-residency requirements: pipeline runs in a secure cloud environment by default, with an on-prem option for partners that can't ship video outside their own network. Structured output maps directly into the partner's existing control schema.",
         },
         {
           heading: "Stack",

@@ -9,7 +9,7 @@ import { projects } from "@/data/projects";
 export const metadata: Metadata = {
   title: "Projects — Connor Dibble",
   description:
-    "Selected work across design systems, AI tooling, and platform engineering.",
+    "Design-system, design-tooling, frontend platform, and AI product work at State Farm and Proceris.",
 };
 
 export default function ProjectsPage() {
@@ -32,9 +32,9 @@ export default function ProjectsPage() {
             Projects
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
-            Selected work across design systems, AI tooling, and platform
-            engineering. Open-source projects link to source; closed-source
-            projects link to a write-up.
+            Design-system, design-tooling, frontend platform, and AI product
+            work from State Farm and Proceris. Open-source projects link to
+            source; closed-source projects link to a write-up.
           </p>
         </section>
 
