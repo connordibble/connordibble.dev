@@ -103,7 +103,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The first architecture I explored was a retrieval system around the design-system documentation. The idea was straightforward: index the docs into a vector database, expose the knowledge-base to the agent via MCP server, and let it retrieve relevant chunks before writing code.",
+            text: "The first architecture I explored was a retrieval system around the design-system documentation. The idea was straightforward: index the docs into a vector database, expose the knowledge-base to the agent via an MCP server, and let it retrieve relevant chunks before writing code.",
           },
           {
             type: "paragraph",
@@ -117,7 +117,7 @@ export const writingPosts: WritingPost[] = [
               "The search index became another copy of documentation that already existed somewhere else.",
               "Refresh jobs, hosting, permissions, and vector infrastructure became part of the design-system support surface.",
               "Similarity was useful for discovery, but not always precise enough for production component usage.",
-              "LLM embedding costs, vector hosting, and ingestion compute added up in ways that weren't obvious until the system was actually running.",
+              "Vector hosting, server infrastructure, and ingestion compute added up in ways that weren't obvious until the system was actually running.",
             ],
           },
           {
