@@ -125,6 +125,11 @@ main[id] {
   scroll-margin-top: 5rem;
 }
 
+main[id] {
+  position: relative;
+  z-index: 1;
+}
+
 body {
   background: var(--color-canvas);
   color: var(--color-text);

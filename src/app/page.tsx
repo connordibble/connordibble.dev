@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <main id="main-content" tabIndex={-1} className="relative z-[1] flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1">
         <Hero />
         <About />
         <Projects />
