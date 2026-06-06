@@ -22,7 +22,6 @@ pnpm audit                # security audit
 - `.agents/skills/` — React performance and design rules, consult before component work
 
 ## Code Rules
-- Dark mode only
 - Mobile-first — test every component at 375px
 - Prefer Server Components; use `"use client"` only when necessary
 - No hardcoded hex values in components — CSS custom properties only
