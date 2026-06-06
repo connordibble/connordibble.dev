@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { RouteScrollManager } from "@/components/route-scroll-manager";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -85,6 +86,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <RouteScrollManager />
         {children}
         <Script id="theme-init" strategy="beforeInteractive">
           {themeInitScript}
