@@ -9,23 +9,40 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  clearCurrentHash,
+  clearPendingScrollTarget,
+  getScrollBehavior,
+  scrollToSection,
+  setPendingScrollTarget,
+} from "@/lib/navigation-scroll";
 
 type Theme = "dark" | "light";
 type NavLink =
   | { href: string; label: string; type: "route" }
-  | { href: "/"; label: string; targetId: string; type: "section" };
+  | { href: `/#${string}`; label: string; targetId: string; type: "section" };
 
 const themeStorageKey = "connordibble-theme";
 const themeChangeEvent = "connordibble-theme-change";
-const pendingScrollTargetKey = "connordibble-pending-scroll-target";
+const mobileMenuScrollDelayMs = 240;
 
 const links: NavLink[] = [
   { href: "/about", label: "About", type: "route" },
   { href: "/projects", label: "Projects", type: "route" },
   { href: "/writing", label: "Writing", type: "route" },
-  { href: "/", label: "Experience", targetId: "experience", type: "section" },
-  { href: "/", label: "Skills", targetId: "skills", type: "section" },
-  { href: "/", label: "Contact", targetId: "contact", type: "section" },
+  {
+    href: "/#experience",
+    label: "Experience",
+    targetId: "experience",
+    type: "section",
+  },
+  { href: "/#skills", label: "Skills", targetId: "skills", type: "section" },
+  {
+    href: "/#contact",
+    label: "Contact",
+    targetId: "contact",
+    type: "section",
+  },
 ];
 
 export function Nav() {
@@ -67,21 +84,12 @@ export function Nav() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  useEffect(() => {
-    if (pathname !== "/") return;
-
-    const targetId = getPendingScrollTarget();
-    if (!targetId) return;
-
-    clearPendingScrollTarget();
-    requestAnimationFrame(() => {
-      scrollToSection(targetId);
-    });
-  }, [pathname]);
-
   const handleHomeClick = (event: MouseEvent<HTMLAnchorElement>) => {
     setOpen(false);
-    if (isModifiedClick(event) || pathname !== "/") return;
+    if (isModifiedClick(event)) return;
+
+    clearPendingScrollTarget();
+    if (pathname !== "/") return;
 
     event.preventDefault();
     clearCurrentHash();
@@ -92,18 +100,30 @@ export function Nav() {
     event: MouseEvent<HTMLAnchorElement>,
     targetId: string,
   ) => {
+    const shouldWaitForMenuExit = open && shouldReduceMotion !== true;
+
     setOpen(false);
     if (isModifiedClick(event)) return;
 
     event.preventDefault();
     clearCurrentHash();
+    setPendingScrollTarget(targetId);
 
     if (pathname === "/") {
-      scrollToSection(targetId);
+      const scroll = () => {
+        clearPendingScrollTarget();
+        scrollToSection(targetId);
+      };
+
+      if (shouldWaitForMenuExit) {
+        window.setTimeout(scroll, mobileMenuScrollDelayMs);
+        return;
+      }
+
+      requestAnimationFrame(scroll);
       return;
     }
 
-    setPendingScrollTarget(targetId);
     router.push("/", { scroll: false });
   };
 
@@ -216,51 +236,6 @@ function isModifiedClick(event: MouseEvent<HTMLAnchorElement>): boolean {
     event.ctrlKey ||
     event.shiftKey
   );
-}
-
-function getScrollBehavior(): ScrollBehavior {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ? "auto"
-    : "smooth";
-}
-
-function scrollToSection(targetId: string) {
-  document
-    .getElementById(targetId)
-    ?.scrollIntoView({ behavior: getScrollBehavior(), block: "start" });
-}
-
-function clearCurrentHash() {
-  if (!window.location.hash) return;
-  window.history.replaceState(
-    window.history.state,
-    "",
-    `${window.location.pathname}${window.location.search}`,
-  );
-}
-
-function getPendingScrollTarget(): string | null {
-  try {
-    return sessionStorage.getItem(pendingScrollTargetKey);
-  } catch {
-    return null;
-  }
-}
-
-function setPendingScrollTarget(targetId: string) {
-  try {
-    sessionStorage.setItem(pendingScrollTargetKey, targetId);
-  } catch {
-    // A navigation to home still gives the user a sensible fallback.
-  }
-}
-
-function clearPendingScrollTarget() {
-  try {
-    sessionStorage.removeItem(pendingScrollTargetKey);
-  } catch {
-    // Ignore storage failures; the scroll target is progressive enhancement.
-  }
 }
 
 function ThemeToggle() {
