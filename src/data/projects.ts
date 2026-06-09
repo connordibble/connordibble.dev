@@ -24,7 +24,7 @@ export const projects: Project[] = [
     title: "DesignRail",
     description:
       "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Translates Figma component intent into Web Component mappings, validates compliance, and tracks review decisions via a GraphQL API.",
-    tags: ["React", "GraphQL", "Drizzle", "Shoelace", "Figma MCP"],
+    tags: ["React", "TypeScript", "GraphQL", "Drizzle", "Figma MCP"],
     externalUrl: "https://github.com/connordibble/DesignRail",
   },
   {
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     owner: "State Farm — closed source",
     description:
       "State Farm's canonical enterprise design system and migration target for statefarm.com. I led sf-ui, a framework-agnostic Lit/Web Components library with 70+ primitives, plus the Figma Variables → W3C token pipeline and npm/CDN release governance for 1000+ engineers and designers.",
-    tags: ["Web Components", "Design Tokens", "Figma API", "npm + CDN"],
+    tags: ["Web Components", "TypeScript", "Design Tokens", "npm + CDN"],
     detail: {
       headline:
         "State Farm's canonical enterprise design system, used by 1000+ engineers and designers across one of the largest insurance companies in the US.",
@@ -58,12 +58,42 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "agent-convention-feedback",
+    title: "Agent Convention Feedback Platform",
+    owner: "State Farm — closed source",
+    description:
+      "Executive-requested full-stack AI platform for turning State Farm agent convention feedback into product and operations insight. Captured 800+ datapoints from 197 agents across service, ECRM, underwriting, and agent-support workflows.",
+    tags: ["Angular", "TypeScript", "Node.js", "AWS", "AI Workflows"],
+    detail: {
+      headline:
+        "Full-stack AI feedback platform that converted hundreds of agent convention responses into an executive-ready product and operations dashboard.",
+      sections: [
+        {
+          heading: "Problem",
+          body: "State Farm leaders needed a fast way to understand agent feedback gathered during a convention without losing the nuance inside free-form comments. The source data crossed service, ECRM, underwriting, and agent-support workflows, so a simple spreadsheet summary would have hidden the themes product and technology leaders needed to act on.",
+        },
+        {
+          heading: "Approach",
+          body: "Built a focused Angular and Node.js platform that captured structured and unstructured feedback, normalized the data, and used AI workflows to synthesize themes with traceable source comments. The dashboard supported topic breakdowns, conversation drilldowns, filtering, Excel exports, monitoring, and GitOps hotfixes so business and technology leaders could review findings quickly without waiting on manual analysis.",
+        },
+        {
+          heading: "Impact",
+          body: "Captured 800+ datapoints from 197 agents and turned them into a decision-ready view for agency and enterprise technology leadership. The work created a repeatable pattern for blending human feedback, AI summarization, and reviewable evidence in internal product workflows.",
+        },
+        {
+          heading: "Stack",
+          body: "Angular · TypeScript · Node.js · AWS S3 · CloudFront · Route 53 · WAFv2 · AI summarization workflows · GitOps deploy / rollback",
+        },
+      ],
+    },
+  },
+  {
     slug: "researchlog",
     title: "ResearchLog",
     owner: "Proceris — closed source",
     description:
-      "R&D tax-credit documentation SaaS that maps real engineering work to IRS Section 41 evidence. Ingests GitHub activity, classifies PRs, issues, and commits with Claude, and keeps reviewer overrides tenant-scoped with Supabase RLS.",
-    tags: ["Angular", "NestJS", "Supabase", "Inngest"],
+      "Full-stack R&D tax-credit documentation SaaS that maps real engineering work to IRS Section 41 evidence. Ingests GitHub activity, classifies PRs, issues, and commits with Claude, and keeps reviewer overrides tenant-scoped with Supabase RLS.",
+    tags: ["Angular", "TypeScript", "NestJS", "Supabase", "Inngest"],
     detail: {
       headline:
         "R&D tax credit documentation SaaS that maps real engineering work to the IRS Section 41 four-part test as it happens.",
@@ -93,7 +123,7 @@ export const projects: Project[] = [
     owner: "Proceris — closed source",
     description:
       "AI workflow that turns long-form workout video into timestamped equipment-control profiles. Combines video/audio ingestion, trainer-cue extraction, exercise-science reasoning, and a human review UI for partner OEM workflows.",
-    tags: ["Node.js", "Python", "FFmpeg", "Multimodal"],
+    tags: ["React", "Node.js", "Python", "Multimodal"],
     detail: {
       headline:
         "Turns long-form workout video into timestamped equipment control profiles for connected fitness hardware.",
