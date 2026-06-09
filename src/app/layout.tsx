@@ -16,29 +16,28 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const siteTitle =
+  "Connor Dibble — Senior Software Engineer, Frontend Platform & Design Systems";
+const siteDescription =
+  "Enterprise design systems, AI tooling, and product platforms that turn design intent into reliable, production-ready software.";
+
 export const metadata: Metadata = {
-  title:
-    "Connor Dibble — Senior Software Engineer, Frontend Platform & Design Systems",
-  description:
-    "Enterprise design systems, AI tooling, and frontend platforms that turn design intent into production-ready code.",
+  title: siteTitle,
+  description: siteDescription,
   authors: [{ name: "Connor Dibble" }],
   creator: "Connor Dibble",
   metadataBase: new URL("https://connordibble.dev"),
   openGraph: {
-    title:
-      "Connor Dibble — Senior Software Engineer, Frontend Platform & Design Systems",
-    description:
-      "Enterprise design systems, AI tooling, and frontend platforms that turn design intent into production-ready code.",
+    title: siteTitle,
+    description: siteDescription,
     url: "https://connordibble.dev",
     siteName: "connordibble.dev",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Connor Dibble — Senior Software Engineer, Frontend Platform & Design Systems",
-    description:
-      "Enterprise design systems, AI tooling, and frontend platforms that turn design intent into production-ready code.",
+    title: siteTitle,
+    description: siteDescription,
   },
   robots: { index: true, follow: true },
 };

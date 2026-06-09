@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 const notes = [
   {
     title: "Engineering Taste",
-    body: "I like boring leverage: component APIs that are hard to misuse, distribution models that make upgrades survivable, documentation that stays close to the source of truth, and validation that catches drift before review.",
+    body: "I like boring leverage: component APIs and service contracts that are hard to misuse, distribution models that make upgrades survivable, documentation that stays close to the source of truth, and validation that catches drift before review.",
   },
   {
     title: "Working Style",
-    body: "People tend to pull me into ambiguous platform problems: choose the distribution model, draw the line between atom and pattern, make the migration path realistic, and write down enough context that teams can move without a meeting.",
+    body: "People tend to pull me into ambiguous platform problems: choose the distribution model, define the API boundary, draw the line between atom and pattern, make the migration path realistic, and write down enough context that teams can move without a meeting.",
   },
   {
     title: "Outside the Editor",
@@ -46,12 +46,12 @@ export default function AboutPage() {
             product engineering on Drive Safe &amp; Save telematics into design
             systems and now leading the statefarm.com Digital Experience suite.
             I&apos;m drawn to the infrastructure between design and engineering:
-            web components, design tokens, Figma tooling, agent workflows, and
-            the governance decisions that either make the right path obvious or
-            leave every team to rediscover the same problems. Outside work,
-            Proceris is where I test small AI product ideas around the
-            documentation and compliance overhead that quietly slows engineering
-            teams down.
+            web components, design tokens, GraphQL/REST contracts, Figma
+            tooling, agent workflows, and the governance decisions that either
+            make the right path obvious or leave every team to rediscover the
+            same problems. Outside work, Proceris is where I test small AI
+            product ideas around the documentation and compliance overhead that
+            quietly slows engineering teams down.
           </p>
         </section>
 

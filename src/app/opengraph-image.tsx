@@ -91,7 +91,7 @@ export default function OpenGraphImage() {
                 maxWidth: 690,
               }}
             >
-              Design systems. AI tooling. Production-ready code.
+              Design systems. AI tooling. Reliable product platforms.
             </div>
             <div
               style={{

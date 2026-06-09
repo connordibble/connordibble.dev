@@ -13,7 +13,7 @@ const roles: Role[] = [
     company: "State Farm",
     dates: "Mar 2026 – Present",
     description:
-      "Set technical direction across the statefarm.com Digital Experience suite: 8 product teams, 40–50 engineers, and an executive-backed migration toward 100% SFDS adoption. Built an AI design-to-code pipeline on Figma MCP and custom skills that translates fully designed Figma pages into sf-ui Web Component implementations.",
+      "Set technical direction across the statefarm.com Digital Experience suite: 8 product teams, 40–50 engineers, and an executive-backed migration toward 100% SFDS adoption. Shape GraphQL contracts, service-integration patterns, and AI tooling for customer-, agent-, and internal-facing workflows, including a Figma MCP pipeline that translates fully designed pages into sf-ui Web Component implementations.",
   },
   {
     title: "Lead Software Engineer — State Farm Design System (SFDS)",
