@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { SectionLabel } from "@/components/section-label";
+import { WritingFigure } from "@/components/writing-figures";
 import {
   getWritingPostBySlug,
   writingPosts,
@@ -125,6 +126,10 @@ function WritingBlockView({ block }: { block: WritingBlock }) {
         ))}
       </ul>
     );
+  }
+
+  if (block.type === "figure") {
+    return <WritingFigure variant={block.variant} caption={block.caption} />;
   }
 
   return (
