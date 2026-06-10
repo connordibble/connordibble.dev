@@ -20,8 +20,9 @@ export function Hero() {
         Connor Dibble
       </h1>
       <p className="mt-6 max-w-144 text-body text-text-muted leading-relaxed text-pretty">
-        Enterprise design systems, AI tooling, and product platforms that turn
-        design intent into reliable, production-ready software.
+        Most of my work sits where product workflows become software. I build
+        the design systems, service contracts, and AI tooling that keep large
+        engineering orgs shipping.
       </p>
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <PillLink href="/writing" label="Writing" />

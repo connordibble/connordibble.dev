@@ -39,7 +39,7 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  const { title, owner, tags, detail } = project;
+  const { title, owner, tags, detail, repoUrl } = project;
 
   return (
     <>
@@ -77,6 +77,19 @@ export default async function ProjectDetailPage({
                 </li>
               ))}
             </ul>
+            {repoUrl ? (
+              <a
+                href={repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill-link mt-6 inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+              >
+                <span>View source on GitHub</span>
+                <span aria-hidden className="block origin-center -rotate-45">
+                  →
+                </span>
+              </a>
+            ) : null}
           </header>
 
           <div className="mt-12 max-w-3xl space-y-10">

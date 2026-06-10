@@ -29,7 +29,6 @@ const groups: Group[] = [
       "SPA Architecture",
       "State Management",
       "Cross-Framework Integration",
-      "AEM",
     ],
   },
   {
@@ -55,7 +54,7 @@ const groups: Group[] = [
       "Application-Level GenAI",
       "Agent Workflows",
       "MCP Servers",
-      "SKILL.md Systems",
+      "Agent Skills",
       "Structured AI Outputs",
       "GitLab Webhook Agents",
       "SLOs & Observability",

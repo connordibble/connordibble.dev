@@ -11,6 +11,8 @@ export type Project = {
   tags: string[];
   /** If set, the card links here (external). No detail page. */
   externalUrl?: string;
+  /** If set, the detail page shows a source link to this repo. */
+  repoUrl?: string;
   /** If set, the card links to /projects/[slug] and renders this content there. */
   detail?: {
     headline: string;
@@ -22,10 +24,33 @@ export const projects: Project[] = [
   {
     slug: "designrail",
     title: "DesignRail",
+    owner: "Open source",
     description:
-      "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Translates Figma component intent into Web Component mappings, validates compliance, and tracks review decisions via a GraphQL API.",
+      "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Translates Figma component intent into Web Component mappings, validates compliance, and records human review decisions through a GraphQL API.",
     tags: ["React", "TypeScript", "GraphQL", "Drizzle", "Figma MCP"],
-    externalUrl: "https://github.com/connordibble/DesignRail",
+    repoUrl: "https://github.com/connordibble/DesignRail",
+    detail: {
+      headline:
+        "A working lab for the design-to-code handoff problem: human review, deterministic checks, and a GraphQL contract between design intent and AI-assisted implementation.",
+      sections: [
+        {
+          heading: "Problem",
+          body: "AI coding agents can implement designs fast, but the handoff is where quality dies: design intent gets flattened into markup, compliance issues surface after merge, and nobody records why a mapping decision was made. DesignRail explores the missing layer, a governed review step between Figma intent and implementation where humans accept, reject, or edit what automation proposes before anything is treated as export-ready.",
+        },
+        {
+          heading: "Approach",
+          body: "A pnpm monorepo with a React review UI, a Fastify and Apollo GraphQL API, and shared Zod schemas at every boundary. Mock Figma fixtures normalize into component intent, a deterministic mapper proposes Shoelace Web Component implementations, and a compliance agent reports accessibility, token, and variant findings alongside each mapping. Review decisions persist through the GraphQL API so mapping quality is auditable over time, and exports produce implementation-ready HTML, React examples, or agent-ready briefs.",
+        },
+        {
+          heading: "Status",
+          body: "Early and in active development. The Phase 1 contract is in place: shared schemas, the GraphQL API, SQLite persistence, recorded review decisions, and a Button-first mapping path with more components staged behind it. The repo is run like production software anyway: CI quality gates covering secrets, mock-mode, types, lint, and tests, conventional commits with release planning, and ADRs in the docs site. It is the same problem I work on at enterprise scale, rebuilt in the open where the contracts and checks can be shown.",
+        },
+        {
+          heading: "Stack",
+          body: "React · Vite · Fastify · Apollo GraphQL · Drizzle + SQLite · Zod · Shoelace Web Components · Astro Starlight docs · pnpm monorepo",
+        },
+      ],
+    },
   },
   {
     slug: "sfds",
@@ -48,7 +73,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Impact",
-          body: "70+ primitives shipped. Earned C-suite buy-in as the official migration target for statefarm.com. Adopted across all eight statefarm.com Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became the template for cross-org platform delivery.",
+          body: "70+ primitives shipped. Named the official migration target for statefarm.com and adopted across all eight Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became the template for cross-org platform delivery.",
         },
         {
           heading: "Stack",
@@ -59,26 +84,30 @@ export const projects: Project[] = [
   },
   {
     slug: "agent-convention-feedback",
-    title: "Agent Convention Feedback Platform",
+    title: "Agent Feedback Platform",
     owner: "State Farm — closed source",
     description:
-      "Executive-requested full-stack AI platform for turning State Farm agent convention feedback into product and operations insight. Captured 800+ datapoints from 197 agents across service, ECRM, underwriting, and agent-support workflows.",
+      "Full-stack AI feedback platform commissioned by State Farm's EVP of enterprise technology. Went from concept to production in two months for its debut at agency convention, and the pilot earned backing to become the official support and feedback channel for all 10,000+ State Farm agents.",
     tags: ["Angular", "TypeScript", "Node.js", "AWS", "AI Workflows"],
     detail: {
       headline:
-        "Full-stack AI feedback platform that converted hundreds of agent convention responses into an executive-ready product and operations dashboard.",
+        "Commissioned by State Farm's EVP of enterprise technology, built from concept to production in two months, and now backed to become the official support and feedback channel for all 10,000+ State Farm agents.",
       sections: [
         {
           heading: "Problem",
-          body: "State Farm leaders needed a fast way to understand agent feedback gathered during a convention without losing the nuance inside free-form comments. The source data crossed service, ECRM, underwriting, and agent-support workflows, so a simple spreadsheet summary would have hidden the themes product and technology leaders needed to act on.",
+          body: "State Farm leadership wanted a real read on what its 10,000+ agents experience across service, ECRM, underwriting, and agent-support workflows, and the existing channel was free-form feedback that died in spreadsheets. The EVP of enterprise technology asked me directly to fix that in time for agency convention, which left roughly two months from concept through design to production.",
         },
         {
           heading: "Approach",
-          body: "Built a focused Angular and Node.js platform that captured structured and unstructured feedback, normalized the data, and used AI workflows to synthesize themes with traceable source comments. The dashboard supported topic breakdowns, conversation drilldowns, filtering, Excel exports, monitoring, and GitOps hotfixes so business and technology leaders could review findings quickly without waiting on manual analysis.",
+          body: "Designed and shipped the full stack on that timeline: an Angular front end and Node.js API on AWS, served through CloudFront with WAFv2 and Route 53. AI workflows synthesize free-form agent comments into themes with traceable source quotes, so leaders see the pattern and can still click into the exact words behind it. The dashboard supports topic breakdowns, conversation drilldowns, filtering, and Excel exports for downstream teams.",
+        },
+        {
+          heading: "Running It Live",
+          body: "The platform had to hold up during a live event with executives watching, so it shipped with monitoring and a GitOps deploy and rollback path that turned mid-convention fixes into routine pushes instead of emergencies. The pilot captured 800+ datapoints from 197 agents on the convention floor, validating both the capture workflow and the AI synthesis against real usage.",
         },
         {
           heading: "Impact",
-          body: "Captured 800+ datapoints from 197 agents and turned them into a decision-ready view for agency and enterprise technology leadership. The work created a repeatable pattern for blending human feedback, AI summarization, and reviewable evidence in internal product workflows.",
+          body: "The reception from agents and from the executives it was built for earned support to make the platform the official support and feedback channel for the entire 10,000+ agency force. That scale-up is in progress now, taking the product from convention pilot to a standing channel, and the build set the pattern for blending human feedback, AI summarization, and reviewable evidence in internal workflows.",
         },
         {
           heading: "Stack",
@@ -92,7 +121,7 @@ export const projects: Project[] = [
     title: "ResearchLog",
     owner: "Proceris — closed source",
     description:
-      "Full-stack R&D tax-credit documentation SaaS that maps real engineering work to IRS Section 41 evidence. Ingests GitHub activity, classifies PRs, issues, and commits with Claude, and keeps reviewer overrides tenant-scoped with Supabase RLS.",
+      "Full-stack R&D tax-credit documentation SaaS that maps real engineering work to IRS Section 41 evidence. Ingests GitHub PR and issue activity, classifies work with Claude at the pull-request level to keep model spend bounded, and keeps reviewer overrides tenant-scoped with Supabase RLS.",
     tags: ["Angular", "TypeScript", "NestJS", "Supabase", "Inngest"],
     detail: {
       headline:
@@ -104,7 +133,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Approach",
-          body: "ResearchLog installs as a GitHub App, ingests PR/issue/commit activity into tenant-scoped Postgres, and classifies each work unit against the IRS Section 41 four-part test using Claude. Reviewers can override classifications inline; the override surface uses an RLS-scoped Supabase client so tenant isolation is enforced at the database level. Classification jobs run at PR/epic granularity via Inngest to keep LLM costs predictable.",
+          body: "ResearchLog installs as a GitHub App, ingests PR and issue activity into tenant-scoped Postgres, and classifies work against the IRS Section 41 four-part test using Claude. Classification jobs run through Inngest at the pull-request level, with commits rolling up to their parent PR, so model spend stays predictable. Reviewers can override classifications inline; the override surface uses an RLS-scoped Supabase client so tenant isolation is enforced at the database level.",
         },
         {
           heading: "Architecture",
