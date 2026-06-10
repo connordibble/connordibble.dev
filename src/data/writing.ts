@@ -14,7 +14,13 @@ export type WritingBlock =
     }
   | {
       type: "figure";
-      variant: "draft-to-truth" | "write-paths";
+      variant:
+        | "draft-to-truth"
+        | "write-paths"
+        | "snippet-vs-component"
+        | "audience-altitude"
+        | "three-surfaces"
+        | "distribution-paths";
       caption: string;
     };
 
@@ -37,6 +43,267 @@ export type WritingPost = {
 };
 
 export const writingPosts: WritingPost[] = [
+  {
+    slug: "from-snippets-to-shadow-dom",
+    title: "From Snippets to Shadow DOM",
+    subtitle:
+      "Replacing a copy-paste design system across 100+ product teams and five frameworks at State Farm.",
+    summary:
+      "Why a jQuery-era design system splintered into forks and customized local versions, how Shadow DOM moved governance into the component boundary, and what it took to earn adoption from a thousand engineers.",
+    date: "2026-06-12",
+    displayDate: "June 2026",
+    readTime: "13 min read",
+    featured: true,
+    topics: ["Design Systems", "Platform Engineering", "Technical Leadership"],
+    sections: [
+      {
+        heading: "The Problem",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "State Farm's frontend estate is bigger than any one person can see. More than a hundred product teams ship pages across Angular, React, Next.js, server-rendered JSP, and stacks in between. Each of those teams, at some point, has built its own button. Most have built their own form patterns, their own modals, and their own interpretation of the brand.",
+          },
+          {
+            type: "paragraph",
+            text: "The cost of that shows up slowly and then all at once. Brand updates become search-and-replace exercises across hundreds of local implementations. Accessibility fixes have to be rediscovered team by team. Engineers solve interface problems that were already solved three teams over, and every release compounds the drift a little more.",
+          },
+          {
+            type: "paragraph",
+            text: "My role was lead engineer for the design system platform's implementation. I worked closely with XD, State Farm's design organization, advising on design from a technical standpoint, but I was not the designer. I was responsible for building the platform, and for the education and migration support that carried it into the broader engineering community.",
+          },
+          {
+            type: "paragraph",
+            text: "My area is eight product teams and roughly fifty engineers on the digital experience platform. SFDS serves the whole enterprise: a hundred-plus product teams and over a thousand engineers and designers. The distance between those two numbers is what this essay is about. I had direct influence over a fraction of the system's consumers. Everyone else had to choose it.",
+          },
+        ],
+      },
+      {
+        heading: "The System We Replaced",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "There was already a design system, which is the detail that keeps this story honest. The legacy library was jQuery, CSS, and HTML: scripts and styles delivered over a CDN, with component markup distributed as HTML snippets on the docs site. A team copied the snippet for a card or a navigation bar, pasted it into their app, and the shared JavaScript hydrated it at runtime.",
+          },
+          {
+            type: "code",
+            language: "html",
+            code: "<link rel=\"stylesheet\" href=\"https://cdn.example.com/ds/2.x/components.css\">\n\n<div class=\"form-field form-field--text\">\n  <label class=\"form-field__label\" for=\"policy-number\">Policy number</label>\n  <input class=\"form-field__input\" type=\"text\" id=\"policy-number\" />\n</div>\n\n<script src=\"https://cdn.example.com/ds/2.x/components.js\"></script>\n<script>\n  $(function () {\n    DS.formField.init(\"#policy-number\");\n    // remember to call DS.formField.destroy() on teardown\n  });\n</script>",
+          },
+          {
+            type: "paragraph",
+            text: "Copy and paste is a distribution model with no governance in it. Once the markup lived in a team's codebase, engineers could tinker with it, and they did. Small local edits accumulated until the HTML in production no longer matched the HTML in the docs. That undercut the system twice over. The pasted markup drifted from the structure the shared JavaScript expected, so library updates broke pages in ways nobody could predict from the source side. And shipping an improvement meant asking a hundred teams to re-paste markup by hand. Updates from source became nearly impossible.",
+          },
+          {
+            type: "paragraph",
+            text: "Once we started looking, the drift was everywhere. Form fields, modals, accordions, navigation: teams had edited pasted markup just enough that source-side fixes no longer applied cleanly. An accessibility improvement would land in the library and quietly miss many of the pages it was meant for, and spacing, usability, and style corrections went the same way. Consumers rarely noticed, because the pages still looked good enough. The teams believed they were on the design system. From the platform side, each of those pages had become a fork.",
+          },
+          {
+            type: "paragraph",
+            text: "Modern frameworks made it worse. The jQuery code carried complex initialization and uninitialization requirements that fought the component lifecycles of the frameworks teams were actually building in. Wiring a legacy component into an Angular or React app meant hand-managing setup and teardown that the framework wanted to own, and getting it subtly wrong was easy.",
+          },
+          {
+            type: "paragraph",
+            text: "By the time discovery started, multiple full forks and customized local versions of the design system had grown out of different areas, each one an answer to needs the legacy system was not meeting. The strongest argument for a rewrite was never a slide. It was the forks.",
+          },
+          {
+            type: "figure",
+            variant: "snippet-vs-component",
+            caption:
+              "The same governance questions, answered by two distribution models. The legacy column is where the forks came from.",
+          },
+        ],
+      },
+      {
+        heading: "Discovery Before Architecture",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "We did not open a component repo on day one. We opened a discovery effort, because the legacy system's history showed what happens when that step gets skipped. The goal was to understand why teams diverged before proposing what they should converge on.",
+          },
+          {
+            type: "paragraph",
+            text: "That meant metrics on where duplicated UI work was actually happening, one-on-one interviews with engineers across product teams, group sessions where teams could argue with each other in front of us, and feedback collection embedded in the places engineers already work, starting with the docs site itself. A survey link in an email gets ignored. A feedback prompt on the exact docs page where someone just got stuck gets answered.",
+          },
+          {
+            type: "paragraph",
+            text: "The same evidence then had to travel up. Engineers wanted to know integration cost and what would break. Their leads wanted sequencing and what their roadmaps would have to absorb. Designers in XD wanted to know who owned design intent once it became code. Executives wanted the duplicated spend, the brand exposure, and the accessibility risk quantified, and multiple competing implementations of one design system quantify duplicated spend rather vividly. None of those audiences was wrong to ask its own question, and the discovery work meant we could answer each one in its own terms instead of repeating the pitch that worked in the last room.",
+          },
+          {
+            type: "figure",
+            variant: "audience-altitude",
+            caption:
+              "The same evidence, answered at four altitudes. Each audience got the version that mapped to a decision it could actually make.",
+          },
+          {
+            type: "paragraph",
+            text: "Leadership buy-in arrived because the case was already standing on data when it reached them. And when the mandate came, it held, because the engineers it applied to had watched their own feedback shape the thing being mandated.",
+          },
+        ],
+      },
+      {
+        heading: "The Bet: Web Components",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The estate dictated the first architectural constraint: whatever we built had to run everywhere, because no team was going to rewrite its framework to adopt a button. We researched how other large enterprises with similarly mixed estates had approached the same problem, and the pattern across them was consistent. Framework-agnostic delivery through web components.",
+          },
+          {
+            type: "paragraph",
+            text: "For us, Shadow DOM was the governance answer as much as a styling boundary. The markup engineers used to copy, paste, and quietly edit now lives inside the component, where the platform team controls it. Internals can be fixed, improved, or restructured behind the scenes without asking a hundred teams to touch their HTML, and the public API that consumers see gets simpler because it no longer exposes the implementation. The thing that made the legacy system ungovernable stopped being reachable.",
+          },
+          {
+            type: "paragraph",
+            text: "Custom elements also dissolved the lifecycle problem. The browser owns connect and disconnect, so the manual initialization choreography the jQuery library demanded simply went away, and the components behave like native elements inside any framework's lifecycle instead of fighting it. The policy-number field from the legacy snippet collapses to a single tag:",
+          },
+          {
+            type: "code",
+            language: "html",
+            code: "<sf-textfield label=\"Policy number\"></sf-textfield>",
+          },
+          {
+            type: "paragraph",
+            text: "SFDS is built on Lit, and seventy-plus primitives ship this way. The costs were real and we took them with eyes open. Custom-element event binding differs by framework and surprises React developers in particular. Server-side rendering and hydration need deliberate handling rather than coming for free. Form participation took work that a single-framework library would never think about. We wrote those seams down per framework in the docs instead of letting every adopting team rediscover them, which turned a list of objections into a list of documented answers.",
+          },
+        ],
+      },
+      {
+        heading: "One System, Three Audiences",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A complication most design-system writing skips: the consumers were not one kind of page. Customer-facing statefarm.com pages, internal tools, and agent-facing applications all needed the system, and they did not need the same things from it.",
+          },
+          {
+            type: "paragraph",
+            text: "Customer pages carry the brand and the heaviest accessibility and performance obligations, in front of the largest audience. Internal tools optimize for delivery speed and data density, and their users sit inside them for hours. Agent-facing surfaces are their own category: power users running workflow-heavy sessions all day, in UIs that are busier by design. More information per screen, heavier components like data tables, and their own navigation and styling needs.",
+          },
+          {
+            type: "figure",
+            variant: "three-surfaces",
+            caption:
+              "Three audiences with different pressures, one token set and one component API underneath all of them.",
+          },
+          {
+            type: "paragraph",
+            text: "The answer was to be strict about what stays constant and explicit about what flexes. Tokens, accessibility semantics, and core component APIs do not vary by audience. Density, styling, and page-level patterns do, through variants baked into the components and driven by design tokens. That structure has a practical payoff: a styling or density change for the agent context is a token update designers can make asynchronously, instead of an engineering ticket waiting in someone's backlog. Drawing that line early, with XD in the room, kept the system from forking into separate systems wearing one name. We had already seen that movie.",
+          },
+        ],
+      },
+      {
+        heading: "Distribution Is the Product",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Distribution turned out to be one of the hardest design problems in the whole effort, because the two guarantees consumers needed pulled in opposite directions.",
+          },
+          {
+            type: "paragraph",
+            text: "Some changes need to reach every page immediately. A brand correction or an accessibility fix should not wait for a hundred teams to rebuild and redeploy on their own schedules, and that is the case for CDN delivery. Other consumers need the opposite guarantee: pinned versions, reproducible builds, lockfile resiliency, and server-side rendering support, which is the case for an npm package. Choosing one channel meant failing half the estate.",
+          },
+          {
+            type: "paragraph",
+            text: "So SFDS ships through both, deliberately. A multi-CDN setup, so a single provider outage cannot take component delivery down with it, alongside the npm package. The infrastructure was the easier half. The documentation did the real work: written guidance on which channel fits which situation, so teams choose on purpose instead of inheriting whichever default their neighbor used.",
+          },
+          {
+            type: "figure",
+            variant: "distribution-paths",
+            caption:
+              "Two channels with documented reasons to choose each. The guidance is as much the product as the pipeline is.",
+          },
+          {
+            type: "paragraph",
+            text: "Distribution at this scale also changes what a breaking change means. Against a thousand-plus consumers, a careless major version is a reliability event. Releases are versioned, deprecations get announced windows instead of surprises, and docs stay versioned alongside the code, so a team on last quarter's release reads last quarter's truth. Serving components through CDNs at this volume also turned caching strategy and delivery cost into a genuine system-design problem, one with enough depth that it deserves its own write-up.",
+          },
+        ],
+      },
+      {
+        heading: "The Contract With Design",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "SFDS was designed with XD rather than handed to engineering as a finished spec, and that partnership had a failure mode we needed to engineer around: two sources of truth. Designers work in Figma. Engineers work in code. Left alone, the two drift, and every drift becomes a meeting.",
+          },
+          {
+            type: "paragraph",
+            text: "The mechanism that holds them together is a pipeline I built: a TypeScript Figma plugin that syncs Figma Variables into W3C-format design tokens in GitLab. A color, spacing, or variant decision made in Figma lands in the codebase as a typed, versioned artifact, reviewed like any other change. The token file is the contract between the two disciplines, and arguments about what a value should be happen before it merges rather than after it ships. It is also what makes the audience variants workable: the same pipeline that carries a brand color carries an agent-context density token, so design evolves the system's surface without queueing behind engineering.",
+          },
+          {
+            type: "paragraph",
+            text: "Governance was the harder half of the partnership. Components needed a definition of done that both disciplines signed. Change proposals needed a path that did not route every decision through one person. Disagreements between design intent and implementation cost needed a forum with both parties present. The communication range this demanded, individual contributors through executives and design through engineering, is the part of the work I would least want to give back.",
+          },
+        ],
+      },
+      {
+        heading: "Making the Right Path the Easy One",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The mandate confirmed adoption more than it caused it. The supported path had to become cheaper than the local alternative first, and most of the platform's surface area exists to keep it that way.",
+          },
+          {
+            type: "list",
+            items: [
+              "Versioned docs with live examples, so the answer a team reads matches the release it runs.",
+              "Per-framework migration guides that own the integration seams instead of hiding them.",
+              "Deprecation windows long enough to plan a roadmap around.",
+              "Automated compliance checks, wired through GitLab webhooks, that catch drift before a human reviewer spends time on it.",
+              "Weekly office hours, plus a network of design and engineering champions embedded across areas, so the system has advocates who sit closer to the work than we do.",
+              "Feedback channels in the docs site that keep discovery running permanently instead of as a launch-phase activity.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "It landed, and we could prove it. Eighteen months took us from the start of discovery through the full development lifecycle to the initial production release. Across six pilot teams, we then measured story velocity for work scoped purely to UI screen development: a customer feedback form, a dashboard of policy information for an agent, the kind of story whose scope is the screen itself rather than API work or business logic. Measured over one to three months, with numbers solicited from both the engineers doing the work and their leadership, velocity on those stories improved substantially on every team, because accessibility, styling, and interaction behavior ship inside the component instead of being reassembled story by story.",
+          },
+          {
+            type: "paragraph",
+            text: "That evidence did as much for adoption as the mandate did. It let us walk into the next room showing speed, developer experience, and consistency all moving in the same direction at once. SFDS is now the official migration target for the entire enterprise, and the governance model of versioned releases, deprecation windows, and compliance review became the template other platform efforts in the org follow.",
+          },
+          {
+            type: "paragraph",
+            text: "The same abstraction later paid a dividend nobody priced in. A small, well-defined component API turned out to be exactly what AI coding agents need to produce accurate frontend code, but that story belongs to a different essay.",
+          },
+        ],
+      },
+      {
+        heading: "What I Would Carry Forward",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Reduced to a sentence: evidence earns the mandate, architecture earns the trust, and distribution and governance earn the years after launch. The longer version:",
+          },
+          {
+            type: "list",
+            items: [
+              "Governance that depends on engineers not touching the markup is already lost. Move the boundary into the component, where the platform controls it.",
+              "Run discovery before architecture. The system you design after fifty conversations is different from the one you design after zero, and the conversations double as the start of adoption.",
+              "Collect feedback where people already work. A prompt inside the docs site outperforms any survey you could send.",
+              "Answer each audience in its own terms. Engineers, leads, designers, and executives were all asking reasonable questions, and they were different questions.",
+              "Treat distribution as a first-class design problem with written trade-offs, because consumers live inside that decision daily.",
+              "Make the contract between design and code a typed artifact instead of a relationship that depends on goodwill.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "None of this is glamorous. Most of it is communication, documentation, and pipelines. That is roughly the point.",
+          },
+        ],
+      },
+      {
+        heading: "The Broader Point",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Platform work at enterprise scale is mostly an adoption problem. The teams you serve can almost always route around you, and the forks of our legacy system are proof. The system has to win on merit at every altitude: the executive approving the budget, the lead planning a quarter, and the engineer deciding at 4pm whether your component or a local one gets them home sooner.",
+          },
+          {
+            type: "paragraph",
+            text: "SFDS holds because the discovery never stopped, the trade-offs are written down, and the easiest path through a thousand engineers' day is the supported one. A mandate cannot buy that. It can only confirm it.",
+          },
+        ],
+      },
+    ],
+  },
   {
     slug: "when-the-model-is-a-draft",
     title: "When the Model Is a Draft, Not the Source of Truth",
@@ -233,7 +500,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-05-28",
     displayDate: "May 2026",
     readTime: "9 min read",
-    featured: true,
+    featured: false,
     topics: ["Design Systems", "AI Tooling", "Frontend Platform"],
     sections: [
       {
