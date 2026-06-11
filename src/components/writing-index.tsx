@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { WritingRow } from "./writing-row";
 import {
   DEFAULT_SORT,
@@ -53,6 +54,15 @@ export function WritingIndex({ posts }: WritingIndexProps) {
   const rawSort = searchParams.get("sort");
   const sort: SortValue = isSortValue(rawSort) ? rawSort : DEFAULT_SORT;
   const featured = searchParams.get("featured") === "1";
+
+  const narrowingCount =
+    (topic ? 1 : 0) + (project ? 1 : 0) + (featured ? 1 : 0);
+
+  // Disclosure for the narrowing filters. Auto-open when the page is entered
+  // through a filtered URL so applied state is never hidden; afterwards the
+  // count badge on the toggle keeps collapsed state honest.
+  const [filtersOpen, setFiltersOpen] = useState(() => narrowingCount > 0);
+  const shouldReduceMotion = useReducedMotion();
 
   // Search keeps local state so filtering is keystroke-instant, then syncs to
   // the URL on a debounce. When the URL's q changes from outside (back or
@@ -162,53 +172,105 @@ export function WritingIndex({ posts }: WritingIndexProps) {
               ))}
             </select>
           </label>
-          <label className="flex grow basis-[11rem] flex-col gap-1.5 sm:grow-0">
-            <span className={labelClass}>Topic</span>
-            <select
-              value={topic}
-              onChange={(event) => replaceParams({ topic: event.target.value })}
-              className={fieldClass}
+          <button
+            type="button"
+            aria-expanded={filtersOpen}
+            aria-controls="writing-filters"
+            onClick={() => setFiltersOpen((open) => !open)}
+            className="pill-link flex h-10 items-center gap-2 rounded-sm border border-border bg-panel px-3 font-mono text-body-small text-text transition-colors duration-150"
+          >
+            <span>Filters</span>
+            {narrowingCount > 0 ? (
+              <span className="rounded-xs border border-accent/50 px-1.5 font-mono text-caption text-text">
+                {narrowingCount}
+              </span>
+            ) : null}
+            <span
+              aria-hidden
+              className={[
+                "block font-mono text-caption text-text-subtle transition-transform duration-200 ease-out",
+                filtersOpen ? "rotate-90" : "",
+              ].join(" ")}
             >
-              <option value="">All topics</option>
-              {topicOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex grow basis-[11rem] flex-col gap-1.5 sm:grow-0">
-            <span className={labelClass}>Project</span>
-            <select
-              value={project}
-              onChange={(event) =>
-                replaceParams({ project: event.target.value })
-              }
-              className={fieldClass}
-            >
-              <option value="">All projects</option>
-              {projectOptions.map((option) => (
-                <option key={option.slug} value={option.slug}>
-                  {option.title}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              checked={featured}
-              onChange={(event) =>
-                replaceParams({ featured: event.target.checked })
-              }
-              className="h-4 w-4 accent-accent"
-            />
-            <span className="font-mono text-caption text-text-muted">
-              Featured only
+              →
             </span>
-          </label>
+          </button>
+        </div>
+
+        <AnimatePresence initial={false}>
+          {filtersOpen ? (
+            <motion.div
+              id="writing-filters"
+              key="writing-filters"
+              initial={
+                shouldReduceMotion ? false : { height: 0, opacity: 0 }
+              }
+              animate={{ height: "auto", opacity: 1 }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : { height: 0, opacity: 0 }
+              }
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.2,
+                ease: "easeOut",
+              }}
+              className="overflow-hidden"
+            >
+              <div className="flex flex-wrap items-end gap-x-3 gap-y-4 rounded-md border border-border p-4">
+                <label className="flex grow basis-[11rem] flex-col gap-1.5 sm:grow-0">
+                  <span className={labelClass}>Topic</span>
+                  <select
+                    value={topic}
+                    onChange={(event) =>
+                      replaceParams({ topic: event.target.value })
+                    }
+                    className={fieldClass}
+                  >
+                    <option value="">All topics</option>
+                    {topicOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex grow basis-[11rem] flex-col gap-1.5 sm:grow-0">
+                  <span className={labelClass}>Project</span>
+                  <select
+                    value={project}
+                    onChange={(event) =>
+                      replaceParams({ project: event.target.value })
+                    }
+                    className={fieldClass}
+                  >
+                    <option value="">All projects</option>
+                    {projectOptions.map((option) => (
+                      <option key={option.slug} value={option.slug}>
+                        {option.title}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex h-10 cursor-pointer items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={featured}
+                    onChange={(event) =>
+                      replaceParams({ featured: event.target.checked })
+                    }
+                    className="h-4 w-4 accent-accent"
+                  />
+                  <span className="font-mono text-caption text-text-muted">
+                    Featured only
+                  </span>
+                </label>
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
           <p
             aria-live="polite"
             className="font-mono text-caption text-text-subtle"
