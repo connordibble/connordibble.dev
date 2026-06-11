@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
+import { RelatedReading } from "@/components/related-reading";
 import { SectionLabel } from "@/components/section-label";
 import { WritingFigure } from "@/components/writing-figures";
 import {
   getWritingPostBySlug,
   writingPosts,
+  type InlineLink,
   type WritingBlock,
 } from "@/data/writing";
+import { resolveRelated } from "@/lib/related";
 
 type Params = { slug: string };
 
@@ -100,6 +104,8 @@ export default async function WritingPostPage({
               </section>
             ))}
           </div>
+
+          <RelatedReading items={resolveRelated(post.related)} />
         </article>
       </main>
       <Footer />
@@ -107,11 +113,53 @@ export default async function WritingPostPage({
   );
 }
 
+function renderText(text: string, links?: InlineLink[]) {
+  if (!links || links.length === 0) return text;
+
+  // Map each link to its first occurrence, then stitch the text back together
+  // with anchors at those (non-overlapping) ranges, earliest first.
+  const ranges = links
+    .map((link) => ({ ...link, start: text.indexOf(link.text) }))
+    .filter((range) => range.start !== -1)
+    .sort((a, b) => a.start - b.start);
+
+  const nodes: ReactNode[] = [];
+  let cursor = 0;
+
+  ranges.forEach((range, index) => {
+    if (range.start < cursor) return; // skip overlap
+    if (range.start > cursor) nodes.push(text.slice(cursor, range.start));
+
+    const label = text.slice(range.start, range.start + range.text.length);
+    nodes.push(
+      range.href.startsWith("/") ? (
+        <Link key={index} href={range.href} className="essay-link">
+          {label}
+        </Link>
+      ) : (
+        <a
+          key={index}
+          href={range.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="essay-link"
+        >
+          {label}
+        </a>
+      ),
+    );
+    cursor = range.start + range.text.length;
+  });
+
+  if (cursor < text.length) nodes.push(text.slice(cursor));
+  return nodes;
+}
+
 function WritingBlockView({ block }: { block: WritingBlock }) {
   if (block.type === "paragraph") {
     return (
       <p className="text-body text-text-muted leading-relaxed text-pretty">
-        {block.text}
+        {renderText(block.text, block.links)}
       </p>
     );
   }

@@ -1,7 +1,15 @@
+export type InlineLink = {
+  /** Exact substring of the paragraph text to turn into a link (first match). */
+  text: string;
+  /** Internal path (e.g. "/writing/slug") or absolute URL. */
+  href: string;
+};
+
 export type WritingBlock =
   | {
       type: "paragraph";
       text: string;
+      links?: InlineLink[];
     }
   | {
       type: "list";
@@ -33,6 +41,12 @@ export type WritingSection = {
   blocks: WritingBlock[];
 };
 
+/** A pointer to a related essay or project, rendered at the foot of a post. */
+export type RelatedRef = {
+  kind: "writing" | "project";
+  slug: string;
+};
+
 export type WritingPost = {
   slug: string;
   title: string;
@@ -44,6 +58,7 @@ export type WritingPost = {
   featured: boolean;
   topics: string[];
   sections: WritingSection[];
+  related?: RelatedRef[];
 };
 
 export const writingPosts: WritingPost[] = [
@@ -59,6 +74,10 @@ export const writingPosts: WritingPost[] = [
     readTime: "10 min read",
     featured: false,
     topics: ["Platform Engineering", "System Design", "Design Systems"],
+    related: [
+      { kind: "writing", slug: "from-snippets-to-shadow-dom" },
+      { kind: "project", slug: "sfds" },
+    ],
     sections: [
       {
         heading: "The Graph Nobody Celebrates",
@@ -66,6 +85,12 @@ export const writingPosts: WritingPost[] = [
           {
             type: "paragraph",
             text: "I ended the last essay with a promise that the caching and cost story behind SFDS deserved its own write-up. This is that story, and it starts where the last one ended: with adoption. Every team that migrated added pages, and every page added customers pulling components from our CDN. The line we had worked eighteen months to bend upward had a twin that bent upward with it: the delivery bill.",
+            links: [
+              {
+                text: "the last essay",
+                href: "/writing/from-snippets-to-shadow-dom",
+              },
+            ],
           },
           {
             type: "paragraph",
@@ -233,6 +258,11 @@ export const writingPosts: WritingPost[] = [
     readTime: "13 min read",
     featured: true,
     topics: ["Design Systems", "Platform Engineering", "Technical Leadership"],
+    related: [
+      { kind: "writing", slug: "success-was-the-incident" },
+      { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
+      { kind: "project", slug: "sfds" },
+    ],
     sections: [
       {
         heading: "The Problem",
@@ -391,6 +421,12 @@ export const writingPosts: WritingPost[] = [
           {
             type: "paragraph",
             text: "Distribution at this scale also changes what a breaking change means. Against a thousand-plus consumers, a careless major version is a reliability event. Releases are versioned, deprecations get announced windows instead of surprises, and docs stay versioned alongside the code, so a team on last quarter's release reads last quarter's truth. Serving components through CDNs at this volume also turned caching strategy and delivery cost into a genuine system-design problem, one with enough depth that it deserves its own write-up.",
+            links: [
+              {
+                text: "it deserves its own write-up",
+                href: "/writing/success-was-the-incident",
+              },
+            ],
           },
         ],
       },
@@ -440,6 +476,12 @@ export const writingPosts: WritingPost[] = [
           {
             type: "paragraph",
             text: "The same abstraction later paid a dividend nobody priced in. A small, well-defined component API turned out to be exactly what AI coding agents need to produce accurate frontend code, but that story belongs to a different essay.",
+            links: [
+              {
+                text: "a different essay",
+                href: "/writing/teaching-ai-agents-to-use-a-design-system",
+              },
+            ],
           },
         ],
       },
@@ -494,6 +536,10 @@ export const writingPosts: WritingPost[] = [
     readTime: "8 min read",
     featured: true,
     topics: ["AI Tooling", "Data Integrity", "Platform Engineering"],
+    related: [
+      { kind: "project", slug: "researchlog" },
+      { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
+    ],
     sections: [
       {
         heading: "The Problem",
@@ -680,6 +726,10 @@ export const writingPosts: WritingPost[] = [
     readTime: "9 min read",
     featured: false,
     topics: ["Design Systems", "AI Tooling", "Frontend Platform"],
+    related: [
+      { kind: "writing", slug: "from-snippets-to-shadow-dom" },
+      { kind: "project", slug: "designrail" },
+    ],
     sections: [
       {
         heading: "The Problem",

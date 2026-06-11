@@ -175,6 +175,20 @@ body::before {
   color: var(--color-accent);
 }
 
+.essay-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  text-underline-offset: 3px;
+  transition:
+    color 150ms ease,
+    text-decoration-color 150ms ease;
+}
+
+.essay-link:active {
+  color: var(--color-accent-hover);
+}
+
 .pill-link:active,
 .project-card-link:active,
 .writing-card-link:active {
@@ -196,6 +210,11 @@ body::before {
 @media (hover: hover) and (pointer: fine) {
   .text-link:hover {
     color: var(--color-accent);
+  }
+
+  .essay-link:hover {
+    color: var(--color-accent-hover);
+    text-decoration-color: var(--color-accent-hover);
   }
 
   .pill-link:hover {
