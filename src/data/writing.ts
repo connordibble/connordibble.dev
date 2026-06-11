@@ -1,3 +1,21 @@
+/**
+ * Single source of truth for essay figure variants. The figure components in
+ * `src/components/writing-figures.tsx` key off this union, and its lookup map
+ * is exhaustiveness-checked, so adding a variant here without a component
+ * fails the build.
+ */
+export type WritingFigureVariant =
+  | "draft-to-truth"
+  | "write-paths"
+  | "snippet-vs-component"
+  | "audience-altitude"
+  | "three-surfaces"
+  | "distribution-paths"
+  | "page-request-anatomy"
+  | "cache-tiers"
+  | "cache-contract"
+  | "traffic-result";
+
 export type InlineLink = {
   /** Exact substring of the paragraph text to turn into a link (first match). */
   text: string;
@@ -22,17 +40,7 @@ export type WritingBlock =
     }
   | {
       type: "figure";
-      variant:
-        | "draft-to-truth"
-        | "write-paths"
-        | "snippet-vs-component"
-        | "audience-altitude"
-        | "three-surfaces"
-        | "distribution-paths"
-        | "page-request-anatomy"
-        | "cache-tiers"
-        | "cache-contract"
-        | "traffic-result";
+      variant: WritingFigureVariant;
       caption: string;
     };
 

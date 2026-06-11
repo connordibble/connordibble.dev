@@ -1,14 +1,5 @@
-export type WritingFigureVariant =
-  | "draft-to-truth"
-  | "write-paths"
-  | "snippet-vs-component"
-  | "audience-altitude"
-  | "three-surfaces"
-  | "distribution-paths"
-  | "page-request-anatomy"
-  | "cache-tiers"
-  | "cache-contract"
-  | "traffic-result";
+import type { ComponentType } from "react";
+import type { WritingFigureVariant } from "@/data/writing";
 
 type WritingFigureProps = {
   variant: WritingFigureVariant;
@@ -26,7 +17,7 @@ const figures = {
   "cache-tiers": CacheTiersFigure,
   "cache-contract": CacheContractFigure,
   "traffic-result": TrafficResultFigure,
-} as const;
+} satisfies Record<WritingFigureVariant, ComponentType>;
 
 export function WritingFigure({ variant, caption }: WritingFigureProps) {
   const Figure = figures[variant];
