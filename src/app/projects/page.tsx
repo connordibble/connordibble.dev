@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Nav } from "@/components/nav";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
 import { SectionLabel } from "@/components/section-label";
@@ -21,13 +21,9 @@ export default function ProjectsPage() {
           id="projects-top"
           className="container-wide pt-20 pb-8 sm:pt-28 sm:pb-10"
         >
-          <Link
-            href="/"
-            className="text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
-          >
-            <span aria-hidden>←</span>
-            <span>Home</span>
-          </Link>
+          <Breadcrumbs
+            items={[{ label: "Home", href: "/" }, { label: "Projects" }]}
+          />
           <h1 className="mt-6 text-[40px] sm:text-display font-semibold tracking-tight text-text text-pretty">
             Projects
           </h1>

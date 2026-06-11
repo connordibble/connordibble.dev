@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { RouteScrollManager } from "@/components/route-scroll-manager";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,11 +27,11 @@ export const metadata: Metadata = {
   description: siteDescription,
   authors: [{ name: "Connor Dibble" }],
   creator: "Connor Dibble",
-  metadataBase: new URL("https://connordibble.dev"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    url: "https://connordibble.dev",
+    url: SITE_URL,
     siteName: "connordibble.dev",
     type: "website",
   },

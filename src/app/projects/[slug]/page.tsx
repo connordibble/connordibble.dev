@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Nav } from "@/components/nav";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Footer } from "@/components/footer";
 import { SectionLabel } from "@/components/section-label";
 import { getDetailProjects, getProjectBySlug } from "@/data/projects";
@@ -46,13 +47,13 @@ export default async function ProjectDetailPage({
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <article className="container-wide pt-20 pb-16 sm:pt-28 sm:pb-24">
-          <Link
-            href="/projects"
-            className="text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
-          >
-            <span aria-hidden>←</span>
-            <span>All projects</span>
-          </Link>
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Projects", href: "/projects" },
+              { label: title },
+            ]}
+          />
 
           <header className="mt-6">
             <SectionLabel mark="asterisk">Project</SectionLabel>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { RelatedReading } from "@/components/related-reading";
@@ -59,13 +60,13 @@ export default async function WritingPostPage({
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <article className="container-wide pt-20 pb-16 sm:pt-28 sm:pb-24">
-          <Link
-            href="/writing"
-            className="text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
-          >
-            <span aria-hidden>←</span>
-            <span>Writing</span>
-          </Link>
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Writing", href: "/writing" },
+              { label: post.title },
+            ]}
+          />
 
           <header className="mt-6 max-w-3xl">
             <SectionLabel mark="asterisk">Essay</SectionLabel>
