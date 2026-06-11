@@ -5,6 +5,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type PointerEvent,
   type ReactNode,
 } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -53,6 +54,38 @@ function SelectField({ children }: { children: ReactNode }) {
       <ChevronDownIcon className="select-chevron pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-text-subtle" />
     </span>
   );
+}
+
+function isTouchLikePointer(event: PointerEvent<HTMLSelectElement>) {
+  if (event.pointerType === "touch" || event.pointerType === "pen") {
+    return true;
+  }
+
+  if (event.pointerType === "mouse") {
+    return false;
+  }
+
+  return window.matchMedia("(hover: none), (pointer: coarse)").matches;
+}
+
+function closeOpenSelectOnTriggerTap(event: PointerEvent<HTMLSelectElement>) {
+  const select = event.currentTarget;
+
+  // Let option taps and desktop mouse clicks keep their native behavior. This
+  // only fills the mobile gap where tapping the opened select trigger does not
+  // close the customizable picker.
+  if (event.target !== select || !isTouchLikePointer(event)) {
+    return;
+  }
+
+  try {
+    if (select.matches(":open")) {
+      event.preventDefault();
+      select.blur();
+    }
+  } catch {
+    // Browsers without :open support use their native picker behavior.
+  }
 }
 
 type WritingIndexProps = {
@@ -232,6 +265,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             <SelectField>
               <select
                 value={sort}
+                onPointerDown={closeOpenSelectOnTriggerTap}
                 onChange={(event) =>
                   replaceParams({ sort: event.target.value as SortValue })
                 }
@@ -296,6 +330,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                   <SelectField>
                     <select
                       value={topic}
+                      onPointerDown={closeOpenSelectOnTriggerTap}
                       onChange={(event) =>
                         replaceParams({ topic: event.target.value })
                       }
@@ -315,6 +350,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                   <SelectField>
                     <select
                       value={project}
+                      onPointerDown={closeOpenSelectOnTriggerTap}
                       onChange={(event) =>
                         replaceParams({ project: event.target.value })
                       }
