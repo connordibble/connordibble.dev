@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { WritingRow } from "./writing-row";
 import {
@@ -26,7 +26,6 @@ type WritingIndexProps = {
 };
 
 export function WritingIndex({ posts }: WritingIndexProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -58,10 +57,10 @@ export function WritingIndex({ posts }: WritingIndexProps) {
   const narrowingCount =
     (topic ? 1 : 0) + (project ? 1 : 0) + (featured ? 1 : 0);
 
-  // Disclosure for the narrowing filters. Auto-open when the page is entered
-  // through a filtered URL so applied state is never hidden; afterwards the
-  // count badge on the toggle keeps collapsed state honest.
-  const [filtersOpen, setFiltersOpen] = useState(() => narrowingCount > 0);
+  // Disclosure for the narrowing filters. It stays closed by default even on
+  // filtered URLs: applied state is always visible through the chips and the
+  // count badge, so the panel only opens when the reader wants to edit.
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   // Search keeps local state so filtering is keystroke-instant, then syncs to
@@ -105,9 +104,11 @@ export function WritingIndex({ posts }: WritingIndexProps) {
     if (next.sort !== DEFAULT_SORT) params.set("sort", next.sort);
     if (next.featured) params.set("featured", "1");
     const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, {
-      scroll: false,
-    });
+    // Native replaceState (blessed by the Next docs for client-side filter
+    // state) keeps useSearchParams in sync without an RSC round-trip, and
+    // unlike router.replace it also works when the document was hard-loaded
+    // on a parameterized URL.
+    window.history.replaceState(null, "", query ? `${pathname}?${query}` : pathname);
   };
 
   const onSearchChange = (value: string) => {
@@ -125,7 +126,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
       window.clearTimeout(debounceRef.current);
     }
     setQ("");
-    router.replace(pathname, { scroll: false });
+    window.history.replaceState(null, "", pathname);
   };
 
   const results = useMemo(
@@ -136,6 +137,42 @@ export function WritingIndex({ posts }: WritingIndexProps) {
   const isFiltering =
     q.trim() !== "" || topic !== "" || project !== "" || featured ||
     sort !== DEFAULT_SORT;
+
+  // Applied-filter chips: always-visible names for the narrowing filters,
+  // each removable on its own. The search query is not chipped because the
+  // input showing it never collapses.
+  const activeChips = [
+    ...(topic
+      ? [
+          {
+            key: "topic",
+            label: `Topic · ${topic}`,
+            remove: () => replaceParams({ topic: "" }),
+          },
+        ]
+      : []),
+    ...(project
+      ? [
+          {
+            key: "project",
+            label: `Project · ${
+              projectOptions.find((option) => option.slug === project)?.title ??
+              project
+            }`,
+            remove: () => replaceParams({ project: "" }),
+          },
+        ]
+      : []),
+    ...(featured
+      ? [
+          {
+            key: "featured",
+            label: "Featured",
+            remove: () => replaceParams({ featured: false }),
+          },
+        ]
+      : []),
+  ];
 
   return (
     <div className="mt-8">
@@ -270,13 +307,25 @@ export function WritingIndex({ posts }: WritingIndexProps) {
           ) : null}
         </AnimatePresence>
 
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+        <div className="flex flex-wrap items-center gap-3">
           <p
             aria-live="polite"
             className="font-mono text-caption text-text-subtle"
           >
             {results.length} {results.length === 1 ? "essay" : "essays"}
           </p>
+          {activeChips.map((chip) => (
+            <button
+              key={chip.key}
+              type="button"
+              onClick={chip.remove}
+              aria-label={`Remove filter: ${chip.label}`}
+              className="pill-link flex items-center gap-1.5 rounded-xs border border-border bg-panel px-2 py-1 font-mono text-caption text-text-muted transition-colors duration-150"
+            >
+              <span>{chip.label}</span>
+              <span aria-hidden>×</span>
+            </button>
+          ))}
           {isFiltering ? (
             <button
               type="button"
