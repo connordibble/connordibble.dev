@@ -20,7 +20,11 @@ export type WritingBlock =
         | "snippet-vs-component"
         | "audience-altitude"
         | "three-surfaces"
-        | "distribution-paths";
+        | "distribution-paths"
+        | "page-request-anatomy"
+        | "cache-tiers"
+        | "cache-contract"
+        | "traffic-result";
       caption: string;
     };
 
@@ -43,6 +47,180 @@ export type WritingPost = {
 };
 
 export const writingPosts: WritingPost[] = [
+  {
+    slug: "success-was-the-incident",
+    title: "Success Was the Incident",
+    subtitle:
+      "How a design system's own adoption turned a five-minute cache into a budget problem, and the cache tiers and content hashing that cut delivery cost by two thirds.",
+    summary:
+      "Adoption turned a five-minute browser cache into a budget problem. How splitting the cache by owner, hashing everything behind the entry point, and a finops partnership cut request volume to a third of its peak.",
+    date: "2026-06-26",
+    displayDate: "June 2026",
+    readTime: "10 min read",
+    featured: false,
+    topics: ["Platform Engineering", "System Design", "Design Systems"],
+    sections: [
+      {
+        heading: "The Graph Nobody Celebrates",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "I ended the last essay with a promise that the caching and cost story behind SFDS deserved its own write-up. This is that story, and it starts where the last one ended: with adoption. Every team that migrated added pages, and every page added customers pulling components from our CDN. The line we had worked eighteen months to bend upward had a twin that bent upward with it: the delivery bill.",
+          },
+          {
+            type: "paragraph",
+            text: "Our browser caching strategy at the time was a five-minute TTL. That was a defensible default in the early days, when consumers were few and the ability to push a fix and see it everywhere within minutes was worth almost any cost. As migration progressed it got exposed fast. Any customer whose visit outlasted five minutes was re-downloading files that had not changed, and most of the files never changed between releases at all.",
+          },
+          {
+            type: "paragraph",
+            text: "The architecture multiplied the problem. Components pull in shared libraries and dependencies as they need them, which is good engineering and terrible arithmetic: a single page could fan out into hundreds of CDN requests per customer. Multiply by pages, by customers, and by a cache that forgets everything on a five-minute timer, and request volume climbed with every team we onboarded. Success was the incident.",
+          },
+          {
+            type: "paragraph",
+            text: "The way it surfaced is worth recording. We track request volume through firewall metrics in Elastic, and that chart moved first: traffic climbing with every migrated team, well past what page counts alone would suggest. We took the finding to the finops team and they confirmed the same story from the cost side. The dashboards we had built for the platform itself tracked adoption, quality, and accessibility, and none of them caught it. The firewall did.",
+          },
+          {
+            type: "figure",
+            variant: "page-request-anatomy",
+            caption:
+              "One page fans out into an entry point, component chunks, and the shared libraries beneath them. The shared layer carried most of the request volume.",
+          },
+        ],
+      },
+      {
+        heading: "The First Lever: More npm",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The first lever was already partly in place. The npm package was in production with our server-rendered apps, where bundling is mandatory anyway, and a bundled consumer gets tree shaking, version pinning, and no runtime CDN dependency at all. The cost findings prompted the next step: making npm consumption broadly available and actively encouraged, because every team that moved was a team whose customers stopped generating CDN requests entirely.",
+          },
+          {
+            type: "paragraph",
+            text: "It does not fit everywhere, and pretending otherwise would have stalled the whole effort. Legacy stacks without modern build pipelines cannot bundle. Shared shells and pages that depend on live propagation need the CDN's update model, which is the reason we offer it in the first place. Teams mid-migration were not going to re-platform their build to save us bandwidth. We took the npm wins available and accepted the real constraint: the CDN path serves a large share of the estate permanently, so the CDN path had to get cheap on its own merits.",
+          },
+        ],
+      },
+      {
+        heading: "Three Caches, Three Owners",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The phrase \"the cache\" hides the structure of the problem. There are three caches in this system with three different owners: the browser cache that lives on customers' devices, the edge cache the CDN operates, and the origin behind both. They expire for different reasons, they fail in different directions, and they need different levers. Splitting them apart was the design step that made everything after it tractable.",
+          },
+          {
+            type: "paragraph",
+            text: "The edge tier went first because we control it directly. We raised the CDN to its maximum TTL and wired automated cache invalidation into the CI/CD pipeline, scoped to what a release actually changed. The edge cache stopped expiring on a timer and started expiring on intent. Deploys became the invalidation event, the origin stopped absorbing traffic it had already answered, and we kept the property the five-minute TTL had been protecting all along: when we ship, the new content goes out.",
+          },
+          {
+            type: "figure",
+            variant: "cache-tiers",
+            caption:
+              "The same system, before and after, tier by tier. Each tier got the lever its owner could actually operate.",
+          },
+        ],
+      },
+      {
+        heading: "Hashing Everything but the Front Door",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The browser tier was the interesting one, and where the volume actually lived. The majority of requests were never for entry points. They were for the layer underneath: shared libraries, dependencies, common chunks, the files components pull in as needed. Those files change on our schedule, at release time. Customers' browsers were treating them as if they might change any minute, because a five-minute TTL says exactly that.",
+          },
+          {
+            type: "paragraph",
+            text: "One constraint shaped the design. Consumers need a stable entry point. A team references one URL, and that URL cannot move between releases, or every adopter has to touch their pages every time we ship, which would reintroduce the manual-update problem we had just escaped. Everything behind that URL, though, is ours to restructure.",
+          },
+          {
+            type: "paragraph",
+            text: "So I wrote a script into our Rollup build that content-hashes every non-entry-point file. The filename changes exactly when the contents do, which makes a hashed file immutable by construction. If it exists, it is correct.",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "before                        after\n------                        -----\nsf-components.js              sf-components.js          (entry, stable)\nshared-utils.js               shared-utils.f3a91c.js    (hashed)\nbase-styles.js                base-styles.7d20be.js     (hashed)\nchunk-form-field.js           chunk-form-field.c54e12.js (hashed)",
+          },
+          {
+            type: "paragraph",
+            text: "Cache metadata per file class does the rest. Hashed files carry a one-year TTL, which in practice means indefinite: the browser holds the file until we ship a change, the hash moves, and the new filename busts the cache on its own. No invalidation call, no timer, no coordination with anyone. Entry points keep their stable URLs and a far more lenient TTL, tuned to what usage data and testing showed about a typical visit. The specific number stays internal, but the principle travels fine: an entry point's TTL is a product decision about how fast changes reach customers, and data should set it rather than a default.",
+          },
+          {
+            type: "figure",
+            variant: "cache-contract",
+            caption:
+              "Two file classes, two cache behaviors. The hash does the invalidation work that timers and purge calls used to do.",
+          },
+          {
+            type: "paragraph",
+            text: "What falls out of this is that the entry point becomes the manifest. It is the one mutable file in the system, and it carries the references to the current hashes, so shipping a release means shipping one small file that points at immutable everything else. The build system promises that a filename identifies its contents. The cache metadata promises a TTL that matches each file's real change frequency. Neither tier needs to know anything else about the other.",
+          },
+        ],
+      },
+      {
+        heading: "The Last Lever Was a Meeting",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The final optimization had no code in it. With the engineering levers in place, our traffic became predictable, and predictable traffic is a negotiating asset. We partnered with our cloud provider's finops organization and our internal cloud teams to move CDN spend off a pure pay-as-you-go model and onto a planned model. The optimized traffic made the commitment safe to size, and the commitment made the remaining traffic cheaper per request. Engineering work and procurement work compounding like that is rarer than it should be, mostly because the two conversations seldom happen in the same room.",
+          },
+        ],
+      },
+      {
+        heading: "What It Added Up To",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The whole effort ran about a month end to end. Together the levers cut request traffic, and the costs that follow it, to roughly a third of where they started. Two thirds of what our CDN had been serving turned out to be the same bytes, re-downloaded on a five-minute timer.",
+          },
+          {
+            type: "figure",
+            variant: "traffic-result",
+            caption:
+              "Request volume and delivery cost, before and after. The remaining third is traffic that genuinely needed to happen.",
+          },
+          {
+            type: "paragraph",
+            text: "The order mattered. npm adoption shrank the population of CDN consumers where it could. Edge TTLs and deploy-scoped invalidation made the tier we own efficient. Content hashing made the browser tier self-invalidating. And the pricing model captured the predictability the first three levers created. Each one made the next one stronger.",
+          },
+        ],
+      },
+      {
+        heading: "What I Would Carry Forward",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Reduced to a sentence: hash what can move, stabilize what cannot, and make every TTL tell the truth about how often its file actually changes. The longer version:",
+          },
+          {
+            type: "list",
+            items: [
+              "Defaults are decisions. A five-minute TTL was harmless at a handful of consumers and a budget line at a hundred teams. Revisit defaults whenever adoption changes the math underneath them.",
+              "Split the cache by owner before optimizing. Browser, edge, and origin expire for different reasons, and a lever that helps one tier can be irrelevant to another.",
+              "Content hashing turns invalidation from coordination into arithmetic. The filename is the cache key, and the build system maintains it for free.",
+              "Protect exactly one stable URL. Everything behind the entry point can be immutable, and immutable files are the cheapest files there are.",
+              "Take the finops meeting. Predictable traffic is leverage, and engineering teams almost never cash it in.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Most of this is one build script, some cache headers, and a pricing conversation. The leverage came from running them in the right order.",
+          },
+        ],
+      },
+      {
+        heading: "The Broader Point",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Platform cost work is adoption stewardship. Every team that chose SFDS handed us a slice of their page performance and, indirectly, a slice of the company's bill. A platform that gets more expensive per consumer as it succeeds has a design flaw, no matter how good the components are.",
+          },
+          {
+            type: "paragraph",
+            text: "The caching architecture holds for the same reason the design system does. The cheap path and the correct path are the same path: browsers do the right thing by default, deploys invalidate exactly what they change, and the entry point is the only promise we keep by hand.",
+          },
+        ],
+      },
+    ],
+  },
   {
     slug: "from-snippets-to-shadow-dom",
     title: "From Snippets to Shadow DOM",

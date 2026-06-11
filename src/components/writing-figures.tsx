@@ -4,7 +4,11 @@ export type WritingFigureVariant =
   | "snippet-vs-component"
   | "audience-altitude"
   | "three-surfaces"
-  | "distribution-paths";
+  | "distribution-paths"
+  | "page-request-anatomy"
+  | "cache-tiers"
+  | "cache-contract"
+  | "traffic-result";
 
 type WritingFigureProps = {
   variant: WritingFigureVariant;
@@ -18,6 +22,10 @@ const figures = {
   "audience-altitude": AudienceAltitudeFigure,
   "three-surfaces": ThreeSurfacesFigure,
   "distribution-paths": DistributionPathsFigure,
+  "page-request-anatomy": PageRequestAnatomyFigure,
+  "cache-tiers": CacheTiersFigure,
+  "cache-contract": CacheContractFigure,
+  "traffic-result": TrafficResultFigure,
 } as const;
 
 export function WritingFigure({ variant, caption }: WritingFigureProps) {
@@ -303,5 +311,100 @@ function DistributionPathsFigure() {
         ],
       ]}
     />
+  );
+}
+
+function PageRequestAnatomyFigure() {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
+        <Zone label="One page" items={["a single customer visit"]} />
+        <div className="hidden items-center font-mono text-caption text-text-subtle sm:flex">
+          →
+        </div>
+        <Zone
+          label="Components"
+          items={["entry point", "per-component chunks"]}
+        />
+        <div className="hidden items-center font-mono text-caption text-text-subtle sm:flex">
+          →
+        </div>
+        <Zone
+          label="Shared layer"
+          items={["shared libraries", "dependencies", "base styles"]}
+        />
+      </div>
+      <div className="rounded-md border border-accent/50 bg-panel px-3 py-2 text-center font-mono text-caption text-text">
+        hundreds of CDN requests per customer per page · five-minute browser
+        cache
+      </div>
+    </div>
+  );
+}
+
+function CacheTiersFigure() {
+  return (
+    <FigureTable
+      keyPrefix="ct"
+      header={["Tier", "Before", "After"]}
+      rows={[
+        [
+          "Browser",
+          "Five-minute TTL on everything",
+          "One-year TTL on hashed files, usage-tuned TTL on entry points",
+        ],
+        [
+          "CDN edge",
+          "Timer-based expiry",
+          "Max TTL, invalidation automated in CI/CD per release",
+        ],
+        ["Pricing", "Pay as you go", "Planned capacity, sized with finops"],
+      ]}
+    />
+  );
+}
+
+function CacheContractFigure() {
+  return (
+    <FigureTable
+      keyPrefix="cc"
+      header={["File class", "TTL", "Cache busts when"]}
+      rows={[
+        [
+          "Entry point (stable URL)",
+          "Lenient, tuned to observed usage",
+          "The TTL expires",
+        ],
+        [
+          "Hashed shared files",
+          "One year, effectively indefinite",
+          "Contents change and the filename moves",
+        ],
+      ]}
+    />
+  );
+}
+
+function TrafficResultFigure() {
+  return (
+    <div className="flex flex-col gap-3 rounded-md border border-border bg-panel p-4">
+      <div className="flex flex-col gap-1.5">
+        <div className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+          before
+        </div>
+        <div className="h-3 w-full rounded-sm bg-border" />
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <div className="font-mono text-caption uppercase tracking-[0.12em] text-text">
+          after
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="h-3 w-1/3 rounded-sm bg-accent" />
+          <span className="font-mono text-caption text-text-muted">
+            ≈ one third
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }
