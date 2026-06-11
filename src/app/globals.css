@@ -207,16 +207,29 @@ body::before {
     appearance: base-select;
   }
 
+  /* UA defaults for the base-select button vary across Chromium versions;
+     center the selected label explicitly instead of relying on them. */
+  select.styled-select {
+    display: flex;
+    align-items: center;
+  }
+
   select.styled-select::picker-icon {
     display: none;
   }
 
   select.styled-select::picker(select) {
-    margin-top: 4px;
+    margin-block: 4px;
     padding: 4px;
     border: 1px solid var(--color-border-strong);
     border-radius: var(--radius-md);
     background: var(--color-panel-raised);
+    /* Open downward by convention; flip up only when it doesn't fit. The UA
+       default (position-try-order: most-block-size) opens toward whichever
+       side has more room, which makes placement feel inconsistent. */
+    position-area: block-end span-inline-end;
+    position-try-order: normal;
+    position-try-fallbacks: flip-block;
     opacity: 1;
     translate: 0 0;
     transition:
