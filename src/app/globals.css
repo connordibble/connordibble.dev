@@ -200,6 +200,20 @@ body::before {
   background: var(--color-panel-raised);
 }
 
+.writing-row-link:active {
+  background: var(--color-panel);
+}
+
+.writing-row-link:active .writing-row-title,
+.writing-row-link:focus-visible .writing-row-title {
+  color: var(--color-accent);
+}
+
+.writing-row-link:focus-visible .writing-row-arrow {
+  opacity: 1;
+  transform: translateX(0.125rem);
+}
+
 .project-card-link:focus-visible .project-card-link-arrow,
 .writing-card-link:focus-visible .writing-card-link-arrow {
   color: var(--color-accent);
@@ -226,6 +240,19 @@ body::before {
   .writing-card-link:hover {
     background: var(--color-panel-raised);
     border-color: var(--color-border-strong);
+  }
+
+  .writing-row-link:hover {
+    background: var(--color-panel);
+  }
+
+  .writing-row-link:hover .writing-row-title {
+    color: var(--color-accent);
+  }
+
+  .writing-row-link:hover .writing-row-arrow {
+    opacity: 1;
+    transform: translateX(0.125rem);
   }
 
   .project-card-link:hover .project-card-link-arrow,
