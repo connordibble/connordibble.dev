@@ -27,6 +27,7 @@ pnpm audit                # security audit
 - No hardcoded hex values in components — CSS custom properties only
 - No Tailwind color utilities like `bg-zinc-900` — use mapped token utilities only
 - All tokens defined in `src/app/globals.css` on `:root`, mapped through Tailwind v4 `@theme`
+- Numeric spacing-scale size utilities (e.g. `max-w-56`) resolve incorrectly against this theme's named spacing tokens — use arbitrary values (`max-w-[14rem]`) or named tokens instead
 - Animations: Framer Motion only, 150–250ms, ease-out
 - No placeholder content — ask if copy is missing
 
