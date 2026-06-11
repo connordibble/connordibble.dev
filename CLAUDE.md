@@ -30,8 +30,19 @@ pnpm audit                # security audit
 - Animations: Framer Motion only, 150–250ms, ease-out
 - No placeholder content — ask if copy is missing
 
+## Writing Content (Essays)
+- Essay data lives in `src/data/writing.ts` as typed `WritingPost` objects, newest first. Figures live in `src/components/writing-figures.tsx`; reuse `Zone` and `FigureTable`, tokens only.
+- Cross-linking pattern (reuse for every new essay):
+  - Related work: add `related: [{ kind: "writing" | "project", slug }]` to the post. Cards render at the foot of the essay via `src/lib/related.ts`; unknown slugs are dropped silently, so a stale slug fails soft.
+  - In-text references: when an essay mentions another piece directly, add `links: [{ text, href }]` to that paragraph block. `text` must match a substring of the paragraph exactly, and the first occurrence becomes the link.
+  - The resolver in `src/lib/related.ts` is generic. If project pages ever need related cards, reuse it there instead of writing a second one.
+- Voice and style: follow the global `connor-technical-writing` skill when drafting or editing essays.
+
+## Git
+- Commit messages: one-line Conventional Commits subject only. No body, no `Co-Authored-By` or other trailers.
+
 ## What This Site Is Not
-- Not a blog (yet)
+- Not a blog — Writing is a small set of deliberate essays, not a feed
 - Not a SaaS product — no auth, no dashboard patterns
 - Not a template — every section should feel intentional
 
