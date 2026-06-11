@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { WritingRow } from "./writing-row";
@@ -18,8 +24,36 @@ const SEARCH_DEBOUNCE_MS = 250;
 const fieldClass =
   "h-10 w-full rounded-sm border border-border bg-panel px-3 font-mono text-body-small text-text transition-colors duration-150 placeholder:text-text-subtle";
 
+const selectClass = `${fieldClass} styled-select appearance-none pr-[2.25rem]`;
+
 const labelClass =
   "font-mono text-caption uppercase tracking-[0.12em] text-text-subtle";
+
+function ChevronDownIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 12 12"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="m2.5 4.5 3.5 3.5 3.5-3.5" />
+    </svg>
+  );
+}
+
+function SelectField({ children }: { children: ReactNode }) {
+  return (
+    <span className="select-field relative block">
+      {children}
+      <ChevronDownIcon className="select-chevron pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-text-subtle" />
+    </span>
+  );
+}
 
 type WritingIndexProps = {
   posts: WritingIndexPost[];
@@ -195,19 +229,21 @@ export function WritingIndex({ posts }: WritingIndexProps) {
           </label>
           <label className="flex grow basis-[13.5rem] flex-col gap-1.5 sm:grow-0">
             <span className={labelClass}>Sort</span>
-            <select
-              value={sort}
-              onChange={(event) =>
-                replaceParams({ sort: event.target.value as SortValue })
-              }
-              className={fieldClass}
-            >
-              {SORT_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            <SelectField>
+              <select
+                value={sort}
+                onChange={(event) =>
+                  replaceParams({ sort: event.target.value as SortValue })
+                }
+                className={selectClass}
+              >
+                {SORT_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </SelectField>
           </label>
           <button
             type="button"
@@ -257,37 +293,41 @@ export function WritingIndex({ posts }: WritingIndexProps) {
               <div className="flex flex-wrap items-end gap-x-3 gap-y-4 rounded-md border border-border p-4">
                 <label className="flex grow basis-[11rem] flex-col gap-1.5 sm:grow-0">
                   <span className={labelClass}>Topic</span>
-                  <select
-                    value={topic}
-                    onChange={(event) =>
-                      replaceParams({ topic: event.target.value })
-                    }
-                    className={fieldClass}
-                  >
-                    <option value="">All topics</option>
-                    {topicOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+                  <SelectField>
+                    <select
+                      value={topic}
+                      onChange={(event) =>
+                        replaceParams({ topic: event.target.value })
+                      }
+                      className={selectClass}
+                    >
+                      <option value="">All topics</option>
+                      {topicOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </SelectField>
                 </label>
                 <label className="flex grow basis-[11rem] flex-col gap-1.5 sm:grow-0">
                   <span className={labelClass}>Project</span>
-                  <select
-                    value={project}
-                    onChange={(event) =>
-                      replaceParams({ project: event.target.value })
-                    }
-                    className={fieldClass}
-                  >
-                    <option value="">All projects</option>
-                    {projectOptions.map((option) => (
-                      <option key={option.slug} value={option.slug}>
-                        {option.title}
-                      </option>
-                    ))}
-                  </select>
+                  <SelectField>
+                    <select
+                      value={project}
+                      onChange={(event) =>
+                        replaceParams({ project: event.target.value })
+                      }
+                      className={selectClass}
+                    >
+                      <option value="">All projects</option>
+                      {projectOptions.map((option) => (
+                        <option key={option.slug} value={option.slug}>
+                          {option.title}
+                        </option>
+                      ))}
+                    </select>
+                  </SelectField>
                 </label>
                 <label className="flex h-10 cursor-pointer items-center gap-2">
                   <input

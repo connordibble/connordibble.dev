@@ -189,6 +189,73 @@ body::before {
   color: var(--color-accent-hover);
 }
 
+/* Custom selects. The closed control is styled everywhere; in browsers with
+   customizable-select support (appearance: base-select) the opened picker and
+   options are styled to match the design system too. Browsers without it
+   (e.g. Safari) keep their native picker, which stays fully accessible. */
+.select-field .select-chevron {
+  transition: rotate 200ms ease-out;
+}
+
+.select-field:has(select:open) .select-chevron {
+  rotate: 180deg;
+}
+
+@supports (appearance: base-select) {
+  select.styled-select,
+  select.styled-select::picker(select) {
+    appearance: base-select;
+  }
+
+  select.styled-select::picker-icon {
+    display: none;
+  }
+
+  select.styled-select::picker(select) {
+    margin-top: 4px;
+    padding: 4px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-panel-raised);
+    opacity: 1;
+    translate: 0 0;
+    transition:
+      opacity 150ms ease-out,
+      translate 150ms ease-out,
+      overlay 150ms ease-out allow-discrete,
+      display 150ms ease-out allow-discrete;
+  }
+
+  @starting-style {
+    select.styled-select:open::picker(select) {
+      opacity: 0;
+      translate: 0 -4px;
+    }
+  }
+
+  select.styled-select option {
+    padding: 8px 10px;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-mono);
+    font-size: var(--text-body-small);
+    color: var(--color-text-muted);
+  }
+
+  select.styled-select option:hover,
+  select.styled-select option:focus-visible {
+    background: var(--color-panel-hover);
+    color: var(--color-text);
+  }
+
+  select.styled-select option:checked {
+    color: var(--color-accent);
+  }
+
+  select.styled-select option::checkmark {
+    display: none;
+  }
+}
+
 .arrow-link span[aria-hidden] {
   transition: transform 200ms ease-out;
 }
