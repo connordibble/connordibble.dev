@@ -56,7 +56,9 @@ export default async function ProjectDetailPage({
           />
 
           <header className="mt-6">
-            <SectionLabel mark="asterisk">Project</SectionLabel>
+            <SectionLabel as="p" mark="asterisk">
+              Project
+            </SectionLabel>
             <h1 className="mt-4 text-[40px] sm:text-display font-semibold tracking-tight text-text text-pretty">
               {title}
             </h1>

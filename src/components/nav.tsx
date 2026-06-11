@@ -145,21 +145,28 @@ export function Nav() {
         </Link>
 
         <ul className="hidden sm:flex items-center gap-6">
-          {links.map((link) => (
-            <li key={link.label}>
-              <Link
-                href={link.href}
-                onClick={
-                  link.type === "section"
-                    ? (event) => handleSectionClick(event, link.targetId)
-                    : () => setOpen(false)
-                }
-                className="text-link font-mono text-caption text-text-muted transition-colors duration-150"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
+          {links.map((link) => {
+            const active = isActiveRoute(link, pathname);
+            return (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  onClick={
+                    link.type === "section"
+                      ? (event) => handleSectionClick(event, link.targetId)
+                      : () => setOpen(false)
+                  }
+                  className={[
+                    "text-link font-mono text-caption transition-colors duration-150",
+                    active ? "text-text" : "text-text-muted",
+                  ].join(" ")}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="flex items-center gap-1 sm:ml-1">
@@ -209,6 +216,9 @@ export function Nav() {
                 >
                   <Link
                     href={link.href}
+                    aria-current={
+                      isActiveRoute(link, pathname) ? "page" : undefined
+                    }
                     onClick={
                       link.type === "section"
                         ? (event) => handleSectionClick(event, link.targetId)
@@ -225,6 +235,13 @@ export function Nav() {
         )}
       </AnimatePresence>
     </header>
+  );
+}
+
+function isActiveRoute(link: NavLink, pathname: string): boolean {
+  return (
+    link.type === "route" &&
+    (pathname === link.href || pathname.startsWith(`${link.href}/`))
   );
 }
 

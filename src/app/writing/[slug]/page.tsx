@@ -69,7 +69,9 @@ export default async function WritingPostPage({
           />
 
           <header className="mt-6 max-w-3xl">
-            <SectionLabel mark="asterisk">Essay</SectionLabel>
+            <SectionLabel as="p" mark="asterisk">
+              Essay
+            </SectionLabel>
             <p className="mt-5 font-mono text-caption text-text-subtle">
               {post.displayDate} · {post.readTime}
             </p>

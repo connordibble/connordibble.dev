@@ -189,6 +189,15 @@ body::before {
   color: var(--color-accent-hover);
 }
 
+.arrow-link span[aria-hidden] {
+  transition: transform 200ms ease-out;
+}
+
+.arrow-link:focus-visible span[aria-hidden],
+.arrow-link:active span[aria-hidden] {
+  transform: translateX(0.125rem);
+}
+
 .pill-link:active,
 .project-card-link:active,
 .writing-card-link:active {
@@ -229,6 +238,10 @@ body::before {
   .essay-link:hover {
     color: var(--color-accent-hover);
     text-decoration-color: var(--color-accent-hover);
+  }
+
+  .arrow-link:hover span[aria-hidden] {
+    transform: translateX(0.125rem);
   }
 
   .pill-link:hover {

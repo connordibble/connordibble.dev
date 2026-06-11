@@ -6,7 +6,7 @@ export function Footer() {
       <FooterRings />
       <div className="container-wide relative z-10 py-10 sm:py-12">
         <p className="font-mono text-caption text-text-subtle">
-          © 2026 Connor Dibble
+          © {new Date().getFullYear()} Connor Dibble
         </p>
       </div>
     </footer>
