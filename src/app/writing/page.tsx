@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Suspense } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { SectionLabel } from "@/components/section-label";
 import { WritingCard } from "@/components/writing-card";
+import { WritingIndex } from "@/components/writing-index";
+import { WritingRow } from "@/components/writing-row";
 import { getFeaturedWriting, writingPosts } from "@/data/writing";
+import { toIndexPost, type WritingIndexPost } from "@/lib/writing-index";
 
 export const metadata: Metadata = {
   title: "Writing — Connor Dibble",
@@ -14,6 +17,26 @@ export const metadata: Metadata = {
 };
 
 const featured = getFeaturedWriting();
+
+// Lean rows for the interactive index; essay bodies stay out of the payload.
+const indexPosts: WritingIndexPost[] = writingPosts.map(toIndexPost);
+
+/**
+ * Prerendered fallback for the Suspense boundary around the interactive
+ * index (which reads search params and therefore renders client-side). It
+ * keeps every essay row in the initial HTML for crawlers and no-JS readers.
+ */
+function WritingListFallback() {
+  return (
+    <ul className="mt-8 divide-y divide-border border-y border-border">
+      {indexPosts.map((post) => (
+        <li key={post.slug}>
+          <WritingRow post={post} />
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function WritingPage() {
   return (
@@ -52,34 +75,9 @@ export default function WritingPage() {
 
         <section className="container-wide pb-16 sm:pb-24">
           <SectionLabel mark="grid">All writing</SectionLabel>
-          <ul className="mt-8 divide-y divide-border border-y border-border">
-            {writingPosts.map((post) => (
-              <li key={post.slug}>
-                <Link
-                  href={`/writing/${post.slug}`}
-                  className="writing-row-link block px-2 py-6 transition-colors duration-150"
-                >
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
-                    <h3 className="writing-row-title flex items-center gap-2 text-section-title font-medium text-text text-pretty transition-colors duration-150">
-                      <span>{post.title}</span>
-                      <span
-                        aria-hidden
-                        className="writing-row-arrow font-mono text-body-small text-text-muted opacity-0 transition-all duration-200 ease-out"
-                      >
-                        →
-                      </span>
-                    </h3>
-                    <p className="shrink-0 font-mono text-caption text-text-subtle">
-                      {post.displayDate} · {post.readTime}
-                    </p>
-                  </div>
-                  <p className="mt-3 max-w-3xl text-body-small text-text-muted leading-relaxed text-pretty">
-                    {post.summary}
-                  </p>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <Suspense fallback={<WritingListFallback />}>
+            <WritingIndex posts={indexPosts} />
+          </Suspense>
         </section>
       </main>
       <Footer />
