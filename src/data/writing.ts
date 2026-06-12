@@ -76,7 +76,7 @@ export const writingPosts: WritingPost[] = [
     subtitle:
       "How a design system's own adoption turned a five-minute cache into a budget problem, and the cache tiers and content hashing that cut delivery cost by two thirds.",
     summary:
-      "Adoption turned a five-minute browser cache into a budget problem. How splitting the cache by owner, hashing everything behind the entry point, and a finops partnership cut request volume to a third of its peak.",
+      "Adoption turned a five-minute browser cache into a budget problem. How splitting the cache by owner, keeping component entry files stable while hashing their dependencies, and a finops partnership cut request volume to a third of its peak.",
     date: "2026-06-26",
     displayDate: "June 2026",
     readTime: "10 min read",
@@ -116,7 +116,7 @@ export const writingPosts: WritingPost[] = [
             type: "figure",
             variant: "page-request-anatomy",
             caption:
-              "One page fans out into an entry point, component chunks, and the shared libraries beneath them. The shared layer carried most of the request volume.",
+              "A page requests the stable entry file for each component it uses; those files reference shared libraries and dependencies beneath them. The shared layer carried most of the request volume.",
           },
         ],
       },
@@ -153,28 +153,28 @@ export const writingPosts: WritingPost[] = [
         ],
       },
       {
-        heading: "Hashing Everything but the Front Door",
+        heading: "Hashing Behind Stable Component Files",
         blocks: [
           {
             type: "paragraph",
-            text: "The browser tier was the interesting one, and where the volume actually lived. The majority of requests were never for entry points. They were for the layer underneath: shared libraries, dependencies, common chunks, the files components pull in as needed. Those files change on our schedule, at release time. Customers' browsers were treating them as if they might change any minute, because a five-minute TTL says exactly that.",
+            text: "The browser tier was the interesting one, and where the volume actually lived. The majority of requests were never for the component entry files. They were for the layer underneath: shared libraries, dependencies, common chunks, the files components pull in as needed. Those files change on our schedule, at release time. Customers' browsers were treating them as if they might change any minute, because a five-minute TTL says exactly that.",
           },
           {
             type: "paragraph",
-            text: "One constraint shaped the design. Consumers need a stable entry point. A team references one URL, and that URL cannot move between releases, or every adopter has to touch their pages every time we ship, which would reintroduce the manual-update problem we had just escaped. Everything behind that URL, though, is ours to restructure.",
+            text: "One constraint shaped the design. Consumers need a stable URL for each component they use. A team references files such as sf-button.js and sf-modal.js, and those URLs cannot move between releases, or every adopter has to touch its pages every time we ship. Everything those component files reference, though, is ours to restructure.",
           },
           {
             type: "paragraph",
-            text: "So I wrote a script into our Rollup build that content-hashes every non-entry-point file. The filename changes exactly when the contents do, which makes a hashed file immutable by construction. If it exists, it is correct.",
+            text: "So I wrote a script into our Rollup build that keeps each component entry file stable and content-hashes the dependency files it references. A dependency's filename changes exactly when its contents do, which makes the hashed file immutable by construction. If it exists, it is correct.",
           },
           {
             type: "code",
             language: "text",
-            code: "before                        after\n------                        -----\nsf-components.js              sf-components.js          (entry, stable)\nshared-utils.js               shared-utils.f3a91c.js    (hashed)\nbase-styles.js                base-styles.7d20be.js     (hashed)\nchunk-form-field.js           chunk-form-field.c54e12.js (hashed)",
+            code: "before                        after\n------                        -----\nsf-button.js                  sf-button.js              (component entry, stable)\nsf-modal.js                   sf-modal.js               (component entry, stable)\nshared-utils.js               shared-utils.f3a91c.js    (hashed)\nbase-styles.js                base-styles.7d20be.js     (hashed)\nchunk-form-field.js           chunk-form-field.c54e12.js (hashed)",
           },
           {
             type: "paragraph",
-            text: "Cache metadata per file class does the rest. Hashed files carry a one-year TTL, which in practice means indefinite: the browser holds the file until we ship a change, the hash moves, and the new filename busts the cache on its own. No invalidation call, no timer, no coordination with anyone. Entry points keep their stable URLs and a far more lenient TTL, tuned to what usage data and testing showed about a typical visit. The specific number stays internal, but the principle travels fine: an entry point's TTL is a product decision about how fast changes reach customers, and data should set it rather than a default.",
+            text: "Cache metadata per file class does the rest. Hashed files carry a one-year TTL, which in practice means indefinite: the browser holds the file until we ship a change, the hash moves, and the new filename busts the cache on its own. No invalidation call, no timer, no coordination with anyone. Component entry files keep their stable URLs and a far more lenient TTL, tuned to what usage data and testing showed about a typical visit. The specific number stays internal, but the principle travels fine: a component entry file's TTL is a product decision about how fast changes reach customers, and data should set it rather than a default.",
           },
           {
             type: "figure",
@@ -184,7 +184,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "What falls out of this is that the entry point becomes the manifest. It is the one mutable file in the system, and it carries the references to the current hashes, so shipping a release means shipping one small file that points at immutable everything else. The build system promises that a filename identifies its contents. The cache metadata promises a TTL that matches each file's real change frequency. Neither tier needs to know anything else about the other.",
+            text: "What falls out of this is that each component entry file acts as a manifest for its own dependency graph. The component file keeps its stable URL and references the current hashes for the shared utilities, styles, and chunks it needs. Those hashed dependencies stay immutable and can be reused across component entry files. The build system promises that a filename identifies its contents. The cache metadata promises a TTL that matches each file's real change frequency. Neither tier needs to know anything else about the other.",
           },
         ],
       },
@@ -229,7 +229,7 @@ export const writingPosts: WritingPost[] = [
               "Defaults are decisions. A five-minute TTL was harmless at a handful of consumers and a budget line at a hundred teams. Revisit defaults whenever adoption changes the math underneath them.",
               "Split the cache by owner before optimizing. Browser, edge, and origin expire for different reasons, and a lever that helps one tier can be irrelevant to another.",
               "Content hashing turns invalidation from coordination into arithmetic. The filename is the cache key, and the build system maintains it for free.",
-              "Protect exactly one stable URL. Everything behind the entry point can be immutable, and immutable files are the cheapest files there are.",
+              "Protect the stable component URLs consumers reference. The dependency files behind them can be immutable, and immutable files are the cheapest files there are.",
               "Take the finops meeting. Predictable traffic is leverage, and engineering teams almost never cash it in.",
             ],
           },
@@ -248,7 +248,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "The caching architecture holds for the same reason the design system does. The cheap path and the correct path are the same path: browsers do the right thing by default, deploys invalidate exactly what they change, and the entry point is the only promise we keep by hand.",
+            text: "The caching architecture holds for the same reason the design system does. The cheap path and the correct path are the same path: browsers do the right thing by default, deploys invalidate exactly what they change, and the stable component URLs are the only promises we keep by hand.",
           },
         ],
       },
