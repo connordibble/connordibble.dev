@@ -80,7 +80,7 @@ export default function WritingPage() {
           </Suspense>
         </section>
       </main>
-      <Footer />
+      <Footer rings={false} />
     </>
   );
 }
