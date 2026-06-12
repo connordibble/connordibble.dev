@@ -2,7 +2,6 @@
 
 import {
   useEffect,
-  useMemo,
   useRef,
   useState,
   type PointerEvent,
@@ -56,6 +55,66 @@ function SelectField({ children }: { children: ReactNode }) {
   );
 }
 
+function toggleListValue(list: string[], value: string) {
+  return list.includes(value)
+    ? list.filter((item) => item !== value)
+    : [...list, value];
+}
+
+type FacetOption = {
+  value: string;
+  label: string;
+  count: number;
+};
+
+/**
+ * A multi-select facet rendered as exposed checkbox pills. Every value stays
+ * visible with a live result count, so adding or removing one is a single
+ * tap — no reopening a menu per selection.
+ */
+function FacetGroup({
+  legend,
+  options,
+  selected,
+  onToggle,
+}: {
+  legend: string;
+  options: FacetOption[];
+  selected: string[];
+  onToggle: (value: string) => void;
+}) {
+  return (
+    <fieldset className="min-w-0">
+      <legend className={labelClass}>{legend}</legend>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {options.map((option) => {
+          const checked = selected.includes(option.value);
+          return (
+            <label
+              key={option.value}
+              className={[
+                "cursor-pointer",
+                option.count === 0 && !checked ? "opacity-60" : "",
+              ].join(" ")}
+            >
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={() => onToggle(option.value)}
+                className="facet-pill-input sr-only"
+              />
+              <span className="facet-pill flex items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 py-1.5 font-mono text-caption text-text-muted transition-colors duration-150">
+                <span>{option.label}</span>
+                <span className="text-text-subtle">{option.count}</span>
+              </span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
 function isTouchLikePointer(event: PointerEvent<HTMLSelectElement>) {
   if (event.pointerType === "touch" || event.pointerType === "pen") {
     return true;
@@ -96,33 +155,34 @@ export function WritingIndex({ posts }: WritingIndexProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const topicOptions = useMemo(
-    () => [...new Set(posts.flatMap((post) => post.topics))].sort(),
-    [posts],
-  );
-  const projectOptions = useMemo(() => {
-    const bySlug = new Map(
+  // Derived values below are plain render computations: the React Compiler
+  // memoizes them, and manual useMemo here trips its preserve-manual-
+  // memoization analysis once arrays flow through the URL-patch closures.
+  const topicOptions = [...new Set(posts.flatMap((post) => post.topics))].sort();
+  const projectOptions = [
+    ...new Map(
       posts
         .flatMap((post) => post.projects)
-        .map((project) => [project.slug, project]),
-    );
-    return [...bySlug.values()].sort((a, b) => a.title.localeCompare(b.title));
-  }, [posts]);
+        .map((project) => [project.slug, project] as const),
+    ).values(),
+  ].sort((a, b) => a.title.localeCompare(b.title));
 
-  // The URL is the source of truth. Unknown topic/project values are dropped
-  // so the selects never display a state they aren't applying.
-  const rawTopic = searchParams.get("topic") ?? "";
-  const topic = topicOptions.includes(rawTopic) ? rawTopic : "";
-  const rawProject = searchParams.get("project") ?? "";
-  const project = projectOptions.some((option) => option.slug === rawProject)
-    ? rawProject
-    : "";
+  // The URL is the source of truth. The multi-select facets serialize as
+  // comma-separated values (`topic=a,b`), deduped and restricted to known
+  // values so the UI never shows a filter it isn't applying.
+  const topicParam = searchParams.get("topic") ?? "";
+  const topics = [...new Set(topicParam.split(","))].filter((value) =>
+    topicOptions.includes(value),
+  );
+  const projectParam = searchParams.get("project") ?? "";
+  const projects = [...new Set(projectParam.split(","))].filter((value) =>
+    projectOptions.some((option) => option.slug === value),
+  );
   const rawSort = searchParams.get("sort");
   const sort: SortValue = isSortValue(rawSort) ? rawSort : DEFAULT_SORT;
   const featured = searchParams.get("featured") === "1";
 
-  const narrowingCount =
-    (topic ? 1 : 0) + (project ? 1 : 0) + (featured ? 1 : 0);
+  const narrowingCount = topics.length + projects.length + (featured ? 1 : 0);
 
   // Disclosure for the narrowing filters. It stays closed by default even on
   // filtered URLs: applied state is always visible through the chips and the
@@ -157,17 +217,18 @@ export function WritingIndex({ posts }: WritingIndexProps) {
   const replaceParams = (
     patch: Partial<{
       q: string;
-      topic: string;
-      project: string;
+      topics: string[];
+      projects: string[];
       sort: SortValue;
       featured: boolean;
     }>,
   ) => {
-    const next = { q: q.trim(), topic, project, sort, featured, ...patch };
+    const next = { q: q.trim(), topics, projects, sort, featured, ...patch };
     const params = new URLSearchParams();
     if (next.q) params.set("q", next.q);
-    if (next.topic) params.set("topic", next.topic);
-    if (next.project) params.set("project", next.project);
+    if (next.topics.length > 0) params.set("topic", next.topics.join(","));
+    if (next.projects.length > 0)
+      params.set("project", next.projects.join(","));
     if (next.sort !== DEFAULT_SORT) params.set("sort", next.sort);
     if (next.featured) params.set("featured", "1");
     const query = params.toString();
@@ -196,40 +257,67 @@ export function WritingIndex({ posts }: WritingIndexProps) {
     window.history.replaceState(null, "", pathname);
   };
 
-  const results = useMemo(
-    () => filterAndSortPosts(posts, { q, topic, project, featured, sort }),
-    [posts, q, topic, project, featured, sort],
+  const results = filterAndSortPosts(posts, {
+    q,
+    topics,
+    projects,
+    featured,
+    sort,
+  });
+
+  // Per-value facet counts with every other filter applied. A facet's own
+  // selection is excluded from its counts, so each pill answers "what does
+  // adding this value get me" under OR semantics.
+  const topicPool = filterAndSortPosts(posts, {
+    q,
+    topics: [],
+    projects,
+    featured,
+    sort,
+  });
+  const topicCounts = new Map(
+    topicOptions.map((topic) => [
+      topic,
+      topicPool.filter((post) => post.topics.includes(topic)).length,
+    ]),
+  );
+  const projectPool = filterAndSortPosts(posts, {
+    q,
+    topics,
+    projects: [],
+    featured,
+    sort,
+  });
+  const projectCounts = new Map(
+    projectOptions.map((option) => [
+      option.slug,
+      projectPool.filter((post) =>
+        post.projects.some((project) => project.slug === option.slug),
+      ).length,
+    ]),
   );
 
   const isFiltering =
-    q.trim() !== "" || topic !== "" || project !== "" || featured ||
+    q.trim() !== "" || topics.length > 0 || projects.length > 0 || featured ||
     sort !== DEFAULT_SORT;
 
   // Applied-filter chips: always-visible names for the narrowing filters,
-  // each removable on its own. The search query is not chipped because the
-  // input showing it never collapses.
+  // one chip per selected value, each removable on its own. The search query
+  // is not chipped because the input showing it never collapses.
   const activeChips = [
-    ...(topic
-      ? [
-          {
-            key: "topic",
-            label: `Topic · ${topic}`,
-            remove: () => replaceParams({ topic: "" }),
-          },
-        ]
-      : []),
-    ...(project
-      ? [
-          {
-            key: "project",
-            label: `Project · ${
-              projectOptions.find((option) => option.slug === project)?.title ??
-              project
-            }`,
-            remove: () => replaceParams({ project: "" }),
-          },
-        ]
-      : []),
+    ...topics.map((value) => ({
+      key: `topic:${value}`,
+      label: `Topic · ${value}`,
+      remove: () => replaceParams({ topics: topics.filter((t) => t !== value) }),
+    })),
+    ...projects.map((slug) => ({
+      key: `project:${slug}`,
+      label: `Project · ${
+        projectOptions.find((option) => option.slug === slug)?.title ?? slug
+      }`,
+      remove: () =>
+        replaceParams({ projects: projects.filter((p) => p !== slug) }),
+    })),
     ...(featured
       ? [
           {
@@ -324,48 +412,32 @@ export function WritingIndex({ posts }: WritingIndexProps) {
               }}
               className="overflow-hidden"
             >
-              <div className="flex flex-wrap items-end gap-x-3 gap-y-4 rounded-md border border-border p-4">
-                <label className="flex grow basis-[11rem] flex-col gap-1.5 sm:grow-0">
-                  <span className={labelClass}>Topic</span>
-                  <SelectField>
-                    <select
-                      value={topic}
-                      onPointerDown={closeOpenSelectOnTriggerTap}
-                      onChange={(event) =>
-                        replaceParams({ topic: event.target.value })
-                      }
-                      className={selectClass}
-                    >
-                      <option value="">All topics</option>
-                      {topicOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </SelectField>
-                </label>
-                <label className="flex grow basis-[11rem] flex-col gap-1.5 sm:grow-0">
-                  <span className={labelClass}>Project</span>
-                  <SelectField>
-                    <select
-                      value={project}
-                      onPointerDown={closeOpenSelectOnTriggerTap}
-                      onChange={(event) =>
-                        replaceParams({ project: event.target.value })
-                      }
-                      className={selectClass}
-                    >
-                      <option value="">All projects</option>
-                      {projectOptions.map((option) => (
-                        <option key={option.slug} value={option.slug}>
-                          {option.title}
-                        </option>
-                      ))}
-                    </select>
-                  </SelectField>
-                </label>
-                <label className="flex h-10 cursor-pointer items-center gap-2">
+              <div className="flex flex-col gap-4 rounded-md border border-border p-4">
+                <FacetGroup
+                  legend="Topic"
+                  options={topicOptions.map((topic) => ({
+                    value: topic,
+                    label: topic,
+                    count: topicCounts.get(topic) ?? 0,
+                  }))}
+                  selected={topics}
+                  onToggle={(value) =>
+                    replaceParams({ topics: toggleListValue(topics, value) })
+                  }
+                />
+                <FacetGroup
+                  legend="Project"
+                  options={projectOptions.map((option) => ({
+                    value: option.slug,
+                    label: option.title,
+                    count: projectCounts.get(option.slug) ?? 0,
+                  }))}
+                  selected={projects}
+                  onToggle={(value) =>
+                    replaceParams({ projects: toggleListValue(projects, value) })
+                  }
+                />
+                <label className="flex w-fit cursor-pointer items-center gap-2">
                   <input
                     type="checkbox"
                     checked={featured}

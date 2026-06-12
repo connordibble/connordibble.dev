@@ -69,16 +69,16 @@ export function toIndexPost(post: WritingPost): WritingIndexPost {
 
 export type WritingIndexFilters = {
   q: string;
-  topic: string;
-  project: string;
+  topics: string[];
+  projects: string[];
   featured: boolean;
   sort: SortValue;
 };
 
 export const DEFAULT_FILTERS: WritingIndexFilters = {
   q: "",
-  topic: "",
-  project: "",
+  topics: [],
+  projects: [],
   featured: false,
   sort: DEFAULT_SORT,
 };
@@ -101,11 +101,15 @@ export function filterAndSortPosts(
 ): WritingIndexPost[] {
   const query = filters.q.trim().toLowerCase();
 
+  // Multi-select facets: OR within a facet, AND across facets.
   const matched = posts.filter(
     (post) =>
-      (!filters.topic || post.topics.includes(filters.topic)) &&
-      (!filters.project ||
-        post.projects.some((project) => project.slug === filters.project)) &&
+      (filters.topics.length === 0 ||
+        post.topics.some((topic) => filters.topics.includes(topic))) &&
+      (filters.projects.length === 0 ||
+        post.projects.some((project) =>
+          filters.projects.includes(project.slug),
+        )) &&
       (!filters.featured || post.featured) &&
       (!query || searchHaystack(post).includes(query)),
   );
