@@ -38,6 +38,45 @@ export function isSortValue(value: string | null): value is SortValue {
   return SORT_OPTIONS.some((option) => option.value === value);
 }
 
+/** Ascending; the pagination bar stays hidden until results outgrow the
+ * smallest size. */
+export const PAGE_SIZES = [10, 20, 50] as const;
+
+export type PageSize = (typeof PAGE_SIZES)[number];
+
+export const DEFAULT_PAGE_SIZE: PageSize = 10;
+
+export function isPageSize(value: number): value is PageSize {
+  return PAGE_SIZES.some((size) => size === value);
+}
+
+/**
+ * Page numbers for the pagination control: first and last page always
+ * visible, one sibling on each side of the current page, and `"gap"` where
+ * pages are elided. Renders a constant seven slots once the page count
+ * exceeds seven, so the control never changes width while paging.
+ */
+export function paginationItems(
+  current: number,
+  pageCount: number,
+): (number | "gap")[] {
+  if (pageCount <= 7) {
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+  const siblingsStart = Math.max(Math.min(current - 1, pageCount - 4), 3);
+  const siblingsEnd = Math.min(Math.max(current + 1, 5), pageCount - 2);
+  return [
+    1,
+    siblingsStart > 3 ? "gap" : 2,
+    ...Array.from(
+      { length: siblingsEnd - siblingsStart + 1 },
+      (_, index) => siblingsStart + index,
+    ),
+    siblingsEnd < pageCount - 2 ? "gap" : pageCount - 1,
+    pageCount,
+  ];
+}
+
 /** Parse the leading minute count out of strings like "10 min read". */
 export function parseReadMinutes(readTime: string): number {
   const match = readTime.match(/\d+/);

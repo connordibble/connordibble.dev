@@ -11,10 +11,15 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { WritingRow } from "./writing-row";
 import {
+  DEFAULT_PAGE_SIZE,
   DEFAULT_SORT,
   filterAndSortPosts,
+  isPageSize,
   isSortValue,
+  PAGE_SIZES,
+  paginationItems,
   SORT_OPTIONS,
+  type PageSize,
   type SortValue,
   type WritingIndexPost,
 } from "@/lib/writing-index";
@@ -181,6 +186,9 @@ export function WritingIndex({ posts }: WritingIndexProps) {
   const rawSort = searchParams.get("sort");
   const sort: SortValue = isSortValue(rawSort) ? rawSort : DEFAULT_SORT;
   const featured = searchParams.get("featured") === "1";
+  const perParam = Number(searchParams.get("per") ?? "");
+  const per: PageSize = isPageSize(perParam) ? perParam : DEFAULT_PAGE_SIZE;
+  const pageParam = Number(searchParams.get("page") ?? "1");
 
   const narrowingCount = topics.length + projects.length + (featured ? 1 : 0);
 
@@ -204,6 +212,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
     }
   }
 
+  const listRef = useRef<HTMLUListElement>(null);
   const debounceRef = useRef<number | null>(null);
   useEffect(
     () => () => {
@@ -214,16 +223,15 @@ export function WritingIndex({ posts }: WritingIndexProps) {
     [],
   );
 
-  const replaceParams = (
-    patch: Partial<{
-      q: string;
-      topics: string[];
-      projects: string[];
-      sort: SortValue;
-      featured: boolean;
-    }>,
-  ) => {
-    const next = { q: q.trim(), topics, projects, sort, featured, ...patch };
+  const buildQuery = (next: {
+    q: string;
+    topics: string[];
+    projects: string[];
+    sort: SortValue;
+    featured: boolean;
+    per: PageSize;
+    page: number;
+  }) => {
     const params = new URLSearchParams();
     if (next.q) params.set("q", next.q);
     if (next.topics.length > 0) params.set("topic", next.topics.join(","));
@@ -231,7 +239,32 @@ export function WritingIndex({ posts }: WritingIndexProps) {
       params.set("project", next.projects.join(","));
     if (next.sort !== DEFAULT_SORT) params.set("sort", next.sort);
     if (next.featured) params.set("featured", "1");
-    const query = params.toString();
+    if (next.per !== DEFAULT_PAGE_SIZE) params.set("per", String(next.per));
+    if (next.page > 1) params.set("page", String(next.page));
+    return params.toString();
+  };
+
+  const replaceParams = (
+    patch: Partial<{
+      q: string;
+      topics: string[];
+      projects: string[];
+      sort: SortValue;
+      featured: boolean;
+      per: PageSize;
+    }>,
+  ) => {
+    // Any refinement resets to the first page; the size preference persists.
+    const query = buildQuery({
+      q: q.trim(),
+      topics,
+      projects,
+      sort,
+      featured,
+      per,
+      page: 1,
+      ...patch,
+    });
     // Native replaceState (blessed by the Next docs for client-side filter
     // state) keeps useSearchParams in sync without an RSC round-trip, and
     // unlike router.replace it also works when the document was hard-loaded
@@ -254,7 +287,11 @@ export function WritingIndex({ posts }: WritingIndexProps) {
       window.clearTimeout(debounceRef.current);
     }
     setQ("");
-    window.history.replaceState(null, "", pathname);
+    // Filters and page reset; the per-page display preference survives.
+    const params = new URLSearchParams();
+    if (per !== DEFAULT_PAGE_SIZE) params.set("per", String(per));
+    const query = params.toString();
+    window.history.replaceState(null, "", query ? `${pathname}?${query}` : pathname);
   };
 
   const results = filterAndSortPosts(posts, {
@@ -296,6 +333,43 @@ export function WritingIndex({ posts }: WritingIndexProps) {
       ).length,
     ]),
   );
+
+  // Out-of-range or hand-edited page values clamp into range instead of
+  // showing an empty page. The bar (numbers and size select) stays hidden
+  // until results outgrow the smallest page size.
+  const pageCount = Math.max(1, Math.ceil(results.length / per));
+  const page = Number.isInteger(pageParam)
+    ? Math.min(Math.max(pageParam, 1), pageCount)
+    : 1;
+  const pagedResults = results.slice((page - 1) * per, page * per);
+  const rangeStart = (page - 1) * per + 1;
+  const rangeEnd = Math.min(page * per, results.length);
+  const showPaginationBar = results.length > PAGE_SIZES[0];
+
+  const hrefForPage = (target: number) => {
+    const query = buildQuery({
+      q: q.trim(),
+      topics,
+      projects,
+      sort,
+      featured,
+      per,
+      page: target,
+    });
+    return query ? `${pathname}?${query}` : pathname;
+  };
+
+  const goToPage = (target: number) => {
+    if (target === page) return;
+    // pushState rather than replaceState: each page is a navigation step, so
+    // the back button walks back through pages. The Next router syncs
+    // useSearchParams for both.
+    window.history.pushState(null, "", hrefForPage(target));
+    listRef.current?.scrollIntoView({
+      behavior: shouldReduceMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  };
 
   const isFiltering =
     q.trim() !== "" || topics.length > 0 || projects.length > 0 || featured ||
@@ -460,7 +534,9 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             aria-live="polite"
             className="font-mono text-caption text-text-subtle"
           >
-            {results.length} {results.length === 1 ? "essay" : "essays"}
+            {pageCount > 1
+              ? `${rangeStart}–${rangeEnd} of ${results.length} essays`
+              : `${results.length} ${results.length === 1 ? "essay" : "essays"}`}
           </p>
           {activeChips.map((chip) => (
             <button
@@ -487,13 +563,125 @@ export function WritingIndex({ posts }: WritingIndexProps) {
       </form>
 
       {results.length > 0 ? (
-        <ul className="mt-6 divide-y divide-border border-y border-border">
-          {results.map((post) => (
-            <li key={post.slug}>
-              <WritingRow post={post} />
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul
+            ref={listRef}
+            className="mt-6 scroll-mt-[5rem] divide-y divide-border border-y border-border"
+          >
+            {pagedResults.map((post) => (
+              <li key={post.slug}>
+                <WritingRow post={post} />
+              </li>
+            ))}
+          </ul>
+          {showPaginationBar ? (
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+              {pageCount > 1 ? (
+                <nav
+                  aria-label="Pagination"
+                  className="flex flex-wrap items-center gap-2"
+                >
+                  {page > 1 ? (
+                    <a
+                      href={hrefForPage(page - 1)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goToPage(page - 1);
+                      }}
+                      aria-label="Previous page"
+                      className="pill-link flex h-9 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-muted transition-colors duration-150"
+                    >
+                      <span aria-hidden>←</span>
+                      <span>Prev</span>
+                    </a>
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="flex h-9 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-subtle opacity-50"
+                    >
+                      <span>←</span>
+                      <span>Prev</span>
+                    </span>
+                  )}
+                  {paginationItems(page, pageCount).map((item, index) =>
+                    item === "gap" ? (
+                      <span
+                        key={`gap-${index}`}
+                        aria-hidden
+                        className="px-1 font-mono text-caption text-text-subtle"
+                      >
+                        …
+                      </span>
+                    ) : (
+                      <a
+                        key={item}
+                        href={hrefForPage(item)}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          goToPage(item);
+                        }}
+                        aria-label={`Page ${item}`}
+                        aria-current={item === page ? "page" : undefined}
+                        className={[
+                          "flex h-9 min-w-[2.25rem] items-center justify-center rounded-xs border px-1 font-mono text-caption transition-colors duration-150",
+                          item === page
+                            ? "border-accent/60 bg-accent-soft text-text"
+                            : "pill-link border-border bg-panel text-text-muted",
+                        ].join(" ")}
+                      >
+                        {item}
+                      </a>
+                    ),
+                  )}
+                  {page < pageCount ? (
+                    <a
+                      href={hrefForPage(page + 1)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goToPage(page + 1);
+                      }}
+                      aria-label="Next page"
+                      className="pill-link flex h-9 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-muted transition-colors duration-150"
+                    >
+                      <span>Next</span>
+                      <span aria-hidden>→</span>
+                    </a>
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="flex h-9 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-subtle opacity-50"
+                    >
+                      <span>Next</span>
+                      <span>→</span>
+                    </span>
+                  )}
+                </nav>
+              ) : null}
+              <label className="ml-auto flex items-center gap-2">
+                <span className={labelClass}>Per page</span>
+                <SelectField>
+                  <select
+                    value={per}
+                    onPointerDown={closeOpenSelectOnTriggerTap}
+                    onChange={(event) => {
+                      const nextPer = Number(event.target.value);
+                      if (isPageSize(nextPer)) {
+                        replaceParams({ per: nextPer });
+                      }
+                    }}
+                    className={selectClass}
+                  >
+                    {PAGE_SIZES.map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                </SelectField>
+              </label>
+            </div>
+          ) : null}
+        </>
       ) : (
         <div className="mt-6 rounded-md border border-border bg-panel px-6 py-10 text-center">
           <p className="text-body-small text-text-muted">
