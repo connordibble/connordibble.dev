@@ -24,7 +24,7 @@ export default function ProjectsPage() {
           <Breadcrumbs
             items={[{ label: "Home", href: "/" }, { label: "Projects" }]}
           />
-          <h1 className="mt-6 text-[40px] sm:text-display font-semibold tracking-tight text-text text-pretty">
+          <h1 className="mt-6 text-[2.5rem] sm:text-display font-semibold tracking-tight text-text text-pretty">
             Projects
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">

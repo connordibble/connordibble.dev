@@ -16,7 +16,7 @@ export function Hero() {
       <p className="text-body-small text-text-subtle">
         Senior Software Engineer, Frontend Platform & Design Systems
       </p>
-      <h1 className="mt-3 text-[40px] sm:text-display font-semibold tracking-tight text-text text-pretty">
+      <h1 className="mt-3 text-[2.5rem] sm:text-display font-semibold tracking-tight text-text text-pretty">
         Connor Dibble
       </h1>
       <p className="mt-6 max-w-144 text-body text-text-muted leading-relaxed text-pretty">

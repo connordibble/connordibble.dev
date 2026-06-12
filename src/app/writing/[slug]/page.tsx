@@ -75,7 +75,7 @@ export default async function WritingPostPage({
             <p className="mt-5 font-mono text-caption text-text-subtle">
               {post.displayDate} · {post.readTime}
             </p>
-            <h1 className="mt-4 text-[40px] font-semibold tracking-tight text-text text-pretty sm:text-display">
+            <h1 className="mt-4 text-[2.5rem] font-semibold tracking-tight text-text text-pretty sm:text-display">
               {post.title}
             </h1>
             <p className="mt-6 text-body text-text-muted leading-relaxed text-pretty">

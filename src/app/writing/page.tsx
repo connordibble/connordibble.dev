@@ -47,7 +47,7 @@ export default function WritingPage() {
           <Breadcrumbs
             items={[{ label: "Home", href: "/" }, { label: "Writing" }]}
           />
-          <h1 className="mt-6 text-[40px] font-semibold tracking-tight text-text text-pretty sm:text-display">
+          <h1 className="mt-6 text-[2.5rem] font-semibold tracking-tight text-text text-pretty sm:text-display">
             Writing
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">

@@ -59,7 +59,7 @@ export default async function ProjectDetailPage({
             <SectionLabel as="p" mark="asterisk">
               Project
             </SectionLabel>
-            <h1 className="mt-4 text-[40px] sm:text-display font-semibold tracking-tight text-text text-pretty">
+            <h1 className="mt-4 text-[2.5rem] sm:text-display font-semibold tracking-tight text-text text-pretty">
               {title}
             </h1>
             {owner ? (
