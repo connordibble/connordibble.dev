@@ -14,15 +14,15 @@ export const metadata: Metadata = {
 const notes = [
   {
     title: "Engineering Taste",
-    body: "I like boring leverage: component APIs and service contracts that are hard to misuse, distribution models that make upgrades survivable, documentation that stays close to the source of truth, and validation that catches drift before review.",
+    body: "I like boring leverage: clear boundaries, APIs that are hard to misuse, invariants enforced in the layer that can actually guarantee them, and delivery models that make the correct path the easiest one.",
   },
   {
     title: "Working Style",
-    body: "People tend to pull me into ambiguous platform problems: choose the distribution model, define the API boundary, draw the line between atom and pattern, make the migration path realistic, and write down enough context that teams can move without a meeting.",
+    body: "I tend to start with evidence and the people closest to the problem. Then I make the tradeoffs explicit, choose the smallest architecture that preserves the important guarantees, and leave behind enough context, tooling, and feedback loops for the system to outgrow my direct involvement.",
   },
   {
     title: "Outside the Editor",
-    body: "I'm training for my first half marathon, I'll watch almost any sport, and I still like the hardware side of computers enough that a PC build can steal an evening. Family is the anchor.",
+    body: "I'm 6'8\", so basketball found me early, but I'll play or watch nearly any sport. I'm training for my first half marathon and still enjoy losing an evening to a PC build. Family is the anchor.",
   },
 ];
 
@@ -36,20 +36,40 @@ export default function AboutPage() {
             items={[{ label: "Home", href: "/" }, { label: "About" }]}
           />
           <h1 className="mt-6 text-[2.5rem] font-semibold tracking-tight text-text text-pretty sm:text-display">
-            About Connor
+            About me
           </h1>
-          <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
-            I&apos;ve spent most of my career at State Farm, moving from
-            product engineering on Drive Safe &amp; Save telematics into design
-            systems and now leading the statefarm.com Digital Experience suite.
-            I&apos;m drawn to the infrastructure between design and engineering:
-            web components, design tokens, GraphQL/REST contracts, Figma
-            tooling, agent workflows, and the governance decisions that either
-            make the right path obvious or leave every team to rediscover the
-            same problems. Outside work, Proceris is where I test small AI
-            product ideas around the documentation and compliance overhead that
-            quietly slows engineering teams down.
-          </p>
+          <div className="mt-6 max-w-3xl space-y-5 text-body text-text-muted leading-relaxed text-pretty">
+            <p>
+              I&apos;m a software engineer who tends to see the whole system:
+              the product experience, the services and data behind it, the way
+              software reaches production, and the people who have to evolve it
+              after launch. I started on customer-facing telematics products,
+              working across frontend applications, backend services, and
+              event-driven integrations before moving into platform work shared
+              by many products and teams. Today I lead the statefarm.com Digital
+              Experience suite and steward an enterprise design system. The
+              through-line across that work isn&apos;t the stack; it&apos;s
+              finding the decisions that help teams move faster without giving up
+              reliability, accessibility, or long-term control.
+            </p>
+            <p>
+              I&apos;m happiest when a problem is both technically deep and
+              organizationally messy. I like tracing it far enough to find the
+              real constraint, whether it lives in a component boundary, a data
+              invariant, a delivery model, or the economics of a system at
+              scale. The implementation matters, but so do the discovery,
+              migration path, operating model, and explanation. Good platform
+              work has to make sense to the engineer integrating it, the
+              designer evolving it, and the leader deciding whether to trust
+              it.
+            </p>
+            <p>
+              Through Proceris, I build small AI products and stay close to the
+              full product loop: finding a painful workflow, talking with
+              prospective users, building across the stack, and learning
+              whether an idea earns its way into someone&apos;s work.
+            </p>
+          </div>
         </section>
 
         <section className="container-wide py-12 sm:py-16">

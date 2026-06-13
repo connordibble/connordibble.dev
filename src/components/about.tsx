@@ -6,14 +6,16 @@ export function About() {
     <section id="about" className="container-wide pt-8 pb-10 sm:pt-10 sm:pb-14">
       <SectionLabel mark="rings">About</SectionLabel>
       <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
-        In practice that means component APIs, GraphQL/REST contracts,
-        design-token pipelines, Figma-to-code tooling, and the governance that
-        keeps large frontend orgs aligned. At State Farm, I lead the
-        statefarm.com Digital Experience platform across customer and
-        agent-facing surfaces and steward SFDS, the enterprise design system
-        used by 1000+ engineers and designers. Outside work, I build focused AI
-        products through Proceris around R&D documentation and workflow
-        automation for small teams.
+        I&apos;m a software engineer who likes problems that cross layers:
+        product workflows, frontend architecture, APIs and data contracts,
+        delivery infrastructure, and the organizational work required to make a
+        platform last. At State Farm, I lead the statefarm.com Digital
+        Experience platform and steward SFDS, serving 1000+ engineers and
+        designers across customer, agent, and internal products. My path here
+        includes React and Angular applications, Java and Node.js services,
+        event-driven systems, and applied AI tooling. Through Proceris, I also
+        build small AI products and stay close to product discovery, customer
+        conversations, and the full arc from idea to working software.
       </p>
       <Link
         href="/about"
