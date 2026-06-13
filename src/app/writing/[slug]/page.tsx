@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { RelatedReading } from "@/components/related-reading";
 import { SectionLabel } from "@/components/section-label";
+import { WritingContact } from "@/components/writing-contact";
 import { WritingFigure } from "@/components/writing-figures";
 import {
   getWritingPostBySlug,
@@ -108,6 +109,7 @@ export default async function WritingPostPage({
             ))}
           </div>
 
+          <WritingContact essayTitle={post.title} className="mt-16" />
           <RelatedReading items={resolveRelated(post.related)} />
         </article>
       </main>

@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { SectionLabel } from "@/components/section-label";
 import { WritingCard } from "@/components/writing-card";
+import { WritingContact } from "@/components/writing-contact";
 import { WritingIndex } from "@/components/writing-index";
 import { WritingRow } from "@/components/writing-row";
 import { getFeaturedWriting, writingPosts } from "@/data/writing";
@@ -78,9 +79,10 @@ export default function WritingPage() {
           <Suspense fallback={<WritingListFallback />}>
             <WritingIndex posts={indexPosts} />
           </Suspense>
+          <WritingContact className="mt-16" />
         </section>
       </main>
-      <Footer rings={false} />
+      <Footer />
     </>
   );
 }
