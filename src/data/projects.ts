@@ -73,7 +73,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Impact",
-          body: "70+ primitives shipped. Named the official migration target for statefarm.com and adopted across all eight Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became the template for cross-org platform delivery.",
+          body: "70+ primitives shipped. Named the official migration target for statefarm.com and adopted across all eight Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became a template for cross-org platform delivery.",
         },
         {
           heading: "Stack",
@@ -84,7 +84,7 @@ export const projects: Project[] = [
   },
   {
     slug: "agent-convention-feedback",
-    title: "Agent Feedback Platform",
+    title: "Insurance Agent Feedback Platform",
     owner: "State Farm — closed source",
     description:
       "Full-stack AI feedback platform commissioned by State Farm's EVP of enterprise technology. Went from concept to production in two months for its debut at agency convention, and the pilot earned backing to become the official support and feedback channel for all 10,000+ State Farm agents.",
@@ -95,7 +95,7 @@ export const projects: Project[] = [
       sections: [
         {
           heading: "Problem",
-          body: "State Farm leadership wanted a real read on what its 10,000+ agents experience across service, ECRM, underwriting, and agent-support workflows, and the existing channel was free-form feedback that died in spreadsheets. The EVP of enterprise technology asked me directly to fix that in time for agency convention, which left roughly two months from concept through design to production.",
+          body: "State Farm leadership wanted a real read on what its 10,000+ agents experience across service, ECRM, underwriting, and agent-support workflows, and the existing channel was free-form feedback that oftentimes died in spreadsheets or manual review queues. The EVP of enterprise technology asked me and a small horizontal team to fix that in time for agency convention, which left roughly two months from concept through design to production.",
         },
         {
           heading: "Approach",
@@ -107,7 +107,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Impact",
-          body: "The reception from agents and from the executives it was built for earned support to make the platform the official support and feedback channel for the entire 10,000+ agency force. That scale-up is in progress now, taking the product from convention pilot to a standing channel, and the build set the pattern for blending human feedback, AI summarization, and reviewable evidence in internal workflows.",
+          body: "The reception from agents and from the executives team earned support to build on the pilot and make the platform the official support and feedback channel for the entire 10,000+ agency force. That scale-up is in progress now, taking the product from convention pilot to a standing channel, and the build set the pattern for blending human feedback, AI summarization, and reviewable evidence in internal workflows.",
         },
         {
           heading: "Stack",

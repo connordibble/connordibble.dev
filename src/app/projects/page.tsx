@@ -35,7 +35,7 @@ export default function ProjectsPage() {
         </section>
 
         <section className="container-wide pb-16 sm:pb-24">
-          <SectionLabel mark="asterisk">All work</SectionLabel>
+          <SectionLabel mark="asterisk">Highlighted work</SectionLabel>
           <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
             {projects.map((project) => (
               <li key={project.slug}>
