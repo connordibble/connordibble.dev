@@ -315,7 +315,7 @@ function PageRequestAnatomyFigure() {
         </div>
         <Zone
           label="Components"
-          items={["entry point", "per-component chunks"]}
+          items={["stable component entry files", "per-component chunks"]}
         />
         <div className="hidden items-center font-mono text-caption text-text-subtle sm:flex">
           →
@@ -342,7 +342,7 @@ function CacheTiersFigure() {
         [
           "Browser",
           "Five-minute TTL on everything",
-          "One-year TTL on hashed files, usage-tuned TTL on entry points",
+          "One-year TTL on hashed files, usage-tuned TTL on component entries",
         ],
         [
           "CDN edge",
@@ -362,7 +362,7 @@ function CacheContractFigure() {
       header={["File class", "TTL", "Cache busts when"]}
       rows={[
         [
-          "Entry point (stable URL)",
+          "Component entry files (stable URLs)",
           "Lenient, tuned to observed usage",
           "The TTL expires",
         ],
