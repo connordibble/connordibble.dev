@@ -39,19 +39,20 @@ export default async function OpenGraphImage() {
           fontFamily: "Geist",
         }}
       >
-        {/* The CD brand mark as a quiet, oversized watermark, bleeding off the
-            right edge exactly like the hero. Single muted tone keeps it
-            background texture, not a competing logo. */}
+        {/* The CD brand mark as a quiet watermark in the right field. Unlike
+            the hero (which bleeds off the screen edge), the card is a contained
+            object, so the mark sits fully inside it with margin. Single muted
+            tone keeps it background texture, not a competing logo. */}
         <svg
-          width={780}
-          height={780}
+          width={560}
+          height={560}
           viewBox="0 0 512 512"
           fill="none"
           stroke="#3d332b"
           strokeWidth={36}
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ position: "absolute", top: -75, right: -188, opacity: 0.55 }}
+          style={{ position: "absolute", top: 35, left: 688, opacity: 0.5 }}
         >
           <path d="M278 160H214C160.981 160 120 200.981 120 256C120 311.019 160.981 352 214 352H278" />
           <path d="M260 160V352H304C357.019 352 392 311.019 392 256C392 200.981 357.019 160 304 160H260" />
