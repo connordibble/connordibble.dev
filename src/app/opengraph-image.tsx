@@ -1,5 +1,3 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt =
@@ -12,19 +10,43 @@ export const size = {
 
 export const contentType = "image/png";
 
-// Vendored Geist TTFs (the site's typeface) so the card renders in the real
-// brand font instead of the next/og fallback. Read at build time; the route
-// is fully static, so this never runs at request time.
-function loadFont(file: string) {
-  return readFile(join(process.cwd(), "src", "app", "_fonts", file));
+// Prerender to a static PNG at build time. The route would otherwise run in
+// the Cloudflare Worker at request time, where it has previously failed.
+export const dynamic = "force-static";
+
+// Geist (the site's typeface) from the official package CDN. Fetched rather
+// than read from disk so it also works if the route ever runs in the Worker
+// runtime, which has no Node filesystem access to the source tree.
+const FONT_BASE = "https://cdn.jsdelivr.net/npm/geist@1.7.2/dist/fonts";
+const FONT_FILES = {
+  regular: `${FONT_BASE}/geist-sans/Geist-Regular.ttf`,
+  semibold: `${FONT_BASE}/geist-sans/Geist-SemiBold.ttf`,
+  mono: `${FONT_BASE}/geist-mono/GeistMono-Regular.ttf`,
+};
+
+async function fetchFont(url: string) {
+  const res = await fetch(url, { cache: "force-cache" });
+  if (!res.ok) throw new Error(`Failed to load font ${url} (${res.status})`);
+  return res.arrayBuffer();
+}
+
+/** Returns the three weights, or null if any fetch fails so the card still
+ * renders (in the default face) instead of 500-ing the whole image. */
+async function loadFontData() {
+  try {
+    const [regular, semibold, mono] = await Promise.all([
+      fetchFont(FONT_FILES.regular),
+      fetchFont(FONT_FILES.semibold),
+      fetchFont(FONT_FILES.mono),
+    ]);
+    return { regular, semibold, mono };
+  } catch {
+    return null;
+  }
 }
 
 export default async function OpenGraphImage() {
-  const [geist, geistSemiBold, geistMono] = await Promise.all([
-    loadFont("Geist-Regular.ttf"),
-    loadFont("Geist-SemiBold.ttf"),
-    loadFont("GeistMono-Regular.ttf"),
-  ]);
+  const fonts = await loadFontData();
 
   return new ImageResponse(
     (
@@ -36,7 +58,7 @@ export default async function OpenGraphImage() {
           position: "relative",
           overflow: "hidden",
           background: "#0b0908",
-          fontFamily: "Geist",
+          fontFamily: fonts ? "Geist" : "sans-serif",
         }}
       >
         {/* The CD brand mark as a quiet watermark in the right field. Unlike
@@ -80,7 +102,7 @@ export default async function OpenGraphImage() {
           />
           <div
             style={{
-              fontFamily: "Geist Mono",
+              fontFamily: fonts ? "Geist Mono" : "monospace",
               fontSize: 25,
               letterSpacing: 4,
               textTransform: "uppercase",
@@ -91,7 +113,6 @@ export default async function OpenGraphImage() {
           </div>
           <div
             style={{
-              fontFamily: "Geist",
               fontWeight: 600,
               fontSize: 104,
               lineHeight: 1,
@@ -104,7 +125,6 @@ export default async function OpenGraphImage() {
           </div>
           <div
             style={{
-              fontFamily: "Geist",
               fontSize: 33,
               lineHeight: 1.4,
               color: "#afa69b",
@@ -117,7 +137,7 @@ export default async function OpenGraphImage() {
           </div>
           <div
             style={{
-              fontFamily: "Geist Mono",
+              fontFamily: fonts ? "Geist Mono" : "monospace",
               fontSize: 23,
               color: "#c97a45",
               marginTop: 48,
@@ -130,11 +150,15 @@ export default async function OpenGraphImage() {
     ),
     {
       ...size,
-      fonts: [
-        { name: "Geist", data: geist, weight: 400, style: "normal" },
-        { name: "Geist", data: geistSemiBold, weight: 600, style: "normal" },
-        { name: "Geist Mono", data: geistMono, weight: 400, style: "normal" },
-      ],
+      ...(fonts
+        ? {
+            fonts: [
+              { name: "Geist", data: fonts.regular, weight: 400, style: "normal" },
+              { name: "Geist", data: fonts.semibold, weight: 600, style: "normal" },
+              { name: "Geist Mono", data: fonts.mono, weight: 400, style: "normal" },
+            ],
+          }
+        : {}),
     },
   );
 }
