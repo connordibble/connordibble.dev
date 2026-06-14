@@ -20,24 +20,25 @@ export default function AppleIcon() {
           justifyContent: "center",
         }}
       >
-        <div
-          style={{
-            width: 132,
-            height: 132,
-            border: "3px solid #2e2620",
-            borderRadius: 36,
-            background: "#161210",
-            color: "#f0ece6",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 54,
-            fontWeight: 600,
-            letterSpacing: -5,
-          }}
+        {/* The CD arc mark, matching the favicon and hero watermark. */}
+        <svg
+          width={118}
+          height={118}
+          viewBox="0 0 512 512"
+          fill="none"
+          strokeWidth={44}
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          C<span style={{ color: "#c97a45" }}>D</span>
-        </div>
+          <path
+            d="M278 160H214C160.981 160 120 200.981 120 256C120 311.019 160.981 352 214 352H278"
+            stroke="#f0ece6"
+          />
+          <path
+            d="M260 160V352H304C357.019 352 392 311.019 392 256C392 200.981 357.019 160 304 160H260"
+            stroke="#c97a45"
+          />
+        </svg>
       </div>
     ),
     size,

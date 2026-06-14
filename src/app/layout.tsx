@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 const siteTitle =
-  "Connor Dibble — Senior Software Engineer, Frontend Platform & Design Systems";
+  "Connor Dibble — Senior Software Engineer, Platform Engineering & Design Systems";
 const siteDescription =
-  "Enterprise design systems, AI tooling, and product platforms that turn design intent into reliable, production-ready software.";
+  "Senior software engineer working across platform engineering, design systems, and AI tooling for reliable software at scale.";
 
 export const metadata: Metadata = {
   title: siteTitle,
