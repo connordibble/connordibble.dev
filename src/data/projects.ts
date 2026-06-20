@@ -60,36 +60,6 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "sfds",
-    title: "SFDS",
-    owner: "State Farm — closed source",
-    description:
-      "State Farm's canonical enterprise design system and migration target for statefarm.com. I led sf-ui, a framework-agnostic Lit/Web Components library with 70+ primitives, plus the Figma Variables → W3C token pipeline and npm/CDN release governance for 1000+ engineers and designers.",
-    tags: ["Web Components", "TypeScript", "Design Tokens", "npm + CDN"],
-    detail: {
-      headline:
-        "State Farm's canonical enterprise design system, used by 1000+ engineers and designers across one of the largest insurance companies in the US.",
-      sections: [
-        {
-          heading: "Problem",
-          body: "State Farm's frontend ecosystem spans hundreds of product teams shipping inconsistent UI across Angular, React, Next.js, JSP, and other frameworks. Past unification efforts didn't hold: brand drift and accessibility gaps compounded with every release, with duplicated engineering effort as the ongoing tax. The org needed a single framework-agnostic system any team could adopt without rewriting its stack.",
-        },
-        {
-          heading: "Approach",
-          body: "Architected sf-ui, a framework-agnostic Lit component library. The same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Used Web Components and Shadow DOM to encapsulate behavior and styling while keeping the integration surface simple for product teams. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
-        },
-        {
-          heading: "Impact",
-          body: "70+ primitives shipped. Named the official migration target for statefarm.com and adopted across all eight Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became a template for cross-org platform delivery.",
-        },
-        {
-          heading: "Stack",
-          body: "Lit · Web Components · TypeScript · Figma Plugin API · W3C Design Tokens · npm · CDN distribution · GitLab CI/CD",
-        },
-      ],
-    },
-  },
-  {
     slug: "researchlog",
     title: "ResearchLog",
     owner: "Proceris — closed source",
@@ -115,6 +85,36 @@ export const projects: Project[] = [
         {
           heading: "Stack",
           body: "Angular 21 · NestJS 11 · Nx · Supabase (Postgres 15 + RLS) · Anthropic Claude · GitHub App · Inngest · Zod v4 · TypeScript strict",
+        },
+      ],
+    },
+  },
+  {
+    slug: "sfds",
+    title: "SFDS",
+    owner: "State Farm — closed source",
+    description:
+      "State Farm's canonical enterprise design system and migration target for statefarm.com. I led sf-ui, a framework-agnostic Lit/Web Components library with 70+ primitives, plus the Figma Variables → W3C token pipeline and npm/CDN release governance for 1000+ engineers and designers.",
+    tags: ["Web Components", "TypeScript", "Design Tokens", "npm + CDN"],
+    detail: {
+      headline:
+        "State Farm's canonical enterprise design system, used by 1000+ engineers and designers across one of the largest insurance companies in the US.",
+      sections: [
+        {
+          heading: "Problem",
+          body: "State Farm's frontend ecosystem spans hundreds of product teams shipping inconsistent UI across Angular, React, Next.js, JSP, and other frameworks. Past unification efforts didn't hold: brand drift and accessibility gaps compounded with every release, with duplicated engineering effort as the ongoing tax. The org needed a single framework-agnostic system any team could adopt without rewriting its stack.",
+        },
+        {
+          heading: "Approach",
+          body: "Architected sf-ui, a framework-agnostic Lit component library. The same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Used Web Components and Shadow DOM to encapsulate behavior and styling while keeping the integration surface simple for product teams. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
+        },
+        {
+          heading: "Impact",
+          body: "70+ primitives shipped. Named the official migration target for statefarm.com and adopted across all eight Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became a template for cross-org platform delivery.",
+        },
+        {
+          heading: "Stack",
+          body: "Lit · Web Components · TypeScript · Figma Plugin API · W3C Design Tokens · npm · CDN distribution · GitLab CI/CD",
         },
       ],
     },
