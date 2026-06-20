@@ -40,7 +40,7 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  const { title, owner, tags, detail, repoUrl } = project;
+  const { title, owner, tags, detail, repoUrl, links } = project;
 
   return (
     <>
@@ -80,18 +80,36 @@ export default async function ProjectDetailPage({
                 </li>
               ))}
             </ul>
-            {repoUrl ? (
-              <a
-                href={repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pill-link mt-6 inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
-              >
-                <span>View source on GitHub</span>
-                <span aria-hidden className="block origin-center -rotate-45">
-                  →
-                </span>
-              </a>
+            {repoUrl || links?.length ? (
+              <div className="mt-6 flex flex-wrap gap-3">
+                {repoUrl ? (
+                  <a
+                    href={repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+                  >
+                    <span>View source on GitHub</span>
+                    <span aria-hidden className="block origin-center -rotate-45">
+                      →
+                    </span>
+                  </a>
+                ) : null}
+                {links?.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+                  >
+                    <span>{link.label}</span>
+                    <span aria-hidden className="block origin-center -rotate-45">
+                      →
+                    </span>
+                  </a>
+                ))}
+              </div>
             ) : null}
           </header>
 

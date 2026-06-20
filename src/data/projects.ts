@@ -3,6 +3,11 @@ export type ProjectDetailSection = {
   body: string;
 };
 
+export type ProjectLink = {
+  label: string;
+  href: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -13,6 +18,8 @@ export type Project = {
   externalUrl?: string;
   /** If set, the detail page shows a source link to this repo. */
   repoUrl?: string;
+  /** Additional external links shown on the detail page. */
+  links?: ProjectLink[];
   /** If set, the card links to /projects/[slug] and renders this content there. */
   detail?: {
     headline: string;
@@ -21,6 +28,51 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    slug: "zod-ai-tool",
+    title: "zod-ai-tool",
+    owner: "Open source",
+    description:
+      "Small TypeScript package that derives Anthropic, OpenAI, and Gemini tool definitions from one Zod schema, then validates model tool input with that same schema. Built for applications that talk directly to provider SDKs and need one contract instead of duplicated JSON Schema.",
+    tags: ["TypeScript", "Zod", "OpenAI", "Anthropic", "Gemini"],
+    repoUrl: "https://github.com/connordibble/zod-ai-tool",
+    links: [
+      {
+        label: "View package on npm",
+        href: "https://www.npmjs.com/package/zod-ai-tool",
+      },
+    ],
+    detail: {
+      headline:
+        "A small package for a narrow boundary: provider tool schemas and runtime validation derived from the same Zod object.",
+      sections: [
+        {
+          heading: "Problem",
+          body: "Tool use creates two contracts that want to drift. The provider gets a JSON Schema shape so the model knows what to return. The application keeps a Zod schema so model output can be checked before it touches data. When those are written separately, the mismatch usually shows up late: a range limit exists in one place, an enum value lands in another, or an optional field means something different to the provider than it means to the validator.",
+        },
+        {
+          heading: "Boundary",
+          body: "zod-ai-tool keeps that boundary deliberately small. It does not call Anthropic, OpenAI, or Gemini. It does not parse streams, run tool loops, or decide which function to call. It takes a root Zod object, derives provider-ready tool definitions, and gives the application the original schema back as validate and safeParse. The Zod schema stays the source of truth.",
+        },
+        {
+          heading: "Implementation",
+          body: "The package supports Zod 3 and Zod 4 without version sniffing. On Zod 4 it uses the built-in toJSONSchema converter. On Zod 3 it lazily falls back to zod-to-json-schema, so Zod 4 consumers do not pay a static import cost. Provider SDK types are defined locally to avoid runtime SDK dependencies, while development tests assert Anthropic and OpenAI compatibility against the real SDK types.",
+        },
+        {
+          heading: "Strict Mode",
+          body: "OpenAI strict mode is opt-in. When enabled, object schemas get additionalProperties: false and every declared property is marked required. Optional Zod fields must already accept null, because OpenAI represents optional values as null under strict mode. The package refuses to hide that difference by rewriting returned values before validation.",
+        },
+        {
+          heading: "Release Discipline",
+          body: "The repo is treated like production infrastructure despite its size. CI runs lint, typecheck, tests, build, and a Node 20/22/24 matrix across minimum and current Zod 3 and Zod 4 releases. Coverage is enforced. Examples are typechecked and smoke-run. Releases use semantic-release with npm provenance, so compatibility and package metadata stay part of the contract.",
+        },
+        {
+          heading: "Stack",
+          body: "TypeScript · Zod 3/4 · zod-to-json-schema · Vitest · tsup · semantic-release · Anthropic/OpenAI/Gemini provider shapes",
+        },
+      ],
+    },
+  },
   {
     slug: "designrail",
     title: "DesignRail",
