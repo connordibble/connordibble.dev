@@ -74,42 +74,44 @@ export default function AboutPage() {
 
         <section className="container-wide py-12 sm:py-16">
           <SectionLabel mark="rings">What I Care About</SectionLabel>
-          <div className="mt-8 divide-y divide-border border-y border-border">
+          <div className="mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
             {notes.map((note) => (
               <section
                 key={note.title}
-                className="grid gap-3 py-6 sm:grid-cols-[180px_1fr] sm:gap-8"
+                className="border-l border-border pl-4"
               >
                 <h2 className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
                   {note.title}
                 </h2>
-                <p className="text-body-small leading-relaxed text-text-muted text-pretty">
+                <p className="mt-3 text-body-small leading-relaxed text-text-muted text-pretty">
                   {note.body}
                 </p>
               </section>
             ))}
           </div>
-        </section>
-
-        <section className="container-wide pb-16 sm:pb-24">
-          <SectionLabel mark="triangle">Elsewhere</SectionLabel>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/writing"
-              className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
-            >
-              <span>Writing</span>
-              <span aria-hidden>→</span>
-            </Link>
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
-            >
-              <span>Resume</span>
-              <span aria-hidden>→</span>
-            </a>
+          <div className="mt-10 max-w-5xl border-t border-border pt-6 sm:flex sm:items-center sm:justify-between sm:gap-8">
+            <p className="max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
+              For a deeper look at how I think and what I ship, my writing and
+              resume are the best next stops.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3 sm:mt-0 sm:shrink-0">
+              <Link
+                href="/writing"
+                className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+              >
+                <span>Writing</span>
+                <span aria-hidden>→</span>
+              </Link>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+              >
+                <span>Resume</span>
+                <span aria-hidden>→</span>
+              </a>
+            </div>
           </div>
         </section>
       </main>
