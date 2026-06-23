@@ -79,7 +79,13 @@ export const projects: Project[] = [
     owner: "Open source",
     description:
       "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Translates Figma component intent into Web Component mappings, validates compliance, and records human review decisions through a GraphQL API.",
-    tags: ["React", "TypeScript", "GraphQL", "Drizzle", "Figma MCP"],
+    tags: [
+      "Developer Tools",
+      "React",
+      "TypeScript",
+      "GraphQL",
+      "Figma MCP",
+    ],
     repoUrl: "https://github.com/connordibble/DesignRail",
     detail: {
       headline:
@@ -92,6 +98,10 @@ export const projects: Project[] = [
         {
           heading: "Approach",
           body: "A pnpm monorepo with a React review UI, a Fastify and Apollo GraphQL API, and shared Zod schemas at every boundary. Mock Figma fixtures normalize into component intent, a deterministic mapper proposes Shoelace Web Component implementations, and a compliance agent reports accessibility, token, and variant findings alongside each mapping. Review decisions persist through the GraphQL API so mapping quality is auditable over time, and exports produce implementation-ready HTML, React examples, or agent-ready briefs.",
+        },
+        {
+          heading: "Why It Matters for Developer Tools",
+          body: "DesignRail treats AI-assisted implementation as a developer experience problem, not just a generation problem. The important layer is the review surface: what changed, why the mapping was proposed, whether it follows the design system, and what a human accepted or rejected before the result enters a codebase. That is the layer that turns model output into something a developer can trust, debug, and improve.",
         },
         {
           heading: "Status",
