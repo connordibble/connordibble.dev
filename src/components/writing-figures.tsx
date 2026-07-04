@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { WritingFigureVariant } from "@/data/writing";
+import { InclineReviewFigure } from "./writing-figure-incline";
 
 type WritingFigureProps = {
   variant: WritingFigureVariant;
@@ -17,6 +18,16 @@ const figures = {
   "cache-tiers": CacheTiersFigure,
   "cache-contract": CacheContractFigure,
   "traffic-result": TrafficResultFigure,
+  "raw-vs-proposal": RawVsProposalFigure,
+  "proposal-anatomy": ProposalAnatomyFigure,
+  "claim-path": ClaimPathFigure,
+  "summary-trust-model": SummaryTrustModelFigure,
+  "beside-vs-in-path": BesideVsInPathFigure,
+  "reliability-concerns": ReliabilityConcernsFigure,
+  "governance-map": GovernanceMapFigure,
+  "behavior-breaking-changes": BehaviorBreakingChangesFigure,
+  "media-to-profile": MediaToProfileFigure,
+  "incline-review": InclineReviewFigure,
 } satisfies Record<WritingFigureVariant, ComponentType>;
 
 export function WritingFigure({ variant, caption }: WritingFigureProps) {
@@ -48,7 +59,7 @@ function Zone({ label, items, emphasis, accentItem }: ZoneProps) {
           : "border-border bg-panel",
       ].join(" ")}
     >
-      <p className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+      <p className="font-mono text-caption text-text-subtle">
         {label}
       </p>
       <ul className="mt-3 space-y-2">
@@ -129,7 +140,7 @@ function WritePathsFigure() {
           <div
             key={`header-${column}`}
             className={[
-              "p-3 font-mono text-caption uppercase tracking-[0.12em] text-text-subtle",
+              "p-3 font-mono text-caption text-text-subtle",
               column === 2 ? "bg-panel-raised" : "bg-panel",
             ].join(" ")}
           >
@@ -171,7 +182,7 @@ function FigureTable({ header, rows, keyPrefix }: FigureTableProps) {
         {header.map((label, column) => (
           <div
             key={`${keyPrefix}-header-${column}`}
-            className="bg-panel-raised px-3 py-2 font-mono text-caption uppercase tracking-[0.12em] text-text-subtle"
+            className="bg-panel-raised px-3 py-2 font-mono text-caption text-text-subtle"
           >
             {label}
           </div>
@@ -376,17 +387,274 @@ function CacheContractFigure() {
   );
 }
 
+/* Figures below are staged for the drafts in work/essay-drafts (01–05). */
+
+function RawVsProposalFigure() {
+  return (
+    <FigureTable
+      keyPrefix="rvp"
+      header={["", "Raw generation", "Structured proposal"]}
+      rows={[
+        [
+          "First artifact",
+          "Code on a branch",
+          "A recorded mapping proposal",
+        ],
+        [
+          "Reviewer sees",
+          "A diff, with the intent reverse-engineered",
+          "Intent, mapping, and findings side by side",
+        ],
+        [
+          "Checks run",
+          "After merge, if someone wired them up",
+          "Before acceptance, attached to the proposal",
+        ],
+        [
+          "What survives",
+          "Cleanup disappears into the commit",
+          "The decision history, per mapping",
+        ],
+      ]}
+    />
+  );
+}
+
+function ProposalAnatomyFigure() {
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2">
+      <Zone
+        label="From the design"
+        items={["source node or fixture", "normalized component intent"]}
+      />
+      <ZoneArrow />
+      <Zone
+        label="The proposal"
+        emphasis
+        items={[
+          "component + variant",
+          "props and tokens",
+          "compliance findings",
+        ]}
+      />
+      <ZoneArrow />
+      <Zone
+        label="The decision"
+        items={["accept / reject / edit"]}
+        accentItem="persisted, queryable later"
+      />
+    </div>
+  );
+}
+
+function ClaimPathFigure() {
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2">
+      <Zone
+        label="The theme"
+        items={["synthesized label", "a cluster of comments"]}
+      />
+      <ZoneArrow />
+      <Zone
+        label="The evidence"
+        emphasis
+        items={[
+          "the slice that produced it",
+          "traceable source quotes",
+          "conversation drilldown",
+        ]}
+      />
+      <ZoneArrow />
+      <Zone
+        label="The handoff"
+        items={["Excel export", "downstream owner"]}
+        accentItem="scope travels with it"
+      />
+    </div>
+  );
+}
+
+function SummaryTrustModelFigure() {
+  return (
+    <FigureTable
+      keyPrefix="stm"
+      header={["", "Summary alone", "Summary with a source path"]}
+      rows={[
+        [
+          "A theme looks wrong",
+          "An argument about whether it feels right",
+          "A reviewable grouping problem",
+        ],
+        [
+          "Correcting it",
+          "Re-run the synthesis and hope",
+          "Fix the mapping the quotes expose",
+        ],
+        [
+          "The handoff",
+          "A paraphrase travels",
+          "The evidence travels",
+        ],
+      ]}
+    />
+  );
+}
+
+function BesideVsInPathFigure() {
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2">
+      <Zone
+        label="Beside the path"
+        items={[
+          "a suggestion someone can ignore",
+          "rerun the prompt",
+          "finish the work by hand",
+        ]}
+      />
+      <ZoneArrow />
+      <Zone
+        label="In the path"
+        emphasis
+        items={["gates a review", "writes durable state", "feeds a dashboard"]}
+        accentItem="failures need an owner"
+      />
+    </div>
+  );
+}
+
+function ReliabilityConcernsFigure() {
+  return (
+    <FigureTable
+      keyPrefix="rc"
+      header={["Concern", "The question", "When it slips"]}
+      rows={[
+        [
+          "Queue depth",
+          "How long can work wait before trust erodes?",
+          "Alert, shed optional work, surface the delay",
+        ],
+        [
+          "Retry rate",
+          "Is the workflow healing or looping?",
+          "Stop repeated spend, route to review",
+        ],
+        [
+          "Idempotency",
+          "Can a replay preserve human decisions?",
+          "Guard writes at the database",
+        ],
+        [
+          "Cost ceiling",
+          "Can it run at the volume people expect?",
+          "Cap, batch, or change the unit of work",
+        ],
+        [
+          "Rate limits",
+          "What happens when the provider says wait?",
+          "Back off and make the delay visible",
+        ],
+        [
+          "Replay",
+          "Can a human rerun a corrected unit safely?",
+          "Preserve inputs, outputs, and decisions",
+        ],
+        [
+          "Ownership",
+          "Who acts when the promise slips?",
+          "Page, ticket, or documented handoff",
+        ],
+      ]}
+    />
+  );
+}
+
+function GovernanceMapFigure() {
+  return (
+    <FigureTable
+      keyPrefix="gm"
+      header={["Concern", "Design system", "Agentic system"]}
+      rows={[
+        ["Primitives", "Component APIs", "Tools and structured actions"],
+        ["Constraints", "Design tokens", "Schemas and output contracts"],
+        ["Guidance", "Versioned docs", "Skills and live instructions"],
+        ["Enforcement", "Compliance checks", "Deterministic validators"],
+        ["Judgment", "Design review", "Human approval of artifacts"],
+        ["Change", "Deprecation windows", "Versioned behavior changes"],
+        ["Learning", "Feedback channels", "Review outcomes and corrections"],
+      ]}
+    />
+  );
+}
+
+function BehaviorBreakingChangesFigure() {
+  return (
+    <FigureTable
+      keyPrefix="bbc"
+      header={["The change", "What it looks like", "What it can break"]}
+      rows={[
+        [
+          "Prompt update",
+          "No API change, no new types",
+          "Every summary downstream",
+        ],
+        [
+          "Tool schema change",
+          "A tidier contract",
+          "Arguments that used to pass",
+        ],
+        [
+          "Mapper improvement",
+          "A better default",
+          "Which component the same design node gets",
+        ],
+        [
+          "New validator rule",
+          "A stricter gate",
+          "Yesterday's accepted output",
+        ],
+      ]}
+    />
+  );
+}
+
+function MediaToProfileFigure() {
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2">
+      <Zone
+        label="Source media"
+        items={["video frames", "audio waveform", "trainer dialogue"]}
+      />
+      <ZoneArrow />
+      <Zone
+        label="Constrained draft"
+        emphasis
+        items={[
+          "exercise-science rules",
+          "manufacturer ranges",
+          "series and trainer context",
+        ]}
+      />
+      <ZoneArrow />
+      <Zone
+        label="Review and export"
+        items={["approve / edit / reject"]}
+        accentItem="the partner's control schema"
+      />
+    </div>
+  );
+}
+
 function TrafficResultFigure() {
   return (
     <div className="flex flex-col gap-3 rounded-md border border-border bg-panel p-4">
       <div className="flex flex-col gap-1.5">
-        <div className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+        <div className="font-mono text-caption text-text-subtle">
           before
         </div>
         <div className="h-3 w-full rounded-sm bg-border" />
       </div>
       <div className="flex flex-col gap-1.5">
-        <div className="font-mono text-caption uppercase tracking-[0.12em] text-text">
+        <div className="font-mono text-caption text-text">
           after
         </div>
         <div className="flex items-center gap-2">

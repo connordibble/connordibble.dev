@@ -44,11 +44,11 @@ export default function WritingPage() {
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="container-wide pt-20 pb-8 sm:pt-28 sm:pb-10">
+        <section className="container-wide pt-32 pb-10 sm:pt-36 sm:pb-14">
           <Breadcrumbs
             items={[{ label: "Home", href: "/" }, { label: "Writing" }]}
           />
-          <h1 className="mt-6 text-[2.5rem] font-semibold tracking-tight text-text text-pretty sm:text-display">
+          <h1 className="mt-6 max-w-3xl text-[3rem] font-semibold leading-[1.02] text-text text-pretty sm:text-[4.25rem]">
             Writing
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
@@ -58,7 +58,7 @@ export default function WritingPage() {
           </p>
         </section>
 
-        <section className="container-wide py-12 sm:py-16">
+        <section className="container-wide py-14 sm:py-20">
           <SectionLabel mark="asterisk">Featured</SectionLabel>
           <ul
             className={[
@@ -79,7 +79,7 @@ export default function WritingPage() {
           <Suspense fallback={<WritingListFallback />}>
             <WritingIndex posts={indexPosts} />
           </Suspense>
-          <WritingContact className="mt-16" />
+          <WritingContact className="mt-12" />
         </section>
       </main>
       <Footer />

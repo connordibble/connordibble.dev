@@ -37,7 +37,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
               {!isCurrent && item.href ? (
                 <Link
                   href={item.href}
-                  className="text-link transition-colors duration-150"
+                  className="text-link whitespace-nowrap transition-colors duration-150"
                 >
                   {item.label}
                 </Link>

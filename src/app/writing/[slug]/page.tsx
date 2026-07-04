@@ -60,7 +60,7 @@ export default async function WritingPostPage({
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <article className="container-wide pt-20 pb-16 sm:pt-28 sm:pb-24">
+        <article className="container-wide pt-32 pb-16 sm:pt-36 sm:pb-24">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },
@@ -76,7 +76,7 @@ export default async function WritingPostPage({
             <p className="mt-5 font-mono text-caption text-text-subtle">
               {post.displayDate} · {post.readTime}
             </p>
-            <h1 className="mt-4 text-[2.5rem] font-semibold tracking-tight text-text text-pretty sm:text-display">
+            <h1 className="mt-4 max-w-4xl text-[3rem] font-semibold leading-[1.02] text-text text-pretty sm:text-[4.25rem]">
               {post.title}
             </h1>
             <p className="mt-6 text-body text-text-muted leading-relaxed text-pretty">
@@ -86,7 +86,7 @@ export default async function WritingPostPage({
               {post.topics.map((topic) => (
                 <li
                   key={topic}
-                  className="rounded-xs border border-border bg-panel px-2 py-1 font-mono text-caption text-text-muted"
+                  className="tag-token px-2 py-1"
                 >
                   {topic}
                 </li>
@@ -97,7 +97,7 @@ export default async function WritingPostPage({
           <div className="mt-14 max-w-3xl space-y-12">
             {post.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+                <h2 className="text-section-title font-medium text-text">
                   {section.heading}
                 </h2>
                 <div className="mt-4 space-y-5">
@@ -109,7 +109,7 @@ export default async function WritingPostPage({
             ))}
           </div>
 
-          <WritingContact essayTitle={post.title} className="mt-16" />
+          <WritingContact essayTitle={post.title} className="mt-12" />
           <RelatedReading items={resolveRelated(post.related)} />
         </article>
       </main>

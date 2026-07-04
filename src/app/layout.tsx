@@ -45,8 +45,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2f3f0" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0908" },
+    { media: "(prefers-color-scheme: light)", color: "oklch(97% 0.004 235)" },
+    { media: "(prefers-color-scheme: dark)", color: "oklch(13% 0.012 45)" },
   ],
   colorScheme: "dark light",
   width: "device-width",
@@ -76,6 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >

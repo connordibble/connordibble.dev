@@ -31,11 +31,11 @@ export default function AboutPage() {
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section className="container-wide pt-20 pb-8 sm:pt-28 sm:pb-10">
+        <section className="container-wide pt-32 pb-10 sm:pt-36 sm:pb-14">
           <Breadcrumbs
             items={[{ label: "Home", href: "/" }, { label: "About" }]}
           />
-          <h1 className="mt-6 text-[2.5rem] font-semibold tracking-tight text-text text-pretty sm:text-display">
+          <h1 className="mt-6 max-w-3xl text-[3rem] font-semibold leading-[1.02] text-text text-pretty sm:text-[4.25rem]">
             About me
           </h1>
           <div className="mt-6 max-w-3xl space-y-5 text-body text-text-muted leading-relaxed text-pretty">
@@ -72,17 +72,17 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="container-wide py-12 sm:py-16">
+        <section className="container-wide py-14 sm:py-20">
           <SectionLabel mark="rings">What I Care About</SectionLabel>
           <div className="mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
             {notes.map((note) => (
               <section
                 key={note.title}
-                className="border-l border-border pl-4"
+                className="border-t border-border pt-4"
               >
-                <h2 className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+                <h3 className="font-mono text-caption text-text">
                   {note.title}
-                </h2>
+                </h3>
                 <p className="mt-3 text-body-small leading-relaxed text-text-muted text-pretty">
                   {note.body}
                 </p>
@@ -97,7 +97,7 @@ export default function AboutPage() {
             <div className="mt-5 flex flex-wrap gap-3 sm:mt-0 sm:shrink-0">
               <Link
                 href="/writing"
-                className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+                className="pill-link surface-link inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text"
               >
                 <span>Writing</span>
                 <span aria-hidden>→</span>
@@ -106,7 +106,7 @@ export default function AboutPage() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+                className="pill-link surface-link inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text"
               >
                 <span>Resume</span>
                 <span aria-hidden>→</span>

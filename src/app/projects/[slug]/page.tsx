@@ -46,7 +46,7 @@ export default async function ProjectDetailPage({
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <article className="container-wide pt-20 pb-16 sm:pt-28 sm:pb-24">
+        <article className="container-wide pt-32 pb-16 sm:pt-36 sm:pb-24">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },
@@ -59,7 +59,7 @@ export default async function ProjectDetailPage({
             <SectionLabel as="p" mark="asterisk">
               Project
             </SectionLabel>
-            <h1 className="mt-4 text-[2.5rem] sm:text-display font-semibold tracking-tight text-text text-pretty">
+            <h1 className="mt-4 max-w-4xl text-[3rem] font-semibold leading-[1.02] text-text text-pretty sm:text-[4.25rem]">
               {title}
             </h1>
             {owner ? (
@@ -74,7 +74,7 @@ export default async function ProjectDetailPage({
               {tags.map((tag) => (
                 <li
                   key={tag}
-                  className="font-mono text-caption text-text-muted bg-panel border border-border rounded-xs px-2 py-1"
+                  className="tag-token px-2 py-1"
                 >
                   {tag}
                 </li>
@@ -87,9 +87,9 @@ export default async function ProjectDetailPage({
                     href={repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+                    className="pill-link surface-link inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text"
                   >
-                    <span>View source on GitHub</span>
+                    <span>GitHub source</span>
                     <span aria-hidden className="block origin-center -rotate-45">
                       →
                     </span>
@@ -101,7 +101,7 @@ export default async function ProjectDetailPage({
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150"
+                    className="pill-link surface-link inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text"
                   >
                     <span>{link.label}</span>
                     <span aria-hidden className="block origin-center -rotate-45">
@@ -116,7 +116,7 @@ export default async function ProjectDetailPage({
           <div className="mt-12 max-w-3xl space-y-10">
             {detail.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+                <h2 className="text-section-title font-medium text-text">
                   {section.heading}
                 </h2>
                 <p className="mt-3 text-body text-text-muted leading-relaxed text-pretty">
@@ -129,7 +129,7 @@ export default async function ProjectDetailPage({
           <div className="mt-16 border-t border-border pt-8">
             <Link
               href="/projects"
-              className="text-link inline-flex items-center gap-1.5 font-mono text-caption text-text-muted transition-colors duration-150"
+              className="text-link inline-flex items-center gap-1.5 whitespace-nowrap font-mono text-caption text-text-muted transition-colors duration-150"
             >
               <span aria-hidden>←</span>
               <span>All projects</span>

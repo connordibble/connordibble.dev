@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2026-07-04",
+    "scope": "app",
+    "genre": "modern-minimal",
+    "macrostructure": "Portfolio Grid + Long Document",
+    "theme": "graphite/copper",
+    "theme_axes": "dark / geometric-sans / warm",
+    "enrichment": "none",
+    "nav": "N5 Floating pill",
+    "footer": "Ft5 Statement",
+    "brief": "connordibble.dev UX/UI overhaul preserving existing functionality"
+  }
+]

@@ -4,23 +4,23 @@ name: connordibble.dev Design Direction
 description: 'Personal portfolio for a software engineer. The visual language is precise, minimal, and dark — built for technical credibility. Graphite surfaces, crisp type, a single muted accent, and generous whitespace. The site should feel like something a senior engineer built intentionally, not a template someone filled in.'
 
 colors:
-  accent: '#c97a45'
-  accent-hover: '#d98f5e'
-  accent-soft: '#261510'
-  canvas: '#0b0908'
-  shell: '#100d0b'
-  panel: '#161210'
-  panel-raised: '#1c1714'
-  panel-hover: '#221c18'
-  border: '#2e2620'
-  border-strong: '#3d332b'
-  text: '#f0ece6'
-  text-muted: '#afa69b'
-  text-subtle: '#8d8379'
-  code-bg: '#0d0a08'
-  code-border: '#262018'
-  success: '#34b36a'
-  warning: '#c9a227'
+  accent: 'oklch(67% 0.125 55)'
+  accent-hover: 'oklch(72% 0.13 55)'
+  accent-soft: 'oklch(20% 0.05 45)'
+  canvas: 'oklch(13% 0.012 45)'
+  shell: 'oklch(16% 0.014 45)'
+  panel: 'oklch(19% 0.016 45)'
+  panel-raised: 'oklch(23% 0.017 45)'
+  panel-hover: 'oklch(27% 0.018 45)'
+  border: 'oklch(31% 0.018 45)'
+  border-strong: 'oklch(41% 0.02 45)'
+  text: 'oklch(94% 0.012 75)'
+  text-muted: 'oklch(74% 0.016 70)'
+  text-subtle: 'oklch(60% 0.016 65)'
+  code-bg: 'oklch(14% 0.012 45)'
+  code-border: 'oklch(27% 0.016 45)'
+  success: 'oklch(66% 0.13 150)'
+  warning: 'oklch(74% 0.12 82)'
 
 typography:
   ui:
@@ -102,7 +102,7 @@ Use layered graphite surfaces. Avoid pure black. Borders create depth — not sh
 
 ### Sparse Accent
 
-`accent` (#c97a45) appears only on:
+`accent` (`oklch(67% 0.125 55)`) appears only on:
 - Links on hover
 - Focused interactive elements
 - Active navigation state
@@ -124,22 +124,45 @@ Motion confirms state changes and aids spatial orientation. It does not perform.
 
 ### Page Structure
 
-Single-page with anchor navigation. Sections in order:
+Multi-route portfolio with a strong home index. Routes share the same dark
+graphite system, navigation, footer, typography, and CTA voice.
+
+Macrostructure family:
+
+- **Home and project indexes:** Portfolio Grid. The work is the proof; cards use
+  subtle span variation instead of uniform rows.
+- **Writing index:** Ecosystem Index restrained to featured essays plus a
+  filterable archive.
+- **Project and writing detail pages:** Long Document. Continuous prose, inline
+  section heads, no decorative screenshots or fake chrome.
+- **About page:** Long Document with short note cards; first-person, direct, no
+  resume-wall layout.
+
+Home sections in order:
 
 1. **Hero** — name, one-line role, brief positioning statement, CTA links
-2. **About** — 2–3 sentences max, a human voice, not a resume summary
-3. **Projects** — 3–4 featured projects, what problem, what was built, stack tags
-4. **Experience** — timeline of roles, company, title, dates, 1–2 line impact summary
-5. **Skills** — concise, grouped by category, no skill bars or percentages
+2. **About** — split statement + prose, a human voice, not a resume summary
+3. **Projects** — 3–4 featured projects, asymmetric grid, stack tags
+4. **Experience** — spec-sheet rows: role/date left, impact right
+5. **Skills** — concise grouped panels, no skill bars or percentages
 6. **Contact** — email link, GitHub, LinkedIn. Nothing else.
 
 ### Navigation
 
-Sticky top nav. Minimal: name/logo mark on the left, section links on the right. No hamburger menu on desktop. Mobile: simple top sheet or anchor links.
+N5 Floating pill. The nav is detached from the page edge, content-sized on
+desktop, and collapses to wordmark + theme toggle + menu button on narrower
+viewports. Keep all labels single-line.
+
+### Footer
+
+Ft5 Statement. The footer closes with a sentence, then a compact meta row.
+Never use a four-column sitemap footer on this site.
 
 ### Max Width
 
-Content max-width: `768px` centered for text sections. Projects grid can extend to `1024px`. Never full-bleed text.
+Content max-width: `55rem` centered for text sections. Project and writing
+grids use the same container but divide into six columns at desktop. Never
+full-bleed text.
 
 ### Responsive
 
@@ -199,44 +222,80 @@ Use mono only where it carries meaning: tech stack tags, inline code, and any te
 
 ## Token Architecture
 
-All colors are defined as CSS custom properties on `:root` and consumed exclusively via those variables. No Tailwind color utilities (e.g. `bg-zinc-900`) are used directly — only utilities mapped to CSS vars.
+All colors are defined as CSS custom properties on `:root` and consumed
+exclusively via those variables. No Tailwind color utilities (e.g. `bg-zinc-900`)
+are used directly — only utilities mapped to CSS vars through Tailwind v4
+`@theme inline`.
 
 ```css
 :root {
-  --color-accent: #c97a45;
-  --color-accent-hover: #d98f5e;
-  --color-accent-soft: #261510;
-  --color-canvas: #0b0908;
-  --color-shell: #100d0b;
-  --color-panel: #161210;
-  --color-panel-raised: #1c1714;
-  --color-panel-hover: #221c18;
-  --color-border: #2e2620;
-  --color-border-strong: #3d332b;
-  --color-text: #f0ece6;
-  --color-text-muted: #afa69b;
-  --color-text-subtle: #8d8379;
-  --color-code-bg: #0d0a08;
-  --color-code-border: #262018;
-  --color-success: #34b36a;
-  --color-warning: #c9a227;
+  --color-accent: oklch(67% 0.125 55);
+  --color-accent-hover: oklch(72% 0.13 55);
+  --color-accent-soft: oklch(20% 0.05 45);
+  --color-accent-ink: oklch(13% 0.012 45);
+  --color-focus: oklch(78% 0.13 55);
+  --color-canvas: oklch(13% 0.012 45);
+  --color-shell: oklch(16% 0.014 45);
+  --color-panel: oklch(19% 0.016 45);
+  --color-panel-raised: oklch(23% 0.017 45);
+  --color-panel-hover: oklch(27% 0.018 45);
+  --color-border: oklch(31% 0.018 45);
+  --color-border-strong: oklch(41% 0.02 45);
+  --color-text: oklch(94% 0.012 75);
+  --color-text-muted: oklch(74% 0.016 70);
+  --color-text-subtle: oklch(60% 0.016 65);
+  --color-code-bg: oklch(14% 0.012 45);
+  --color-code-border: oklch(27% 0.016 45);
+  --color-success: oklch(66% 0.13 150);
+  --color-warning: oklch(74% 0.12 82);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 ```
 
-Light mode is not built yet but must be structurally free. When added, it overrides only this block under `[data-theme="light"]` — no component changes required.
+Light mode overrides only this token block under `[data-theme="light"]` — no
+component changes required.
 
-Extend `tailwind.config.ts` to map utilities to these vars:
-
-```ts
-colors: {
-  accent: 'var(--color-accent)',
-  canvas: 'var(--color-canvas)',
-  panel: 'var(--color-panel)',
-  // etc.
+```css
+:root[data-theme="light"] {
+  --color-accent: oklch(53% 0.125 55);
+  --color-accent-hover: oklch(45% 0.13 55);
+  --color-accent-soft: oklch(90% 0.034 55);
+  --color-accent-ink: oklch(98% 0.004 235);
+  --color-focus: oklch(48% 0.13 55);
+  --color-canvas: oklch(97% 0.004 235);
+  --color-shell: oklch(99% 0.002 235);
+  --color-panel: oklch(96% 0.004 235);
+  --color-panel-raised: oklch(99% 0.001 235);
+  --color-panel-hover: oklch(92% 0.006 235);
+  --color-border: oklch(84% 0.006 235);
+  --color-border-strong: oklch(67% 0.007 235);
+  --color-text: oklch(20% 0.011 245);
+  --color-text-muted: oklch(41% 0.013 245);
+  --color-text-subtle: oklch(52% 0.012 245);
+  --color-code-bg: oklch(95.5% 0.004 235);
+  --color-code-border: oklch(84% 0.006 235);
+  --color-success: oklch(48% 0.12 150);
+  --color-warning: oklch(50% 0.11 82);
 }
 ```
 
-Never hardcode a hex value in a component. If a color is not in the token set, add it here first.
+Tailwind utilities are mapped in `src/app/globals.css`:
+
+```css
+@theme inline {
+  --color-accent: var(--color-accent);
+  --color-canvas: var(--color-canvas);
+  --color-panel: var(--color-panel);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-outlier);
+}
+```
+
+Never hardcode a hex value in a component. If a color is not in the token set,
+add it here first.
 
 ## Anti-Patterns
 
@@ -280,5 +339,64 @@ Before any section is considered complete:
 - No hardcoded colors — CSS custom properties only
 - Hover and focus states exist on all interactive elements
 - No placeholder copy — real content or ask
-- `pnpm check` passes
+- `pnpm build` and `pnpm lint` pass
 - Lighthouse performance score ≥ 95
+
+## Exports
+
+### tokens.css
+
+The canonical portable token file lives at `tokens.css`. `src/app/globals.css`
+imports it, then mirrors the tokens into Tailwind v4 `@theme inline`.
+
+### Tailwind v4 `@theme`
+
+```css
+@theme inline {
+  --color-accent: var(--color-accent);
+  --color-canvas: var(--color-canvas);
+  --color-panel: var(--color-panel);
+  --color-text: var(--color-text);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-outlier);
+  --spacing-lg: var(--space-lg);
+  --text-body: var(--text-body);
+  --ease-out: var(--ease-out);
+}
+```
+
+### DTCG `tokens.json`
+
+```json
+{
+  "color": {
+    "canvas": { "$value": "oklch(13% 0.012 45)", "$type": "color" },
+    "text": { "$value": "oklch(94% 0.012 75)", "$type": "color" },
+    "accent": { "$value": "oklch(67% 0.125 55)", "$type": "color" }
+  },
+  "font": {
+    "body": { "$value": "Geist", "$type": "fontFamily" },
+    "mono": { "$value": "Geist Mono", "$type": "fontFamily" }
+  },
+  "space": {
+    "lg": { "$value": "1.5rem", "$type": "dimension" }
+  }
+}
+```
+
+### shadcn/ui CSS variables
+
+```css
+:root {
+  --background: 13% 0.012 45;
+  --foreground: 94% 0.012 75;
+  --primary: 67% 0.125 55;
+  --primary-foreground: 13% 0.012 45;
+  --muted: 31% 0.018 45;
+  --muted-foreground: 74% 0.016 70;
+  --border: 31% 0.018 45;
+  --input: 31% 0.018 45;
+  --ring: 78% 0.13 55;
+  --radius: 8px;
+}
+```

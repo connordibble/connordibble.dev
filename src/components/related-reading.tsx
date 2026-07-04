@@ -3,12 +3,11 @@ import { SectionLabel } from "./section-label";
 import type { RelatedItem } from "@/lib/related";
 
 const cardClass = [
-  "writing-card-link relative block h-full rounded-md border border-border bg-panel p-5",
-  "transition-colors duration-150 ease-out",
+  "writing-card-link surface-link relative block h-full rounded-md border border-border bg-panel p-5",
 ].join(" ");
 
 const arrowClass =
-  "writing-card-link-arrow pointer-events-none absolute right-4 top-4 font-mono text-caption text-text-muted opacity-0 transition-all duration-200 ease-out";
+  "writing-card-link-arrow pointer-events-none absolute right-4 top-4 font-mono text-caption text-text-muted opacity-0 transition-[color,opacity,transform] duration-200";
 
 function CardBody({ item }: { item: RelatedItem }) {
   return (
@@ -20,7 +19,7 @@ function CardBody({ item }: { item: RelatedItem }) {
           "→"
         )}
       </span>
-      <p className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+      <p className="font-mono text-caption text-text-subtle">
         {item.eyebrow}
       </p>
       <h3 className="mt-2 pr-6 text-section-title font-medium text-text text-pretty">

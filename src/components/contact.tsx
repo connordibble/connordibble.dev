@@ -37,20 +37,29 @@ const links: ContactLink[] = [
 
 export function Contact() {
   return (
-    <section id="contact" className="container-wide py-12 sm:py-16">
-      <SectionLabel mark="triangle">Contact</SectionLabel>
-      <ul className="mt-8 flex flex-wrap gap-3">
-        {links.map((link) => (
-          <li key={link.href}>
-            <PillLink
-              href={link.href}
-              label={link.label}
-              external={link.external}
-              ariaLabel={link.ariaLabel}
-            />
-          </li>
-        ))}
-      </ul>
+    <section id="contact" className="container-wide site-section py-12 sm:py-16">
+      <div className="border-t border-border pt-8">
+        <SectionLabel mark="triangle" rule={false}>
+          Compare notes
+        </SectionLabel>
+        <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
+          The fastest route is email. I’m usually glad to talk through design
+          systems, platform boundaries, AI implementation workflows, or the
+          tradeoffs behind a build.
+        </p>
+        <ul className="mt-7 flex flex-wrap gap-3">
+          {links.map((link) => (
+            <li key={link.href}>
+              <PillLink
+                href={link.href}
+                label={link.label}
+                external={link.external}
+                ariaLabel={link.ariaLabel}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

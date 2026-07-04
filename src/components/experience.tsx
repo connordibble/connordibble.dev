@@ -33,18 +33,26 @@ const roles: Role[] = [
 
 export function Experience() {
   return (
-    <section id="experience" className="container-wide py-12 sm:py-16">
+    <section
+      id="experience"
+      className="container-wide site-section pt-14 pb-0 sm:pt-20 sm:pb-0"
+    >
       <SectionLabel mark="ticks">Experience</SectionLabel>
-      <ol className="mt-8 flex max-w-3xl flex-col gap-10">
+      <ol className="mt-8 divide-y divide-border border-t border-border">
         {roles.map((role) => (
-          <li key={role.title}>
-            <h3 className="text-section-title font-medium text-text">
-              {role.title}
-            </h3>
-            <p className="mt-1 font-mono text-caption text-text-muted">
-              {role.company} · {role.dates}
-            </p>
-            <p className="mt-4 text-body text-text-muted leading-relaxed text-pretty">
+          <li
+            key={role.title}
+            className="grid gap-4 py-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] md:py-7"
+          >
+            <div>
+              <h3 className="text-section-title font-medium text-text text-pretty">
+                {role.title}
+              </h3>
+              <p className="mt-2 font-mono text-caption text-text-subtle">
+                {role.company} / {role.dates}
+              </p>
+            </div>
+            <p className="text-body-small text-text-muted leading-relaxed text-pretty">
               {role.description}
             </p>
           </li>

@@ -14,7 +14,19 @@ export type WritingFigureVariant =
   | "page-request-anatomy"
   | "cache-tiers"
   | "cache-contract"
-  | "traffic-result";
+  | "traffic-result"
+  // Staged for the drafts in work/essay-drafts (01–05). Building them ahead
+  // of publication keeps the figure work reviewable and build-checked.
+  | "raw-vs-proposal"
+  | "proposal-anatomy"
+  | "claim-path"
+  | "summary-trust-model"
+  | "beside-vs-in-path"
+  | "reliability-concerns"
+  | "governance-map"
+  | "behavior-breaking-changes"
+  | "media-to-profile"
+  | "incline-review";
 
 export type InlineLink = {
   /** Exact substring of the paragraph text to turn into a link (first match). */

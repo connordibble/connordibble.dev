@@ -32,7 +32,7 @@ const fieldClass =
 const selectClass = `${fieldClass} styled-select appearance-none pr-[2.25rem]`;
 
 const labelClass =
-  "font-mono text-caption uppercase tracking-[0.12em] text-text-subtle";
+  "font-mono text-caption text-text-subtle";
 
 function ChevronDownIcon({ className }: { className?: string }) {
   return (
@@ -457,7 +457,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             <span
               aria-hidden
               className={[
-                "block font-mono text-caption text-text-subtle transition-transform duration-200 ease-out",
+                "block font-mono text-caption text-text-subtle transition-transform duration-200",
                 filtersOpen ? "rotate-90" : "",
               ].join(" ")}
             >
@@ -471,18 +471,12 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             <motion.div
               id="writing-filters"
               key="writing-filters"
-              initial={
-                shouldReduceMotion ? false : { height: 0, opacity: 0 }
-              }
-              animate={{ height: "auto", opacity: 1 }}
-              exit={
-                shouldReduceMotion
-                  ? { opacity: 0 }
-                  : { height: 0, opacity: 0 }
-              }
+              initial={shouldReduceMotion ? false : { opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
               transition={{
                 duration: shouldReduceMotion ? 0 : 0.2,
-                ease: "easeOut",
+                ease: [0.16, 1, 0.3, 1],
               }}
               className="overflow-hidden"
             >

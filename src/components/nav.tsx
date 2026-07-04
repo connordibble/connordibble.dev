@@ -129,22 +129,22 @@ export function Nav() {
 
   return (
     <header
-      className={[
-        "sticky top-0 z-50 bg-shell/95 backdrop-blur-sm",
-        "border-b transition-[border-color] duration-150 ease-out",
-        scrolled || open ? "border-border" : "border-transparent",
-      ].join(" ")}
+      className="site-nav-wrap"
     >
-      <nav className="container-wide flex h-16 items-center justify-between">
+      <nav
+        className="site-nav-shell flex items-center justify-between gap-3 px-3 sm:px-4"
+        data-scrolled={scrolled || open ? "true" : undefined}
+        aria-label="Primary"
+      >
         <Link
           href="/"
           onClick={handleHomeClick}
-          className="text-link whitespace-nowrap font-mono text-caption text-text transition-colors duration-150"
+          className="text-link whitespace-nowrap px-2 font-mono text-caption text-text transition-colors duration-150"
         >
           Connor Dibble
         </Link>
 
-        <ul className="hidden sm:flex items-center gap-6">
+        <ul className="hidden items-center gap-5 lg:flex">
           {links.map((link) => {
             const active = isActiveRoute(link, pathname);
             return (
@@ -158,7 +158,7 @@ export function Nav() {
                       : () => setOpen(false)
                   }
                   className={[
-                    "text-link font-mono text-caption transition-colors duration-150",
+                    "text-link whitespace-nowrap font-mono text-caption transition-colors duration-150",
                     active ? "text-text" : "text-text-muted",
                   ].join(" ")}
                 >
@@ -169,7 +169,7 @@ export function Nav() {
           })}
         </ul>
 
-        <div className="flex items-center gap-1 sm:ml-1">
+        <div className="flex items-center gap-1">
           <ThemeToggle />
           <button
             type="button"
@@ -177,7 +177,7 @@ export function Nav() {
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((o) => !o)}
-            className="text-link sm:hidden -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-sm text-text transition-colors duration-150"
+            className="text-link -mr-1 inline-flex h-11 w-11 items-center justify-center rounded-sm text-text transition-colors duration-150 lg:hidden"
           >
             <Hamburger open={open} reduceMotion={shouldReduceMotion} />
           </button>
@@ -189,16 +189,16 @@ export function Nav() {
           <motion.div
             id="mobile-menu"
             key="mobile-menu"
-            initial={shouldReduceMotion ? false : { height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
             transition={{
               duration: shouldReduceMotion ? 0 : 0.22,
-              ease: [0.22, 0.61, 0.36, 1],
+              ease: [0.16, 1, 0.3, 1],
             }}
-            className="sm:hidden overflow-hidden bg-shell"
+            className="site-mobile-panel mt-2 overflow-hidden lg:hidden"
           >
-            <ul className="container-wide flex flex-col py-2">
+            <ul className="flex flex-col px-3 py-2">
               {links.map((link, i) => (
                 <motion.li
                   key={link.label}
@@ -209,7 +209,7 @@ export function Nav() {
                   }
                   transition={{
                     duration: shouldReduceMotion ? 0 : 0.18,
-                    ease: "easeOut",
+                    ease: [0.16, 1, 0.3, 1],
                     delay:
                       open && !shouldReduceMotion ? 0.05 + i * 0.025 : 0,
                   }}
@@ -224,7 +224,7 @@ export function Nav() {
                         ? (event) => handleSectionClick(event, link.targetId)
                         : () => setOpen(false)
                     }
-                    className="text-link block py-4 font-mono text-body text-text transition-colors duration-150"
+                    className="text-link block whitespace-nowrap py-4 font-mono text-body text-text transition-colors duration-150"
                   >
                     {link.label}
                   </Link>
@@ -276,13 +276,13 @@ function ThemeToggle() {
     >
       <SunIcon
         className={[
-          "absolute h-4 w-4 transition-all duration-150",
+          "absolute h-4 w-4 transition-[opacity,transform] duration-150",
           theme === "light" ? "scale-100 opacity-100" : "scale-75 opacity-0",
         ].join(" ")}
       />
       <MoonIcon
         className={[
-          "absolute h-[1.125rem] w-[1.125rem] transition-all duration-150",
+          "absolute h-[1.125rem] w-[1.125rem] transition-[opacity,transform] duration-150",
           theme === "dark" ? "scale-100 opacity-100" : "scale-75 opacity-0",
         ].join(" ")}
       />
@@ -369,13 +369,13 @@ function Hamburger({
         className="absolute inset-x-0 top-1/2 block h-px bg-current"
         initial={false}
         animate={open ? { y: 0, rotate: 45 } : { y: -5, rotate: 0 }}
-        transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}
+        transition={{ duration: reduceMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
       />
       <motion.span
         className="absolute inset-x-0 top-1/2 block h-px bg-current"
         initial={false}
         animate={open ? { y: 0, rotate: -45 } : { y: 5, rotate: 0 }}
-        transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}
+        transition={{ duration: reduceMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
       />
     </span>
   );

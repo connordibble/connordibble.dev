@@ -19,12 +19,12 @@ export default function ProjectsPage() {
       <main id="main-content" tabIndex={-1} className="flex-1">
         <section
           id="projects-top"
-          className="container-wide pt-20 pb-8 sm:pt-28 sm:pb-10"
+          className="container-wide pt-32 pb-10 sm:pt-36 sm:pb-14"
         >
           <Breadcrumbs
             items={[{ label: "Home", href: "/" }, { label: "Projects" }]}
           />
-          <h1 className="mt-6 text-[2.5rem] sm:text-display font-semibold tracking-tight text-text text-pretty">
+          <h1 className="mt-6 max-w-3xl text-[3rem] font-semibold leading-[1.02] text-text text-pretty sm:text-[4.25rem]">
             Projects
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
@@ -35,11 +35,23 @@ export default function ProjectsPage() {
         </section>
 
         <section className="container-wide pb-16 sm:pb-24">
-          <SectionLabel mark="asterisk">Highlighted work</SectionLabel>
-          <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {projects.map((project) => (
-              <li key={project.slug}>
-                <ProjectCard project={project} />
+          <SectionLabel mark="asterisk">Work index</SectionLabel>
+          <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
+            {projects.map((project, index) => (
+              <li
+                key={project.slug}
+                className={
+                  index === 0
+                    ? "lg:col-span-7"
+                    : index === 1
+                      ? "lg:col-span-5"
+                      : "lg:col-span-6"
+                }
+              >
+                <ProjectCard
+                  project={project}
+                  prominence={index === 0 ? "featured" : "normal"}
+                />
               </li>
             ))}
           </ul>
