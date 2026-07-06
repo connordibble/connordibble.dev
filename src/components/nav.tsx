@@ -141,7 +141,7 @@ export function Nav() {
           onClick={handleHomeClick}
           aria-label="Connor Dibble home"
           title="Connor Dibble"
-          className="theme-toggle relative inline-flex h-11 w-11 items-center justify-center rounded-sm text-text-muted transition-[background-color,color,transform] duration-150 active:scale-[0.96] active:bg-border active:text-accent"
+          className="text-link inline-flex h-11 w-11 items-center justify-center rounded-sm text-text-muted transition-colors duration-150"
         >
           <span
             aria-hidden="true"
