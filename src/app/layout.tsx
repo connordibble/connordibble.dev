@@ -3,6 +3,14 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { RouteScrollManager } from "@/components/route-scroll-manager";
 import { SITE_URL } from "@/lib/site";
+import {
+  serializeJsonLd,
+  siteDescription,
+  siteJsonLd,
+  siteName,
+  siteTitle,
+  socialImageAlt,
+} from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,32 +25,6 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const siteTitle =
-  "Connor Dibble | Senior Software Engineer, Platform Engineering & Design Systems";
-const siteDescription =
-  "Senior software engineer leading enterprise web platforms, design systems, and AI tooling for software people can still reason about.";
-
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Connor Dibble",
-  url: SITE_URL,
-  jobTitle: "Senior Technology Engineer",
-  worksFor: {
-    "@type": "Organization",
-    name: "State Farm",
-  },
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "Utah State University",
-  },
-  email: "mailto:dibbleconnor@gmail.com",
-  sameAs: [
-    "https://github.com/connordibble",
-    "https://www.linkedin.com/in/connor-j-dibble",
-  ],
-};
-
 export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
@@ -52,16 +34,41 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    url: SITE_URL,
-    siteName: "connordibble.dev",
+    url: "/",
+    siteName,
+    locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: socialImageAlt,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
+    images: [
+      {
+        url: "/twitter-image",
+        alt: socialImageAlt,
+      },
+    ],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -112,7 +119,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+            __html: serializeJsonLd(siteJsonLd),
           }}
         />
         {children}
