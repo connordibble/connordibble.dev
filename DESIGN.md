@@ -150,14 +150,13 @@ Macrostructure family:
 
 Home sections in order:
 
-1. **Hero** — name, one-line role, brief positioning statement, CTA links
-2. **Current work ledger** — three calm rows, no invented status or metrics
-3. **Projects** — 3 featured projects, restrained cards, stack tags capped
-4. **Writing** — featured essays as restrained cards, linking to the index
-5. **About** — split statement + prose, a human voice, not a resume summary
-6. **Experience** — spec-sheet rows: role/date left, impact right
-7. **Skills** — concise grouped panels, no skill bars or percentages
-8. **Contact** — email link, GitHub, LinkedIn. Nothing else.
+1. **Hero** — name, role line, brief positioning statement, CTA links, and the current-work ledger
+2. **Projects** — 3 featured projects, restrained cards, stack tags capped
+3. **About** — split statement + prose, a human voice, not a resume summary
+4. **Field notes** — featured essays as full-width ledger rows, linking to the index
+5. **Experience** — spec-sheet rows: role/date left, impact right
+6. **Skills** — concise grouped panels, no skill bars or percentages
+7. **Contact** — email link, GitHub, LinkedIn. Nothing else.
 
 ### Navigation
 
@@ -199,9 +198,10 @@ Use mono only where it carries meaning: tech stack tags, inline code, and any te
 ### Hero
 
 - Name in display type, full weight
-- Role/title in text-muted, body-small or caption, spaced above name
+- Role/title in caption treatment beneath the name
 - One sharp positioning line — not a paragraph
-- Two CTA links max: GitHub and resume or contact
+- Up to three CTA links when each earns the fold. On this site: Writing,
+  GitHub, and Resume are intentional because writing is a primary proof path.
 - No hero image, no avatar above the fold (optional: small avatar beside name)
 
 ### Project Cards

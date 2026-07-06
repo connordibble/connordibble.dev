@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SectionLabel } from "./section-label";
 import { SectionMark } from "./section-mark";
-import { WritingCard } from "./writing-card";
+import { WritingRow } from "./writing-row";
 import { getFeaturedWriting } from "@/data/writing";
 
 export function WritingHighlights() {
@@ -15,10 +15,10 @@ export function WritingHighlights() {
       <div>
         <div className="grid gap-x-6 gap-y-5 sm:grid-cols-[minmax(0,1fr)_auto]">
           <div className="min-w-0">
-            <SectionLabel rule={false}>The longer version</SectionLabel>
+            <SectionLabel rule={false}>Field notes</SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              The decisions, tradeoffs, and costs behind the work above,
-              written down.
+              Longer-form notes on the decisions, tradeoffs, and costs behind
+              the work above.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">
@@ -33,10 +33,10 @@ export function WritingHighlights() {
           </Link>
         </div>
       </div>
-      <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <ul className="mt-8 divide-y divide-border border-y border-border">
         {featured.map((post) => (
           <li key={post.slug}>
-            <WritingCard post={post} />
+            <WritingRow post={post} />
           </li>
         ))}
       </ul>

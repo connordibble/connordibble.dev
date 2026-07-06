@@ -30,7 +30,7 @@ export function Hero() {
         <h1 className="font-editorial max-w-[12ch] text-[4rem] font-normal leading-[0.9] text-text text-pretty sm:text-[6rem] lg:text-[7rem]">
           Connor Dibble
         </h1>
-        <p className="mt-6 font-mono text-caption text-accent">
+        <p className="mt-6 max-w-[34rem] text-balance font-mono text-caption text-accent">
           Platform engineering / design systems / AI tooling
         </p>
         <p className="mt-5 max-w-[41rem] text-body leading-relaxed text-text-muted text-pretty">
