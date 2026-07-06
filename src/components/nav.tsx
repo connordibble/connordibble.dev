@@ -141,9 +141,12 @@ export function Nav() {
           onClick={handleHomeClick}
           aria-label="Connor Dibble home"
           title="Connor Dibble"
-          className="text-link group inline-flex h-11 min-w-11 items-center justify-center whitespace-nowrap rounded-full px-2 text-text transition-[color,transform] duration-150 active:translate-y-px"
+          className="theme-toggle relative inline-flex h-11 w-11 items-center justify-center rounded-sm text-text-muted transition-[background-color,color,transform] duration-150 active:scale-[0.96] active:bg-border active:text-accent"
         >
-          <span aria-hidden="true" className="font-editorial text-[1.125rem] leading-none">
+          <span
+            aria-hidden="true"
+            className="font-mono text-[0.6875rem] font-semibold leading-none"
+          >
             CD
           </span>
         </Link>
