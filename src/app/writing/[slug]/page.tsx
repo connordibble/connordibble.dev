@@ -16,6 +16,7 @@ import {
   type WritingBlock,
 } from "@/data/writing";
 import { resolveRelated } from "@/lib/related";
+import { SITE_URL } from "@/lib/site";
 
 type Params = { slug: string };
 
@@ -56,11 +57,31 @@ export default async function WritingPostPage({
     notFound();
   }
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.summary,
+    datePublished: post.date,
+    url: `${SITE_URL}/writing/${post.slug}`,
+    author: {
+      "@type": "Person",
+      name: "Connor Dibble",
+      url: SITE_URL,
+    },
+  };
+
   return (
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <article className="container-wide pt-32 pb-16 sm:pt-36 sm:pb-24">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c"),
+            }}
+          />
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },

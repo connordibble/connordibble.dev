@@ -20,7 +20,28 @@ const geistMono = Geist_Mono({
 const siteTitle =
   "Connor Dibble | Senior Software Engineer, Platform Engineering & Design Systems";
 const siteDescription =
-  "Senior software engineer leading enterprise web platforms, design systems, and AI tooling for reliable software at scale.";
+  "Senior software engineer leading enterprise web platforms, design systems, and AI tooling for software people can still reason about.";
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Connor Dibble",
+  url: SITE_URL,
+  jobTitle: "Senior Technology Engineer",
+  worksFor: {
+    "@type": "Organization",
+    name: "State Farm",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Utah State University",
+  },
+  email: "mailto:dibbleconnor@gmail.com",
+  sameAs: [
+    "https://github.com/connordibble",
+    "https://www.linkedin.com/in/connor-j-dibble",
+  ],
+};
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -88,6 +109,12 @@ export default function RootLayout({
           Skip to content
         </a>
         <RouteScrollManager />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         {children}
         <Script id="theme-init" strategy="beforeInteractive">
           {themeInitScript}
