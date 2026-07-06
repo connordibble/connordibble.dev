@@ -388,16 +388,16 @@ function getProjectsBySlug(slugs: string[]): Project[] {
 export const homepageProjects = getProjectsBySlug([
   "sfds",
   "agent-convention-feedback",
-  "researchlog",
+  "agent-readiness-kit",
 ]);
 
 export const projectIndexProjects = getProjectsBySlug([
   "sfds",
-  "researchlog",
   "agent-convention-feedback",
+  "agent-readiness-kit",
+  "researchlog",
   "dibble",
   "designrail",
-  "agent-readiness-kit",
   "zod-ai-tool",
   "saturday-signal",
   "paceai",

@@ -17,8 +17,8 @@ export function Projects() {
               Selected work
             </SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              An enterprise design system, an executive-commissioned feedback
-              platform, and an R&D tax-credit product.
+              Enterprise platform scale, executive-backed AI product delivery,
+              and open-source readiness tooling for agent workflows.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">
