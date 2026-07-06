@@ -9,13 +9,15 @@ import { WritingContact } from "@/components/writing-contact";
 import { WritingIndex } from "@/components/writing-index";
 import { WritingRow } from "@/components/writing-row";
 import { getFeaturedWriting, writingPosts } from "@/data/writing";
+import { pageMetadata } from "@/lib/seo";
 import { toIndexPost, type WritingIndexPost } from "@/lib/writing-index";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Writing | Connor Dibble",
   description:
     "Field notes and technical essays on platform decisions, design systems, and AI tooling.",
-};
+  path: "/writing",
+});
 
 const featured = getFeaturedWriting();
 
@@ -54,7 +56,7 @@ export default function WritingPage() {
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
             Field notes and technical essays on the decisions behind platform
             work: design systems, AI tooling, frontend architecture, and the
-            tradeoffs that don&apos;t fit in a README.
+            tradeoffs that don’t fit in a README.
           </p>
         </section>
 

@@ -4,12 +4,14 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
 import { SectionLabel } from "@/components/section-label";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About | Connor Dibble",
   description:
-    "A more personal view of Connor Dibble's engineering taste, working style, and interests beyond the portfolio.",
-};
+    "A more personal view of Connor Dibble’s engineering taste, working style, and interests beyond the portfolio.",
+  path: "/about",
+});
 
 const notes = [
   {
@@ -22,7 +24,7 @@ const notes = [
   },
   {
     title: "Outside the Editor",
-    body: "I'm 6'8\", so basketball found me early, but I'll play or watch nearly any sport. I'm training for my first half marathon and still enjoy losing an evening to a PC build. An earlier chapter was Fukuoka, Japan, where I led volunteer trainings in Japanese and taught English to 100+ students. Family is the anchor.",
+    body: "I’m 6′8″, so basketball found me early, but I’ll play or watch nearly any sport. I’m training for my first half marathon and still enjoy losing an evening to a PC build. An earlier chapter was Fukuoka, Japan, where I led volunteer trainings in Japanese and taught English to 100+ students. Family is the anchor.",
   },
 ];
 
@@ -38,7 +40,7 @@ export default function AboutPage() {
           <h1 className="mt-6 max-w-3xl text-[3rem] font-semibold leading-[1.02] text-text text-pretty sm:text-[4.25rem]">
             About me
           </h1>
-          <div className="mt-6 max-w-3xl space-y-5 text-body text-text-muted leading-relaxed text-pretty">
+          <div className="mt-6 max-w-[65ch] space-y-5 text-body text-text-muted leading-relaxed text-pretty">
             <p>
               I lead the statefarm.com Digital Experience suite across 8
               product teams and 40-50 engineers, and steward SFDS, an
@@ -54,7 +56,7 @@ export default function AboutPage() {
               across the org.
             </p>
             <p>
-              I&apos;m happiest when a problem is both technically deep and
+              I’m happiest when a problem is both technically deep and
               organizationally messy. I like tracing it far enough to find the
               real constraint, whether it lives in a component boundary, a data
               invariant, a delivery model, or the economics of a system at
@@ -68,7 +70,7 @@ export default function AboutPage() {
               Through Proceris, I build small AI products and stay close to the
               full product loop: finding a painful workflow, talking with
               prospective users, building across the stack, and learning
-              whether an idea earns its way into someone&apos;s work.
+              whether an idea earns its way into someone’s work.
             </p>
           </div>
         </section>

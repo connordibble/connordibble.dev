@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Footer } from "@/components/footer";
 import { SectionLabel } from "@/components/section-label";
 import { getDetailProjects, getProjectBySlug } from "@/data/projects";
+import { absoluteUrl, pageMetadata, serializeJsonLd } from "@/lib/seo";
 
 type Params = { slug: string };
 
@@ -23,10 +24,11 @@ export async function generateMetadata({
   if (!project || !project.detail) {
     return { title: "Project not found" };
   }
-  return {
+  return pageMetadata({
     title: `${project.title} | Connor Dibble`,
     description: project.detail.headline,
-  };
+    path: `/projects/${project.slug}`,
+  });
 }
 
 export default async function ProjectDetailPage({
@@ -41,12 +43,40 @@ export default async function ProjectDetailPage({
   }
 
   const { title, owner, tags, detail, repoUrl, links } = project;
+  const projectUrl = absoluteUrl(`/projects/${project.slug}`);
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": repoUrl ? "SoftwareSourceCode" : "CreativeWork",
+    "@id": `${projectUrl}#project`,
+    name: title,
+    description: detail.headline,
+    url: projectUrl,
+    codeRepository: repoUrl,
+    sameAs: links?.map((link) => link.href),
+    keywords: tags,
+    creator: {
+      "@id": absoluteUrl("/#person"),
+    },
+    author: {
+      "@id": absoluteUrl("/#person"),
+    },
+    isPartOf: {
+      "@id": absoluteUrl("/#website"),
+    },
+    inLanguage: "en-US",
+  };
 
   return (
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <article className="container-wide pt-32 pb-16 sm:pt-36 sm:pb-24">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: serializeJsonLd(projectJsonLd),
+            }}
+          />
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },
@@ -67,7 +97,7 @@ export default async function ProjectDetailPage({
                 {owner}
               </p>
             ) : null}
-            <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
+            <p className="mt-6 max-w-[65ch] text-body text-text-muted leading-relaxed text-pretty">
               {detail.headline}
             </p>
             <ul className="mt-5 flex flex-wrap gap-2">
@@ -116,10 +146,10 @@ export default async function ProjectDetailPage({
           <div className="mt-12 max-w-3xl space-y-10">
             {detail.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-section-title font-medium text-text">
+                <h2 className="max-w-[65ch] text-section-title font-medium text-text">
                   {section.heading}
                 </h2>
-                <p className="mt-3 text-body text-text-muted leading-relaxed text-pretty">
+                <p className="mt-3 max-w-[65ch] text-body text-text-muted leading-relaxed text-pretty">
                   {section.body}
                 </p>
               </section>

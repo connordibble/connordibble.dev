@@ -5,12 +5,14 @@ import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
 import { SectionLabel } from "@/components/section-label";
 import { projectIndexProjects } from "@/data/projects";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Projects | Connor Dibble",
   description:
     "Enterprise platform, design-system, open-source agent tooling, and AI product work from Connor Dibble.",
-};
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (
@@ -29,9 +31,9 @@ export default function ProjectsPage() {
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
             Enterprise platform, design-system, open-source agent tooling, and
-            AI product work. The platform work sits first; the open-source and
-            product builds that follow are smaller and run with the same
-            discipline.
+            AI product work. The platform and executive-facing systems sit
+            first; the open-source and product builds that follow are smaller
+            and run with the same discipline.
           </p>
         </section>
 
