@@ -17,9 +17,8 @@ export function Projects() {
               Selected work
             </SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              Three representative systems: enterprise platform scale,
-              full-stack product depth, and open-source agent tooling with
-              deterministic checks.
+              An enterprise design system, an executive-commissioned feedback
+              platform, and an R&D tax-credit product.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">

@@ -55,7 +55,7 @@ export const projects: Project[] = [
           body: "A pnpm monorepo with a React review UI, a Fastify and Apollo GraphQL API, and shared Zod schemas at every boundary. Mock Figma fixtures normalize into component intent, a deterministic mapper proposes Shoelace Web Component implementations, and a compliance agent reports accessibility, token, and variant findings alongside each mapping. Review decisions persist through the GraphQL API so mapping quality is auditable over time, and exports produce implementation-ready HTML, React examples, or agent-ready briefs.",
         },
         {
-          heading: "Why It Matters for Developer Tools",
+          heading: "The Review Surface Is the Product",
           body: "DesignRail treats AI-assisted implementation as a developer experience problem. The important layer is the review surface: what changed, why the mapping was proposed, whether it follows the design system, and what a human accepted or rejected before the result enters a codebase. That is the layer that turns model output into something a developer can trust, debug, and improve.",
         },
         {
@@ -116,11 +116,11 @@ export const projects: Project[] = [
         },
         {
           heading: "Approach",
-          body: "Architected sf-ui, a framework-agnostic Lit component library. The same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Used Web Components and Shadow DOM to encapsulate behavior and styling while keeping the integration surface simple for product teams. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
+          body: "Architected sf-ui, a framework-agnostic Lit component library. The same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Used Web Components and Shadow DOM to encapsulate behavior and styling while keeping the integration surface simple for product teams. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline. When adoption reached AEM's content-fragment pages, built a Node.js sidecar that server-renders shadow DOM (Declarative Shadow DOM) and hydrates on the client, so hundreds of unauthenticated CMS pages could adopt sf-ui without replacing the CMS model. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
         },
         {
           heading: "Impact",
-          body: "70+ primitives shipped. Named the official migration target for statefarm.com and adopted across all eight Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became a template for cross-org platform delivery.",
+          body: "Named the official migration target for statefarm.com, with roughly 30% of the public Digital Experience estate migrated today across 10+ pages spanning public, internal, and agent-facing surfaces. 70+ primitives shipped, adopted across all eight Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became a template for cross-org platform delivery.",
         },
         {
           heading: "Stack",
@@ -190,7 +190,7 @@ export const projects: Project[] = [
     ],
     detail: {
       headline:
-        "A practical readiness audit for repos that want coding agents to work from explicit instructions, repeatable checks, and reviewable boundaries.",
+        "A readiness audit for repos that want coding agents to work from explicit instructions, repeatable checks, and reviewable boundaries.",
       sections: [
         {
           heading: "Problem",
@@ -225,7 +225,7 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/connordibble/SaturdaySignal",
     detail: {
       headline:
-        "A source-grounded college-football intelligence product, built as a reusable team platform with one polished Texas reference deployment.",
+        "A source-grounded college-football intelligence product, built as a reusable team platform with a Texas reference deployment.",
       sections: [
         {
           heading: "Problem",
@@ -387,16 +387,16 @@ function getProjectsBySlug(slugs: string[]): Project[] {
 
 export const homepageProjects = getProjectsBySlug([
   "sfds",
+  "agent-convention-feedback",
   "researchlog",
-  "dibble",
 ]);
 
 export const projectIndexProjects = getProjectsBySlug([
   "sfds",
   "researchlog",
+  "agent-convention-feedback",
   "dibble",
   "designrail",
-  "agent-convention-feedback",
   "agent-readiness-kit",
   "zod-ai-tool",
   "saturday-signal",

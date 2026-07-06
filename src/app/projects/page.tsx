@@ -29,9 +29,9 @@ export default function ProjectsPage() {
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
             Enterprise platform, design-system, open-source agent tooling, and
-            AI product work. The first projects carry the clearest scale and
-            architecture signal; the rest show range across product, tooling,
-            and applied AI.
+            AI product work. The platform work sits first; the open-source and
+            product builds that follow are smaller and run with the same
+            discipline.
           </p>
         </section>
 

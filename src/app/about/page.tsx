@@ -22,7 +22,7 @@ const notes = [
   },
   {
     title: "Outside the Editor",
-    body: "I'm 6'8\", so basketball found me early, but I'll play or watch nearly any sport. I'm training for my first half marathon and still enjoy losing an evening to a PC build. Family is the anchor.",
+    body: "I'm 6'8\", so basketball found me early, but I'll play or watch nearly any sport. I'm training for my first half marathon and still enjoy losing an evening to a PC build. An earlier chapter was Fukuoka, Japan, where I led volunteer trainings in Japanese and taught English to 100+ students. Family is the anchor.",
   },
 ];
 
@@ -48,7 +48,10 @@ export default function AboutPage() {
               integrations before moving into platform work shared by many
               products and teams. The through-line is finding the decisions that
               help teams move faster without giving up reliability,
-              accessibility, or long-term control.
+              accessibility, or long-term control. A lot of that work is
+              teaching: per-framework migration guides, weekly office hours,
+              and a network of design and engineering champions embedded
+              across the org.
             </p>
             <p>
               I&apos;m happiest when a problem is both technically deep and
