@@ -152,11 +152,12 @@ Home sections in order:
 
 1. **Hero** — name, one-line role, brief positioning statement, CTA links
 2. **Current work ledger** — three calm rows, no invented status or metrics
-3. **About** — split statement + prose, a human voice, not a resume summary
-4. **Projects** — 3 featured projects, restrained cards, stack tags capped
-5. **Experience** — spec-sheet rows: role/date left, impact right
-6. **Skills** — concise grouped panels, no skill bars or percentages
-7. **Contact** — email link, GitHub, LinkedIn. Nothing else.
+3. **Projects** — 3 featured projects, restrained cards, stack tags capped
+4. **Writing** — featured essays as restrained cards, linking to the index
+5. **About** — split statement + prose, a human voice, not a resume summary
+6. **Experience** — spec-sheet rows: role/date left, impact right
+7. **Skills** — concise grouped panels, no skill bars or percentages
+8. **Contact** — email link, GitHub, LinkedIn. Nothing else.
 
 ### Navigation
 

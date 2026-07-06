@@ -92,7 +92,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-06-26",
     displayDate: "June 2026",
     readTime: "10 min read",
-    featured: false,
+    featured: true,
     topics: ["Platform Engineering", "System Design", "Design Systems"],
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },
