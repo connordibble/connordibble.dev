@@ -14,7 +14,19 @@ export type WritingFigureVariant =
   | "page-request-anatomy"
   | "cache-tiers"
   | "cache-contract"
-  | "traffic-result";
+  | "traffic-result"
+  // Staged for the drafts in work/essay-drafts (01–05). Building them ahead
+  // of publication keeps the figure work reviewable and build-checked.
+  | "raw-vs-proposal"
+  | "proposal-anatomy"
+  | "claim-path"
+  | "summary-trust-model"
+  | "beside-vs-in-path"
+  | "reliability-concerns"
+  | "governance-map"
+  | "behavior-breaking-changes"
+  | "media-to-profile"
+  | "incline-review";
 
 export type InlineLink = {
   /** Exact substring of the paragraph text to turn into a link (first match). */
@@ -74,13 +86,13 @@ export const writingPosts: WritingPost[] = [
     slug: "success-was-the-incident",
     title: "Success Was the Incident",
     subtitle:
-      "How a design system's own adoption turned a five-minute cache into a budget problem, and the cache tiers and content hashing that cut delivery cost by two thirds.",
+      "How a design system’s own adoption turned a five-minute cache into a budget problem, and the cache tiers and content hashing that cut delivery cost by two thirds.",
     summary:
-      "Adoption turned a five-minute browser cache into a budget problem. How splitting the cache by owner, keeping component entry files stable while hashing their dependencies, and a finops partnership cut request volume to a third of its peak.",
+      "Adoption turned a five-minute browser cache into a budget problem. Splitting it into three caches with three owners, hashing dependencies behind stable component files, and a finops partnership cut request volume to a third of its peak.",
     date: "2026-06-26",
     displayDate: "June 2026",
     readTime: "10 min read",
-    featured: false,
+    featured: true,
     topics: ["Platform Engineering", "System Design", "Design Systems"],
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },
@@ -129,7 +141,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "It does not fit everywhere, and pretending otherwise would have stalled the whole effort. Legacy stacks without modern build pipelines cannot bundle. Shared shells and pages that depend on live propagation need the CDN's update model, which is the reason we offer it in the first place. Teams mid-migration were not going to re-platform their build to save us bandwidth. We took the npm wins available and accepted the real constraint: the CDN path serves a large share of the estate permanently, so the CDN path had to get cheap on its own merits.",
+            text: "It does not fit everywhere, and pretending otherwise would have stalled the whole effort. Legacy stacks without modern build pipelines cannot bundle. Shared shells and pages that depend on live propagation need the CDN’s update model, which is the reason we offer it in the first place. Teams mid-migration were not going to re-platform their build to save us bandwidth. We took the npm wins available and accepted the real constraint: the CDN path serves a large share of the estate permanently, so the CDN path had to get cheap on its own merits.",
           },
         ],
       },
@@ -138,7 +150,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The phrase \"the cache\" hides the structure of the problem. There are three caches in this system with three different owners: the browser cache that lives on customers' devices, the edge cache the CDN operates, and the origin behind both. They expire for different reasons, they fail in different directions, and they need different levers. Splitting them apart was the design step that made everything after it tractable.",
+            text: "The phrase “the cache” hides the structure of the problem. There are three caches in this system with three different owners: the browser cache that lives on customers’ devices, the edge cache the CDN operates, and the origin behind both. They expire for different reasons, they fail in different directions, and they need different levers. Splitting them apart was the design step that made everything after it tractable.",
           },
           {
             type: "paragraph",
@@ -157,7 +169,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The browser tier was the interesting one, and where the volume actually lived. The majority of requests were never for the component entry files. They were for the layer underneath: shared libraries, dependencies, common chunks, the files components pull in as needed. Those files change on our schedule, at release time. Customers' browsers were treating them as if they might change any minute, because a five-minute TTL says exactly that.",
+            text: "The browser tier was the interesting one, and where the volume actually lived. The majority of requests were never for the component entry files. They were for the layer underneath: shared libraries, dependencies, common chunks, the files components pull in as needed. Those files change on our schedule, at release time. Customers’ browsers were treating them as if they might change any minute, because a five-minute TTL says exactly that.",
           },
           {
             type: "paragraph",
@@ -165,7 +177,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "So I wrote a script into our Rollup build that keeps each component entry file stable and content-hashes the dependency files it references. A dependency's filename changes exactly when its contents do, which makes the hashed file immutable by construction. If it exists, it is correct.",
+            text: "So I wrote a script into our Rollup build that keeps each component entry file stable and content-hashes the dependency files it references. A dependency’s filename changes exactly when its contents do, which makes the hashed file immutable by construction. If it exists, it is correct.",
           },
           {
             type: "code",
@@ -174,7 +186,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "Cache metadata per file class does the rest. Hashed files carry a one-year TTL, which in practice means indefinite: the browser holds the file until we ship a change, the hash moves, and the new filename busts the cache on its own. No invalidation call, no timer, no coordination with anyone. Component entry files keep their stable URLs and a far more lenient TTL, tuned to what usage data and testing showed about a typical visit. The specific number stays internal, but the principle travels fine: a component entry file's TTL is a product decision about how fast changes reach customers, and data should set it rather than a default.",
+            text: "Cache metadata per file class does the rest. Hashed files carry a one-year TTL, which in practice means indefinite: the browser holds the file until we ship a change, the hash moves, and the new filename busts the cache on its own. No invalidation call, no timer, no coordination with anyone. Component entry files keep their stable URLs and a far more lenient TTL, tuned to what usage data and testing showed about a typical visit. The specific number stays internal, but the principle travels fine: a component entry file’s TTL is a product decision about how fast changes reach customers, and data should set it rather than a default.",
           },
           {
             type: "figure",
@@ -184,7 +196,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "What falls out of this is that each component entry file acts as a manifest for its own dependency graph. The component file keeps its stable URL and references the current hashes for the shared utilities, styles, and chunks it needs. Those hashed dependencies stay immutable and can be reused across component entry files. The build system promises that a filename identifies its contents. The cache metadata promises a TTL that matches each file's real change frequency. Neither tier needs to know anything else about the other.",
+            text: "What falls out of this is that each component entry file acts as a manifest for its own dependency graph. The component file keeps its stable URL and references the current hashes for the shared utilities, styles, and chunks it needs. Those hashed dependencies stay immutable and can be reused across component entry files. The build system promises that a filename identifies its contents. The cache metadata promises a TTL that matches each file’s real change frequency. Neither tier needs to know anything else about the other.",
           },
         ],
       },
@@ -193,7 +205,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The final optimization had no code in it. With the engineering levers in place, our traffic became predictable, and predictable traffic is a negotiating asset. We partnered with our cloud provider's finops organization and our internal cloud teams to move CDN spend off a pure pay-as-you-go model and onto a planned model. The optimized traffic made the commitment safe to size, and the commitment made the remaining traffic cheaper per request. Engineering work and procurement work compounding like that is rarer than it should be, mostly because the two conversations seldom happen in the same room.",
+            text: "The final optimization had no code in it. With the engineering levers in place, our traffic became predictable, and predictable traffic is a negotiating asset. We partnered with our cloud provider’s finops organization and our internal cloud teams to move CDN spend off a pure pay-as-you-go model and onto a planned model. The optimized traffic made the commitment safe to size, and the commitment made the remaining traffic cheaper per request. Engineering work and procurement work compounding like that is rarer than it should be, mostly because the two conversations seldom happen in the same room.",
           },
         ],
       },
@@ -230,12 +242,12 @@ export const writingPosts: WritingPost[] = [
               "Split the cache by owner before optimizing. Browser, edge, and origin expire for different reasons, and a lever that helps one tier can be irrelevant to another.",
               "Content hashing turns invalidation from coordination into arithmetic. The filename is the cache key, and the build system maintains it for free.",
               "Protect the stable component URLs consumers reference. The dependency files behind them can be immutable, and immutable files are the cheapest files there are.",
-              "Take the finops meeting. Predictable traffic is leverage, and engineering teams almost never cash it in.",
+              "Take the finops meeting. Predictable traffic is negotiating power, and engineering teams almost never cash it in.",
             ],
           },
           {
             type: "paragraph",
-            text: "Most of this is one build script, some cache headers, and a pricing conversation. The leverage came from running them in the right order.",
+            text: "Most of this is one build script, some cache headers, and a pricing conversation. The gain came from running them in the right order.",
           },
         ],
       },
@@ -244,7 +256,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Platform cost work is adoption stewardship. Every team that chose SFDS handed us a slice of their page performance and, indirectly, a slice of the company's bill. A platform that gets more expensive per consumer as it succeeds has a design flaw, no matter how good the components are.",
+            text: "Platform cost work is adoption stewardship. Every team that chose SFDS handed us a slice of their page performance and, indirectly, a slice of the company’s bill. A platform that gets more expensive per consumer as it succeeds has a design flaw, no matter how good the components are.",
           },
           {
             type: "paragraph",
@@ -277,7 +289,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "State Farm's frontend estate is bigger than any one person can see. More than a hundred product teams ship pages across Angular, React, Next.js, server-rendered JSP, and stacks in between. Each of those teams, at some point, has built its own button. Most have built their own form patterns, their own modals, and their own interpretation of the brand.",
+            text: "State Farm’s frontend estate is bigger than any one person can see. More than a hundred product teams ship pages across Angular, React, Next.js, server-rendered JSP, and stacks in between. Each of those teams, at some point, has built its own button. Most have built their own form patterns, their own modals, and their own interpretation of the brand.",
           },
           {
             type: "paragraph",
@@ -285,11 +297,11 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "My role was lead engineer for the design system platform's implementation. I worked closely with XD, State Farm's design organization, advising on design from a technical standpoint, but I was not the designer. I was responsible for building the platform, and for the education and migration support that carried it into the broader engineering community.",
+            text: "My role was lead engineer for the design system platform’s implementation. I worked closely with XD, State Farm’s design organization, advising on design from a technical standpoint, but I was not the designer. I was responsible for building the platform, and for the education and migration support that carried it into the broader engineering community.",
           },
           {
             type: "paragraph",
-            text: "My area is eight product teams and roughly fifty engineers on the digital experience platform. SFDS serves the whole enterprise: a hundred-plus product teams and over a thousand engineers and designers. The distance between those two numbers is what this essay is about. I had direct influence over a fraction of the system's consumers. Everyone else had to choose it.",
+            text: "My area is eight product teams and roughly fifty engineers on the digital experience platform. SFDS serves the whole enterprise: a hundred-plus product teams and over a thousand engineers and designers. The distance between those two numbers is what this essay is about. I had direct influence over a fraction of the system’s consumers. Everyone else had to choose it.",
           },
         ],
       },
@@ -307,7 +319,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "Copy and paste is a distribution model with no governance in it. Once the markup lived in a team's codebase, engineers could tinker with it, and they did. Small local edits accumulated until the HTML in production no longer matched the HTML in the docs. That undercut the system twice over. The pasted markup drifted from the structure the shared JavaScript expected, so library updates broke pages in ways nobody could predict from the source side. And shipping an improvement meant asking a hundred teams to re-paste markup by hand. Updates from source became nearly impossible.",
+            text: "Copy and paste is a distribution model with no governance in it. Once the markup lived in a team’s codebase, engineers could tinker with it, and they did. Small local edits accumulated until the HTML in production no longer matched the HTML in the docs. That undercut the system twice over. The pasted markup drifted from the structure the shared JavaScript expected, so library updates broke pages in ways nobody could predict from the source side. And shipping an improvement meant asking a hundred teams to re-paste markup by hand. Updates from source became nearly impossible.",
           },
           {
             type: "paragraph",
@@ -334,7 +346,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "We did not open a component repo on day one. We opened a discovery effort, because the legacy system's history showed what happens when that step gets skipped. The goal was to understand why teams diverged before proposing what they should converge on.",
+            text: "We did not open a component repo on day one. We opened a discovery effort, because the legacy system’s history showed what happens when that step gets skipped. The goal was to understand why teams diverged before proposing what they should converge on.",
           },
           {
             type: "paragraph",
@@ -369,7 +381,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "Custom elements also dissolved the lifecycle problem. The browser owns connect and disconnect, so the manual initialization choreography the jQuery library demanded simply went away, and the components behave like native elements inside any framework's lifecycle instead of fighting it. The policy-number field from the legacy snippet collapses to a single tag:",
+            text: "Custom elements also dissolved the lifecycle problem. The browser owns connect and disconnect, so the manual initialization choreography the jQuery library demanded simply went away, and the components behave like native elements inside any framework’s lifecycle instead of fighting it. The policy-number field from the legacy snippet collapses to a single tag:",
           },
           {
             type: "code",
@@ -401,7 +413,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "The answer was to be strict about what stays constant and explicit about what flexes. Tokens, accessibility semantics, and core component APIs do not vary by audience. Density, styling, and page-level patterns do, through variants baked into the components and driven by design tokens. That structure has a practical payoff: a styling or density change for the agent context is a token update designers can make asynchronously, instead of an engineering ticket waiting in someone's backlog. Drawing that line early, with XD in the room, kept the system from forking into separate systems wearing one name. We had already seen that movie.",
+            text: "The answer was to be strict about what stays constant and explicit about what flexes. Tokens, accessibility semantics, and core component APIs do not vary by audience. Density, styling, and page-level patterns do, through variants baked into the components and driven by design tokens. That structure has a practical payoff: a styling or density change for the agent context is a token update designers can make asynchronously, instead of an engineering ticket waiting in someone’s backlog. Drawing that line early, with XD in the room, kept the system from forking into separate systems wearing one name. We had already seen that movie.",
           },
         ],
       },
@@ -428,7 +440,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "Distribution at this scale also changes what a breaking change means. Against a thousand-plus consumers, a careless major version is a reliability event. Releases are versioned, deprecations get announced windows instead of surprises, and docs stay versioned alongside the code, so a team on last quarter's release reads last quarter's truth. Serving components through CDNs at this volume also turned caching strategy and delivery cost into a genuine system-design problem, one with enough depth that it deserves its own write-up.",
+            text: "Distribution at this scale also changes what a breaking change means. Against a thousand-plus consumers, a careless major version is a reliability event. Releases are versioned, deprecations get announced windows instead of surprises, and docs stay versioned alongside the code, so a team on last quarter’s release reads last quarter’s truth. Serving components through CDNs at this volume also turned caching strategy and delivery cost into a genuine system-design problem, one with enough depth that it deserves its own write-up.",
             links: [
               {
                 text: "it deserves its own write-up",
@@ -447,7 +459,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "The mechanism that holds them together is a pipeline I built: a TypeScript Figma plugin that syncs Figma Variables into W3C-format design tokens in GitLab. A color, spacing, or variant decision made in Figma lands in the codebase as a typed, versioned artifact, reviewed like any other change. The token file is the contract between the two disciplines, and arguments about what a value should be happen before it merges rather than after it ships. It is also what makes the audience variants workable: the same pipeline that carries a brand color carries an agent-context density token, so design evolves the system's surface without queueing behind engineering.",
+            text: "The mechanism that holds them together is a pipeline I built: a TypeScript Figma plugin that syncs Figma Variables into W3C-format design tokens in GitLab. A color, spacing, or variant decision made in Figma lands in the codebase as a typed, versioned artifact, reviewed like any other change. The token file is the contract between the two disciplines, and arguments about what a value should be happen before it merges rather than after it ships. It is also what makes the audience variants workable: the same pipeline that carries a brand color carries an agent-context density token, so design evolves the system’s surface without queueing behind engineering.",
           },
           {
             type: "paragraph",
@@ -460,7 +472,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The mandate confirmed adoption more than it caused it. The supported path had to become cheaper than the local alternative first, and most of the platform's surface area exists to keep it that way.",
+            text: "The mandate confirmed adoption more than it caused it. The supported path had to become cheaper than the local alternative first, and most of the platform’s surface area exists to keep it that way.",
           },
           {
             type: "list",
@@ -513,7 +525,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "None of this is glamorous. Most of it is communication, documentation, and pipelines. That is roughly the point.",
+            text: "Most of this work is communication, documentation, and pipelines. That is roughly the point.",
           },
         ],
       },
@@ -526,7 +538,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "SFDS holds because the discovery never stopped, the trade-offs are written down, and the easiest path through a thousand engineers' day is the supported one. A mandate cannot buy that. It can only confirm it.",
+            text: "SFDS holds because the discovery never stopped, the trade-offs are written down, and the easiest path through a thousand engineers’ day is the supported one. A mandate cannot buy that. It can only confirm it.",
           },
         ],
       },
@@ -558,7 +570,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "That last sentence is the design constraint that shaped everything else. A tax filing is a place where mostly right is a liability. The model's draft is genuinely useful: it reads a PR's title and metadata and produces a plausible, structured judgment in seconds. Plausible and durable are different properties, though, and an audit workflow cannot let one quietly become the other.",
+            text: "That last sentence is the design constraint that shaped everything else. A tax filing is a place where mostly right is a liability. The model’s draft is genuinely useful: it reads a PR’s title and metadata and produces a plausible, structured judgment in seconds. Plausible and durable are different properties, though, and an audit workflow cannot let one quietly become the other.",
           },
           {
             type: "paragraph",
@@ -575,7 +587,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "The failure shows up the first time a human disagrees with the model. A manager reviews a classification, decides the model got it wrong, and overrides it. Some time later a webhook fires or a backfill runs, the automatic path re-classifies the activity, and the upsert replaces the manager's judgment with a fresh draft. Nothing crashes or logs an error. The dashboard keeps showing plausible numbers. The system has silently destroyed the most valuable data it had: a human decision, which is exactly what an auditor would ask to see.",
+            text: "The failure shows up the first time a human disagrees with the model. A manager reviews a classification, decides the model got it wrong, and overrides it. Some time later a webhook fires or a backfill runs, the automatic path re-classifies the activity, and the upsert replaces the manager’s judgment with a fresh draft. Nothing crashes or logs an error. The dashboard keeps showing plausible numbers. The system has silently destroyed the most valuable data it had: a human decision, which is exactly what an auditor would ask to see.",
           },
           {
             type: "paragraph",
@@ -583,7 +595,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "ResearchLog ended up with two deliberately asymmetric write paths. The automatic path yields to humans. If a row is marked user_override = true, the job skips it entirely. The manual path, where a reviewer explicitly asks for a fresh AI draft, refreshes the AI-generated fields while preserving the override flag and the reviewer's notes at write time, so a concurrent human decision is never collateral damage.",
+            text: "ResearchLog ended up with two deliberately asymmetric write paths. The automatic path yields to humans. If a row is marked user_override = true, the job skips it entirely. The manual path, where a reviewer explicitly asks for a fresh AI draft, refreshes the AI-generated fields while preserving the override flag and the reviewer’s notes at write time, so a concurrent human decision is never collateral damage.",
           },
           {
             type: "figure",
@@ -625,7 +637,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Schema validation catches malformed output. It cannot catch well-formed output arriving at the wrong moment. The race is plain: an automatic job reads a row, sees no override, and calls the model. In the seconds that takes, a manager overrides the classification. The job's write now clobbers a decision the job never saw.",
+            text: "Schema validation catches malformed output. It cannot catch well-formed output arriving at the wrong moment. The race is plain: an automatic job reads a row, sees no override, and calls the model. In the seconds that takes, a manager overrides the classification. The job’s write now clobbers a decision the job never saw.",
           },
           {
             type: "paragraph",
@@ -638,7 +650,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "If a human got there first, the statement matches zero rows and the draft is discarded. There is no window where the application's stale view of the row matters, and the invariant holds for every caller, including the background job someone adds in two years without reading the original design discussion.",
+            text: "If a human got there first, the statement matches zero rows and the draft is discarded. There is no window where the application’s stale view of the row matters, and the invariant holds for every caller, including the background job someone adds in two years without reading the original design discussion.",
           },
           {
             type: "paragraph",
@@ -651,7 +663,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "ResearchLog's authorization is layered conventionally. User-driven API requests run on a Supabase client scoped by the user's JWT, so row-level security applies even if an application-level filter regresses someday. The service-role client, which bypasses RLS, is reserved for jobs, webhooks, and system persistence, where no user context exists. Manager-only endpoints check membership roles on top of that.",
+            text: "ResearchLog’s authorization is layered conventionally. User-driven API requests run on a Supabase client scoped by the user’s JWT, so row-level security applies even if an application-level filter regresses someday. The service-role client, which bypasses RLS, is reserved for jobs, webhooks, and system persistence, where no user context exists. Manager-only endpoints check membership roles on top of that.",
           },
           {
             type: "paragraph",
@@ -663,7 +675,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "There was no security hole. Row-level security was doing what it was designed to do: members of an org may read their co-members' membership rows, because the product needs that. The frontend's membership query simply fetched memberships without scoping to the signed-in user. In a multi-member org it received the manager's row alongside the engineer's, resolved the current role with a first-match lookup, and picked the wrong one. The fix was one line, plus a regression test pinning the contract:",
+            text: "There was no security hole. Row-level security was doing what it was designed to do: members of an org may read their co-members’ membership rows, because the product needs that. The frontend’s membership query simply fetched memberships without scoping to the signed-in user. In a multi-member org it received the manager’s row alongside the engineer’s, resolved the current role with a first-match lookup, and picked the wrong one. The fix was one line, plus a regression test pinning the contract:",
           },
           {
             type: "code",
@@ -681,7 +693,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The last boundary is the interface. If the model's output is a draft, the UI has to present it as one.",
+            text: "The last boundary is the interface. If the model’s output is a draft, the UI has to present it as one.",
           },
           {
             type: "paragraph",
@@ -708,7 +720,7 @@ export const writingPosts: WritingPost[] = [
             type: "list",
             items: [
               "Decide explicitly where model output stops being a suggestion. If that boundary is not written down, your upsert path has already decided it for you.",
-              "Validate model output like untrusted client input, and derive the model's output schema and your runtime validation from one definition so they cannot drift.",
+              "Validate model output like untrusted client input, and derive the model’s output schema and your runtime validation from one definition so they cannot drift.",
               "Put invariants that protect human judgment in the layer every write must pass through. For most products that is the database.",
               "Treat human decisions as the most expensive data in the system. Any code path that can touch them should have to prove it preserves them.",
               "Test security semantics and product semantics separately, with data shaped like production, including the multi-user shapes that only appear after launch.",
@@ -744,7 +756,7 @@ export const writingPosts: WritingPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "AI coding agents are getting good enough to produce useful frontend code quickly, which surfaces a familiar platform problem: generated code only helps if it moves teams toward the system's supported path. Without design-system context, agents reach for the public patterns they have seen most often: Bootstrap-like attributes, Material-inspired props, React component conventions, or plausible custom-element guesses.",
+            text: "AI coding agents are getting good enough to produce useful frontend code quickly, which surfaces a familiar platform problem: generated code only helps if it moves teams toward the system’s supported path. Without design-system context, agents reach for the public patterns they have seen most often: Bootstrap-like attributes, Material-inspired props, React component conventions, or plausible custom-element guesses.",
           },
           {
             type: "paragraph",
@@ -811,7 +823,7 @@ export const writingPosts: WritingPost[] = [
               "The search index became another copy of documentation that already existed somewhere else.",
               "Refresh jobs, hosting, permissions, and vector infrastructure became part of the design-system support surface.",
               "Similarity was useful for discovery, but not always precise enough for production component usage.",
-              "Vector hosting, server infrastructure, and ingestion compute added up in ways that weren't obvious until the system was actually running.",
+              "Vector hosting, server infrastructure, and ingestion compute added up in ways that weren’t obvious until the system was actually running.",
             ],
           },
           {

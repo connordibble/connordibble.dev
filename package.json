@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:prose": "node scripts/sloplint.mjs --strict src/data/*.ts src/components/*.tsx src/app/*.tsx src/app/*/*.tsx src/app/*/*/*.tsx"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "1.19.10",

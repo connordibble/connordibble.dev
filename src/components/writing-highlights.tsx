@@ -1,45 +1,42 @@
 import Link from "next/link";
-import { ProjectCard } from "./project-card";
 import { SectionLabel } from "./section-label";
 import { SectionMark } from "./section-mark";
-import { homepageProjects } from "@/data/projects";
+import { WritingRow } from "./writing-row";
+import { getFeaturedWriting } from "@/data/writing";
 
-export function Projects() {
+export function WritingHighlights() {
+  const featured = getFeaturedWriting();
+
   return (
     <section
-      id="projects"
+      id="writing"
       className="container-wide site-section pt-10 pb-10 sm:pt-12 sm:pb-12"
     >
       <div>
         <div className="grid gap-x-6 gap-y-5 sm:grid-cols-[minmax(0,1fr)_auto]">
           <div className="min-w-0">
-            <SectionLabel rule={false}>
-              Selected work
-            </SectionLabel>
+            <SectionLabel rule={false}>Field notes</SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              Enterprise platform scale, executive-backed AI product delivery,
-              and open-source readiness tooling for agent workflows.
+              Longer-form notes on the decisions, tradeoffs, and costs behind
+              the work above.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">
-            <SectionMark variant="asterisk" />
+            <SectionMark variant="grid" />
           </span>
           <Link
-            href="/projects"
+            href="/writing"
             className="arrow-link text-link inline-flex items-center gap-1.5 whitespace-nowrap font-mono text-caption text-text-muted transition-colors duration-150 sm:col-start-2 sm:justify-self-end"
           >
-            <span>View all projects</span>
+            <span>All writing</span>
             <span aria-hidden>→</span>
           </Link>
         </div>
       </div>
-      <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {homepageProjects.map((project, index) => (
-          <li key={project.slug}>
-            <ProjectCard
-              project={project}
-              prominence={index === 0 ? "featured" : "normal"}
-            />
+      <ul className="mt-8 divide-y divide-border border-y border-border">
+        {featured.map((post) => (
+          <li key={post.slug}>
+            <WritingRow post={post} />
           </li>
         ))}
       </ul>

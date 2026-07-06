@@ -9,11 +9,11 @@ export function WritingCard({ post }: WritingCardProps) {
   return (
     <Link
       href={`/writing/${post.slug}`}
-      className="writing-card-link relative block h-full rounded-md border border-border bg-panel p-6 transition-colors duration-150 ease-out"
+      className="writing-card-link surface-link relative block h-full min-h-[15rem] rounded-md border border-border bg-panel p-6"
     >
       <span
         aria-hidden
-        className="writing-card-link-arrow pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-all duration-200 ease-out"
+        className="writing-card-link-arrow pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-[color,opacity,transform] duration-200"
       >
         →
       </span>
@@ -30,7 +30,7 @@ export function WritingCard({ post }: WritingCardProps) {
         {post.topics.map((topic) => (
           <li
             key={topic}
-            className="rounded-xs border border-border bg-canvas px-2 py-1 font-mono text-caption text-text-muted"
+            className="tag-token px-2 py-1"
           >
             {topic}
           </li>

@@ -16,6 +16,7 @@ import {
   type WritingBlock,
 } from "@/data/writing";
 import { resolveRelated } from "@/lib/related";
+import { absoluteUrl, articleMetadata, serializeJsonLd } from "@/lib/seo";
 
 type Params = { slug: string };
 
@@ -33,16 +34,13 @@ export async function generateMetadata({
   if (!post) {
     return { title: "Writing not found" };
   }
-  return {
-    title: `${post.title} — Connor Dibble`,
+  return articleMetadata({
+    title: `${post.title} | Connor Dibble`,
     description: post.summary,
-    openGraph: {
-      title: `${post.title} — Connor Dibble`,
-      description: post.summary,
-      type: "article",
-      publishedTime: post.date,
-    },
-  };
+    path: `/writing/${post.slug}`,
+    publishedTime: post.date,
+    tags: post.topics,
+  });
 }
 
 export default async function WritingPostPage({
@@ -56,11 +54,45 @@ export default async function WritingPostPage({
     notFound();
   }
 
+  const articleUrl = absoluteUrl(`/writing/${post.slug}`);
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${articleUrl}#article`,
+    headline: post.title,
+    description: post.summary,
+    datePublished: post.date,
+    dateModified: post.date,
+    url: articleUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+    },
+    image: absoluteUrl("/opengraph-image"),
+    author: {
+      "@id": absoluteUrl("/#person"),
+    },
+    publisher: {
+      "@id": absoluteUrl("/#person"),
+    },
+    isPartOf: {
+      "@id": absoluteUrl("/#website"),
+    },
+    keywords: post.topics,
+    inLanguage: "en-US",
+  };
+
   return (
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <article className="container-wide pt-20 pb-16 sm:pt-28 sm:pb-24">
+        <article className="container-wide pt-32 pb-16 sm:pt-36 sm:pb-24">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: serializeJsonLd(articleJsonLd),
+            }}
+          />
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },
@@ -76,17 +108,17 @@ export default async function WritingPostPage({
             <p className="mt-5 font-mono text-caption text-text-subtle">
               {post.displayDate} · {post.readTime}
             </p>
-            <h1 className="mt-4 text-[2.5rem] font-semibold tracking-tight text-text text-pretty sm:text-display">
+            <h1 className="mt-4 max-w-4xl text-[3rem] font-semibold leading-[1.02] text-text text-pretty sm:text-[4.25rem]">
               {post.title}
             </h1>
-            <p className="mt-6 text-body text-text-muted leading-relaxed text-pretty">
+            <p className="mt-6 max-w-[65ch] text-body text-text-muted leading-relaxed text-pretty">
               {post.subtitle}
             </p>
             <ul className="mt-5 flex flex-wrap gap-2">
               {post.topics.map((topic) => (
                 <li
                   key={topic}
-                  className="rounded-xs border border-border bg-panel px-2 py-1 font-mono text-caption text-text-muted"
+                  className="tag-token px-2 py-1"
                 >
                   {topic}
                 </li>
@@ -97,7 +129,7 @@ export default async function WritingPostPage({
           <div className="mt-14 max-w-3xl space-y-12">
             {post.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+                <h2 className="max-w-[65ch] text-section-title font-medium text-text">
                   {section.heading}
                 </h2>
                 <div className="mt-4 space-y-5">
@@ -109,8 +141,8 @@ export default async function WritingPostPage({
             ))}
           </div>
 
-          <WritingContact essayTitle={post.title} className="mt-16" />
           <RelatedReading items={resolveRelated(post.related)} />
+          <WritingContact essayTitle={post.title} className="mt-12" />
         </article>
       </main>
       <Footer />
@@ -163,7 +195,7 @@ function renderText(text: string, links?: InlineLink[]) {
 function WritingBlockView({ block }: { block: WritingBlock }) {
   if (block.type === "paragraph") {
     return (
-      <p className="text-body text-text-muted leading-relaxed text-pretty">
+      <p className="max-w-[65ch] text-body text-text-muted leading-relaxed text-pretty">
         {renderText(block.text, block.links)}
       </p>
     );
@@ -171,7 +203,7 @@ function WritingBlockView({ block }: { block: WritingBlock }) {
 
   if (block.type === "list") {
     return (
-      <ul className="space-y-3 pl-5 text-body text-text-muted leading-relaxed">
+      <ul className="max-w-[65ch] space-y-3 pl-5 text-body text-text-muted leading-relaxed">
         {block.items.map((item) => (
           <li key={item} className="list-disc marker:text-border-strong">
             {item}

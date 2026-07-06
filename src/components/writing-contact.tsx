@@ -20,11 +20,13 @@ export function WritingContact({
   return (
     <section
       className={[
-        "max-w-3xl pt-10",
+        "max-w-3xl",
         className,
       ].join(" ")}
     >
-      <SectionLabel mark="triangle">Compare Notes</SectionLabel>
+      <SectionLabel mark="triangle" rule={false}>
+        Compare notes
+      </SectionLabel>
       <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
         {essayTitle
           ? "If this essay connects to a problem you’re working through, I’m always glad to compare notes on the approach, tradeoffs, or where your experience differs."

@@ -1,49 +1,16 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Portfolio Grid + Long Document · design-system: DESIGN.md · designed-as-app
+ * tone: technical · anchor hue: warm copper · theme: graphite/copper · enrichment: none · nav: N5 Floating pill · footer: Ft5 Statement
+ * pre-emit critique: P5 H5 E5 S5 R5 V4
+ */
+@import "../../tokens.css";
 @import "tailwindcss";
-
-:root {
-  --color-accent: #c97a45;
-  --color-accent-hover: #d98f5e;
-  --color-accent-soft: #261510;
-  --color-canvas: #0b0908;
-  --color-shell: #100d0b;
-  --color-panel: #161210;
-  --color-panel-raised: #1c1714;
-  --color-panel-hover: #221c18;
-  --color-border: #2e2620;
-  --color-border-strong: #3d332b;
-  --color-text: #f0ece6;
-  --color-text-muted: #afa69b;
-  --color-text-subtle: #8d8379;
-  --color-code-bg: #0d0a08;
-  --color-code-border: #262018;
-  --color-success: #34b36a;
-  --color-warning: #c9a227;
-}
-
-:root[data-theme="light"] {
-  --color-accent: #9f5f37;
-  --color-accent-hover: #7d4527;
-  --color-accent-soft: #ead8cb;
-  --color-canvas: #f2f3f0;
-  --color-shell: #fcfbf8;
-  --color-panel: #f8f7f3;
-  --color-panel-raised: #ffffff;
-  --color-panel-hover: #eeeae4;
-  --color-border: #d5d0c7;
-  --color-border-strong: #aaa195;
-  --color-text: #171411;
-  --color-text-muted: #514b45;
-  --color-text-subtle: #6c645a;
-  --color-code-bg: #f7f4ef;
-  --color-code-border: #d9d2c8;
-  --color-success: #167348;
-  --color-warning: #8f6b10;
-}
 
 @theme inline {
   --color-accent: var(--color-accent);
   --color-accent-hover: var(--color-accent-hover);
   --color-accent-soft: var(--color-accent-soft);
+  --color-accent-ink: var(--color-accent-ink);
+  --color-focus: var(--color-focus);
   --color-canvas: var(--color-canvas);
   --color-shell: var(--color-shell);
   --color-panel: var(--color-panel);
@@ -77,12 +44,12 @@
 
   --text-display: 3rem;
   --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.02em;
+  --text-display--letter-spacing: 0;
   --text-display--font-weight: 600;
 
   --text-headline: 2rem;
   --text-headline--line-height: 1.15;
-  --text-headline--letter-spacing: -0.01em;
+  --text-headline--letter-spacing: 0;
   --text-headline--font-weight: 600;
 
   --text-section-title: 1.25rem;
@@ -97,7 +64,7 @@
 
   --text-caption: 0.75rem;
   --text-caption--line-height: 1.4;
-  --text-caption--letter-spacing: 0.04em;
+  --text-caption--letter-spacing: 0;
   --text-caption--font-weight: 500;
 
   --text-code: 0.8125rem;
@@ -105,6 +72,10 @@
 
   --font-sans: var(--font-geist-sans), Inter, ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
+  --font-display: var(--font-geist-sans), Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-geist-sans), Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: var(--font-editorial);
+  --font-outlier: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
 }
 
 @utility container-wide {
@@ -114,9 +85,21 @@
   padding-inline: var(--spacing-lg);
 }
 
+@media (min-width: 80rem) {
+  .container-wide {
+    max-width: 74rem;
+    padding-inline: var(--spacing-xl);
+  }
+
+  .site-nav-shell {
+    width: min(calc(100% - 3rem), 74rem);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  overflow-x: clip;
 }
 
 /* Large-desktop steps. Every size token is rem-based, so nudging the root
@@ -155,13 +138,42 @@ body {
   background: var(--color-canvas);
   color: var(--color-text);
   font-family: var(--font-sans);
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
   transition:
-    background-color 180ms ease,
-    color 180ms ease;
+    background-color var(--dur-short) var(--ease-out),
+    color var(--dur-short) var(--ease-out);
+}
+
+h1,
+h2,
+h3 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-card-title {
+  display: block;
+  max-width: none;
+  overflow-wrap: normal;
+  text-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
+
+.project-card-description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+  font-variant-ligatures: common-ligatures;
 }
 
 body::before {
@@ -186,9 +198,89 @@ body::before {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
   border-radius: var(--radius-xs);
+}
+
+.site-nav-wrap {
+  position: fixed;
+  inset-block-start: max(var(--space-sm), env(safe-area-inset-top));
+  inset-inline: 0;
+  z-index: var(--z-sticky);
+  pointer-events: none;
+}
+
+.site-nav-shell {
+  pointer-events: auto;
+  width: min(calc(100% - 1rem), 64rem);
+  min-height: 3.5rem;
+  margin-inline: auto;
+  border: var(--rule-hair) solid var(--color-border);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--color-shell) 90%, transparent);
+  color: var(--color-text);
+  backdrop-filter: blur(18px) saturate(120%);
+  box-shadow: 0 0 0 1px color-mix(in oklch, var(--color-canvas) 72%, transparent);
+  transition:
+    background-color var(--dur-short) var(--ease-out),
+    border-color var(--dur-short) var(--ease-out),
+    transform var(--dur-short) var(--ease-out);
+}
+
+.site-nav-shell[data-scrolled="true"] {
+  border-color: var(--color-border-strong);
+  background: color-mix(in oklch, var(--color-shell) 96%, transparent);
+}
+
+.site-mobile-panel {
+  pointer-events: auto;
+  width: min(calc(100% - 1rem), 34rem);
+  margin-inline: auto;
+  border: var(--rule-hair) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: color-mix(in oklch, var(--color-shell) 98%, transparent);
+  backdrop-filter: blur(18px) saturate(120%);
+}
+
+.site-section {
+  position: relative;
+}
+
+.surface-link {
+  transition:
+    background-color var(--dur-short) var(--ease-out),
+    border-color var(--dur-short) var(--ease-out),
+    color var(--dur-short) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+
+.surface-link:active {
+  transform: translateY(1px);
+}
+
+.tag-token {
+  border: var(--rule-hair) solid var(--color-border);
+  border-radius: var(--radius-xs);
+  background: color-mix(in oklch, var(--color-panel) 68%, var(--color-canvas));
+  color: var(--color-text-muted);
+  font-family: var(--font-outlier);
+  font-size: var(--text-caption);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.text-link,
+.pill-link,
+.arrow-link,
+.theme-toggle,
+.project-card-link,
+.writing-card-link,
+.writing-row-link,
+.project-card-link-arrow,
+.writing-card-link-arrow,
+.writing-row-arrow {
+  transition-timing-function: var(--ease-out);
 }
 
 .text-link:active,
@@ -202,8 +294,8 @@ body::before {
   text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
   text-underline-offset: 3px;
   transition:
-    color 150ms ease,
-    text-decoration-color 150ms ease;
+    color var(--dur-micro) var(--ease-out),
+    text-decoration-color var(--dur-micro) var(--ease-out);
 }
 
 .essay-link:active {
@@ -215,7 +307,7 @@ body::before {
    options are styled to match the design system too. Browsers without it
    (e.g. Safari) keep their native picker, which stays fully accessible. */
 .select-field .select-chevron {
-  transition: rotate 200ms ease-out;
+  transition: rotate var(--dur-short) var(--ease-out);
 }
 
 .select-field:has(select:open) .select-chevron {
@@ -254,10 +346,10 @@ body::before {
     opacity: 1;
     translate: 0 0;
     transition:
-      opacity 150ms ease-out,
-      translate 150ms ease-out,
-      overlay 150ms ease-out allow-discrete,
-      display 150ms ease-out allow-discrete;
+      opacity var(--dur-micro) var(--ease-out),
+      translate var(--dur-micro) var(--ease-out),
+      overlay var(--dur-micro) var(--ease-out) allow-discrete,
+      display var(--dur-micro) var(--ease-out) allow-discrete;
   }
 
   @starting-style {
@@ -304,7 +396,7 @@ body::before {
 }
 
 .arrow-link span[aria-hidden] {
-  transition: transform 200ms ease-out;
+  transition: transform var(--dur-short) var(--ease-out);
 }
 
 .arrow-link:focus-visible span[aria-hidden],

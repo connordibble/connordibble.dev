@@ -1,8 +1,10 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img">
-  <title>Connor Dibble</title>
-  <rect width="512" height="512" rx="112" fill="#0b0908" />
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="42" transform="translate(256 256) scale(1.22) translate(-256 -256)">
-    <path d="M278 160H214C160.981 160 120 200.981 120 256C120 311.019 160.981 352 214 352H278" stroke="#f0ece6" />
-    <path d="M260 160V352H304C357.019 352 392 311.019 392 256C392 200.981 357.019 160 304 160H260" stroke="#c97a45" />
+  <title>CD monogram</title>
+  <rect width="512" height="512" rx="104" fill="#0b0908" />
+  <rect x="18" y="18" width="476" height="476" rx="92" fill="none" stroke="#2d251f" stroke-width="4" />
+  <g fill="none" stroke-linecap="butt" stroke-linejoin="round" stroke-width="38" transform="translate(256 256) scale(1.17) translate(-256 -256)">
+    <path d="M278 166H216C164 166 126 204 126 256C126 308 164 346 216 346H278" stroke="#f0ece6" />
+    <path d="M262 166V346" stroke="#c97a45" />
+    <path d="M262 166H306C358 166 386 204 386 256C386 308 358 346 306 346H262" stroke="#f0ece6" />
   </g>
 </svg>
