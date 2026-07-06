@@ -88,7 +88,7 @@ export const writingPosts: WritingPost[] = [
     subtitle:
       "How a design system's own adoption turned a five-minute cache into a budget problem, and the cache tiers and content hashing that cut delivery cost by two thirds.",
     summary:
-      "Adoption turned a five-minute browser cache into a budget problem. How splitting the cache by owner, keeping component entry files stable while hashing their dependencies, and a finops partnership cut request volume to a third of its peak.",
+      "Adoption turned a five-minute browser cache into a budget problem. Splitting it into three caches with three owners, hashing dependencies behind stable component files, and a finops partnership cut request volume to a third of its peak.",
     date: "2026-06-26",
     displayDate: "June 2026",
     readTime: "10 min read",

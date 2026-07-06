@@ -15,10 +15,10 @@ export function WritingHighlights() {
       <div>
         <div className="grid gap-x-6 gap-y-5 sm:grid-cols-[minmax(0,1fr)_auto]">
           <div className="min-w-0">
-            <SectionLabel rule={false}>Decisions written down</SectionLabel>
+            <SectionLabel rule={false}>The longer version</SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              Essays on the platform work, argued in full, from migration bets
-              to where model output ends and product truth begins.
+              The decisions, tradeoffs, and costs behind the work above,
+              written down.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">
