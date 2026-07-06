@@ -8,13 +8,14 @@ type ProjectCardProps = {
 
 function getCardClass(prominence: ProjectCardProps["prominence"]) {
   return [
-    "project-card-link surface-link relative flex h-full flex-col rounded-md border border-border bg-panel p-6",
-    prominence === "featured" ? "min-h-[16rem] sm:p-7" : "min-h-[14rem]",
+    "project-card-link surface-link relative flex h-full flex-col rounded-md border border-border bg-panel p-5",
+    prominence === "featured" ? "min-h-[15rem] sm:p-6" : "min-h-[15rem]",
   ].join(" ");
 }
 
 function CardBody({ project, prominence }: ProjectCardProps) {
   const { title, owner, description, tags, externalUrl } = project;
+  const visibleTags = tags.slice(0, prominence === "featured" ? 4 : 3);
   const arrowClass =
     "project-card-link-arrow pointer-events-none absolute right-5 top-5 font-mono text-caption text-text-muted opacity-0 transition-[color,opacity,transform] duration-200";
 
@@ -42,16 +43,11 @@ function CardBody({ project, prominence }: ProjectCardProps) {
           </p>
         ) : null}
       </header>
-      <p
-        className={[
-          "mt-3 text-text-muted leading-relaxed text-pretty",
-          prominence === "featured" ? "max-w-2xl text-body" : "text-body-small",
-        ].join(" ")}
-      >
+      <p className="project-card-description mt-4 text-body-small leading-relaxed text-text-muted text-pretty">
         {description}
       </p>
       <ul className="mt-auto flex flex-wrap gap-2 pt-5">
-        {tags.map((tag) => (
+        {visibleTags.map((tag) => (
           <li
             key={tag}
             className="tag-token px-2 py-1"

@@ -139,9 +139,13 @@ export function Nav() {
         <Link
           href="/"
           onClick={handleHomeClick}
-          className="text-link whitespace-nowrap px-2 font-mono text-caption text-text transition-colors duration-150"
+          aria-label="Connor Dibble home"
+          title="Connor Dibble"
+          className="text-link group inline-flex h-11 min-w-11 items-center justify-center whitespace-nowrap rounded-full px-2 text-text transition-[color,transform] duration-150 active:translate-y-px"
         >
-          Connor Dibble
+          <span aria-hidden="true" className="font-editorial text-[1.125rem] leading-none">
+            CD
+          </span>
         </Link>
 
         <ul className="hidden items-center gap-5 lg:flex">
@@ -272,7 +276,7 @@ function ThemeToggle() {
       onClick={() => {
         applyTheme(nextTheme);
       }}
-      className="theme-toggle group relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm text-text-muted transition-[background-color,color,transform] duration-150 active:scale-[0.96] active:bg-border active:text-accent aria-pressed:text-accent"
+      className="theme-toggle group relative inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-sm text-text-muted transition-[background-color,color,transform] duration-150 active:scale-[0.96] active:bg-border active:text-accent aria-pressed:text-accent"
     >
       <SunIcon
         className={[

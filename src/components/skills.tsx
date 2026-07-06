@@ -69,9 +69,11 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="container-wide site-section pt-12 pb-14 sm:pt-14 sm:pb-20"
+      className="container-wide site-section pt-12 pb-10 sm:pt-14 sm:pb-12"
     >
-      <SectionLabel mark="grid">Tools I reach for</SectionLabel>
+      <SectionLabel mark="grid" rule={false}>
+        Tools I reach for
+      </SectionLabel>
       <dl className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {groups.map((group) => (
           <div

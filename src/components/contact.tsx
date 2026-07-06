@@ -37,8 +37,8 @@ const links: ContactLink[] = [
 
 export function Contact() {
   return (
-    <section id="contact" className="container-wide site-section py-12 sm:py-16">
-      <div className="border-t border-border pt-8">
+    <section id="contact" className="container-wide site-section pt-10 pb-12 sm:pt-12 sm:pb-14">
+      <div>
         <SectionLabel mark="triangle" rule={false}>
           Compare notes
         </SectionLabel>

@@ -26,6 +26,9 @@ typography:
   ui:
     fontFamily: 'Geist, Inter, ui-sans-serif, system-ui, sans-serif'
     letterSpacing: '0'
+  editorial:
+    fontFamily: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif'
+    letterSpacing: '0'
   mono:
     fontFamily: 'Geist Mono, JetBrains Mono, ui-monospace, monospace'
     letterSpacing: '0'
@@ -65,6 +68,8 @@ The site is:
 - Quiet and confident.
 - Dark by default — code and technical content read best here.
 - Typographically driven — hierarchy through size and weight, not color.
+- Editorial at the identity layer — a restrained serif display face can appear
+  on the hero name and major closing statements, but body/UI remains Geist.
 - Spacious — whitespace is intentional, not padding.
 - Fast-feeling — transitions are subtle, never theatrical.
 
@@ -127,6 +132,11 @@ Motion confirms state changes and aids spatial orientation. It does not perform.
 Multi-route portfolio with a strong home index. Routes share the same dark
 graphite system, navigation, footer, typography, and CTA voice.
 
+The homepage should feel like an edited index, not a dashboard. Use one dense
+system at a time: a current-work ledger is enough; do not also add side rails,
+numbered section navigation, archive tables, and heavy card grids in the same
+viewport.
+
 Macrostructure family:
 
 - **Home and project indexes:** Portfolio Grid. The work is the proof; cards use
@@ -141,11 +151,12 @@ Macrostructure family:
 Home sections in order:
 
 1. **Hero** — name, one-line role, brief positioning statement, CTA links
-2. **About** — split statement + prose, a human voice, not a resume summary
-3. **Projects** — 3–4 featured projects, asymmetric grid, stack tags
-4. **Experience** — spec-sheet rows: role/date left, impact right
-5. **Skills** — concise grouped panels, no skill bars or percentages
-6. **Contact** — email link, GitHub, LinkedIn. Nothing else.
+2. **Current work ledger** — three calm rows, no invented status or metrics
+3. **About** — split statement + prose, a human voice, not a resume summary
+4. **Projects** — 3 featured projects, restrained cards, stack tags capped
+5. **Experience** — spec-sheet rows: role/date left, impact right
+6. **Skills** — concise grouped panels, no skill bars or percentages
+7. **Contact** — email link, GitHub, LinkedIn. Nothing else.
 
 ### Navigation
 
@@ -359,6 +370,7 @@ imports it, then mirrors the tokens into Tailwind v4 `@theme inline`.
   --color-text: var(--color-text);
   --font-sans: var(--font-body);
   --font-mono: var(--font-outlier);
+  --font-editorial: var(--font-editorial);
   --spacing-lg: var(--space-lg);
   --text-body: var(--text-body);
   --ease-out: var(--ease-out);
@@ -376,6 +388,7 @@ imports it, then mirrors the tokens into Tailwind v4 `@theme inline`.
   },
   "font": {
     "body": { "$value": "Geist", "$type": "fontFamily" },
+    "editorial": { "$value": "ui-serif, Georgia, Cambria, Times New Roman, Times, serif", "$type": "fontFamily" },
     "mono": { "$value": "Geist Mono", "$type": "fontFamily" }
   },
   "space": {

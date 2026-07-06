@@ -13,8 +13,8 @@ export default function Home() {
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <Hero />
-        <About />
         <Projects />
+        <About />
         <Experience />
         <Skills />
         <Contact />

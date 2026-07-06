@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-07-04",
+    "scope": "home",
+    "genre": "modern-minimal",
+    "macrostructure": "Editorial Ledger",
+    "theme": "graphite/copper",
+    "theme_axes": "dark / serif-display + geometric-sans / warm",
+    "enrichment": "existing CD watermark",
+    "nav": "N5 Floating pill",
+    "footer": "Ft5 Statement",
+    "brief": "restrained Concept 2 refinement with a current-work ledger and reduced selected-work density"
+  },
+  {
+    "date": "2026-07-04",
     "scope": "app",
     "genre": "modern-minimal",
     "macrostructure": "Portfolio Grid + Long Document",

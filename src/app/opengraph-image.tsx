@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Connor Dibble — Senior Software Engineer, Platform Engineering & Design Systems";
+  "Connor Dibble | Platform engineering, design systems, and AI tooling";
 
 export const size = {
   width: 1200,
@@ -58,92 +58,140 @@ export default async function OpenGraphImage() {
           position: "relative",
           overflow: "hidden",
           background: "#0b0908",
+          color: "#f0ece6",
           fontFamily: fonts ? "Geist" : "sans-serif",
         }}
       >
-        {/* The CD brand mark as a quiet watermark in the right field. Unlike
-            the hero (which bleeds off the screen edge), the card is a contained
-            object, so the mark sits fully inside it with margin. Single muted
-            tone keeps it background texture, not a competing logo. */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 30,
+            border: "1px solid #2d251f",
+            borderRadius: 28,
+          }}
+        />
+
         <svg
-          width={560}
-          height={560}
+          width={430}
+          height={430}
           viewBox="0 0 512 512"
           fill="none"
-          stroke="#3d332b"
+          stroke="#241d18"
           strokeWidth={36}
-          strokeLinecap="round"
+          strokeLinecap="butt"
           strokeLinejoin="round"
-          style={{ position: "absolute", top: 35, left: 688, opacity: 0.5 }}
+          style={{ position: "absolute", right: 64, top: 98 }}
         >
-          <path d="M278 160H214C160.981 160 120 200.981 120 256C120 311.019 160.981 352 214 352H278" />
-          <path d="M260 160V352H304C357.019 352 392 311.019 392 256C392 200.981 357.019 160 304 160H260" />
+          <path d="M278 166H216C164 166 126 204 126 256C126 308 164 346 216 346H278" />
+          <path d="M262 166V346" />
+          <path d="M262 166H306C358 166 386 204 386 256C386 308 358 346 306 346H262" />
         </svg>
 
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            justifyContent: "space-between",
             height: "100%",
-            padding: "0 92px",
+            width: "100%",
+            padding: "74px 86px 68px",
             position: "relative",
           }}
         >
-          {/* Restrained accent detail. */}
           <div
             style={{
-              width: 56,
-              height: 5,
-              borderRadius: 3,
-              background: "#c97a45",
-              marginBottom: 30,
-            }}
-          />
-          <div
-            style={{
-              fontFamily: fonts ? "Geist Mono" : "monospace",
-              fontSize: 25,
-              letterSpacing: 4,
-              textTransform: "uppercase",
-              color: "#8d8379",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
             }}
           >
-            Senior Software Engineer
+            <div
+              style={{
+                fontFamily: fonts ? "Geist Mono" : "monospace",
+                fontSize: 22,
+                color: "#c97a45",
+              }}
+            >
+              connordibble.dev
+            </div>
+            <div
+              style={{
+                width: 290,
+                height: 1,
+                background: "#2d251f",
+              }}
+            />
           </div>
+
           <div
             style={{
-              fontWeight: 600,
-              fontSize: 104,
-              lineHeight: 1,
-              letterSpacing: -4,
-              color: "#f0ece6",
-              marginTop: 22,
+              display: "flex",
+              flexDirection: "column",
+              maxWidth: 735,
             }}
           >
-            Connor Dibble
+            <div
+              style={{
+                fontSize: 96,
+                lineHeight: 0.98,
+                fontWeight: 500,
+                color: "#f0ece6",
+              }}
+            >
+              Connor Dibble
+            </div>
+            <div
+              style={{
+                marginTop: 28,
+                fontSize: 29,
+                lineHeight: 1.35,
+                color: "#b4aaa0",
+              }}
+            >
+              Platform engineering, design systems, and AI tooling for software
+              people can still reason about.
+            </div>
           </div>
+
           <div
             style={{
-              fontSize: 33,
-              lineHeight: 1.4,
-              color: "#afa69b",
-              marginTop: 30,
-              maxWidth: 720,
+              display: "flex",
+              width: "100%",
+              borderTop: "1px solid #2d251f",
+              borderBottom: "1px solid #2d251f",
+              fontSize: 19,
+              color: "#b4aaa0",
             }}
           >
-            Platform engineering, design systems, and AI tooling that keep large
-            engineering orgs shipping.
-          </div>
-          <div
-            style={{
-              fontFamily: fonts ? "Geist Mono" : "monospace",
-              fontSize: 23,
-              color: "#c97a45",
-              marginTop: 48,
-            }}
-          >
-            connordibble.dev
+            {[
+              ["Platform", "statefarm.com Digital Experience"],
+              ["Open source", "dibble agent-tooling collection"],
+              ["Lab", "Proceris AI product work"],
+            ].map(([label, value], index) => (
+              <div
+                key={label}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 10,
+                  width: "33.333%",
+                  padding: index === 0 ? "24px 26px 24px 0" : "24px 26px",
+                  ...(index === 0 ? {} : { borderLeft: "1px solid #2d251f" }),
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: fonts ? "Geist Mono" : "monospace",
+                    fontSize: 16,
+                    color: "#8d8379",
+                  }}
+                >
+                  {label}
+                </div>
+                <div style={{ color: "#f0ece6" }}>{value}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
