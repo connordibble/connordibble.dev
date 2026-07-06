@@ -12,7 +12,7 @@ import { getFeaturedWriting, writingPosts } from "@/data/writing";
 import { toIndexPost, type WritingIndexPost } from "@/lib/writing-index";
 
 export const metadata: Metadata = {
-  title: "Writing — Connor Dibble",
+  title: "Writing | Connor Dibble",
   description:
     "Field notes and technical essays on platform decisions, design systems, and AI tooling.",
 };

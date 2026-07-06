@@ -34,10 +34,10 @@ export async function generateMetadata({
     return { title: "Writing not found" };
   }
   return {
-    title: `${post.title} — Connor Dibble`,
+    title: `${post.title} | Connor Dibble`,
     description: post.summary,
     openGraph: {
-      title: `${post.title} — Connor Dibble`,
+      title: `${post.title} | Connor Dibble`,
       description: post.summary,
       type: "article",
       publishedTime: post.date,

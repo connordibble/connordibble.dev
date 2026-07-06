@@ -4,12 +4,12 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
 import { SectionLabel } from "@/components/section-label";
-import { projects } from "@/data/projects";
+import { projectIndexProjects } from "@/data/projects";
 
 export const metadata: Metadata = {
-  title: "Projects — Connor Dibble",
+  title: "Projects | Connor Dibble",
   description:
-    "Design-system, design-tooling, frontend platform, and AI product work at State Farm and Proceris.",
+    "Enterprise platform, design-system, open-source agent tooling, and AI product work from Connor Dibble.",
 };
 
 export default function ProjectsPage() {
@@ -28,16 +28,17 @@ export default function ProjectsPage() {
             Projects
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
-            Design-system, design-tooling, frontend platform, and AI product
-            work from State Farm and Proceris. Open-source projects link to
-            source; closed-source projects link to a write-up.
+            Enterprise platform, design-system, open-source agent tooling, and
+            AI product work. The first projects carry the clearest scale and
+            architecture signal; the rest show range across product, tooling,
+            and applied AI.
           </p>
         </section>
 
         <section className="container-wide pb-16 sm:pb-24">
           <SectionLabel mark="asterisk">Work index</SectionLabel>
           <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
-            {projects.map((project, index) => (
+            {projectIndexProjects.map((project, index) => (
               <li
                 key={project.slug}
                 className={

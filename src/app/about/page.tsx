@@ -6,7 +6,7 @@ import { Nav } from "@/components/nav";
 import { SectionLabel } from "@/components/section-label";
 
 export const metadata: Metadata = {
-  title: "About — Connor Dibble",
+  title: "About | Connor Dibble",
   description:
     "A more personal view of Connor Dibble's engineering taste, working style, and interests beyond the portfolio.",
 };
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const notes = [
   {
     title: "Engineering Taste",
-    body: "I like boring leverage: clear boundaries, APIs that are hard to misuse, invariants enforced in the layer that can actually guarantee them, and delivery models that make the correct path the easiest one.",
+    body: "I like boring force multipliers: clear boundaries, APIs that are hard to misuse, invariants enforced in the layer that can actually guarantee them, and delivery models that make the correct path the easiest one.",
   },
   {
     title: "Working Style",
@@ -40,17 +40,15 @@ export default function AboutPage() {
           </h1>
           <div className="mt-6 max-w-3xl space-y-5 text-body text-text-muted leading-relaxed text-pretty">
             <p>
-              I&apos;m a software engineer who tends to see the whole system:
-              the product experience, the services and data behind it, the way
-              software reaches production, and the people who have to evolve it
-              after launch. I started on customer-facing telematics products,
-              working across frontend applications, backend services, and
-              event-driven integrations before moving into platform work shared
-              by many products and teams. Today I lead the statefarm.com Digital
-              Experience suite and steward an enterprise design system. The
-              through-line across that work isn&apos;t the stack; it&apos;s
-              finding the decisions that help teams move faster without giving up
-              reliability, accessibility, or long-term control.
+              I lead the statefarm.com Digital Experience suite across 8
+              product teams and 40-50 engineers, and steward SFDS, an
+              enterprise design system used by 1000+ engineers and designers. I
+              started on customer-facing telematics products, working across
+              frontend applications, backend services, and event-driven
+              integrations before moving into platform work shared by many
+              products and teams. The through-line is finding the decisions that
+              help teams move faster without giving up reliability,
+              accessibility, or long-term control.
             </p>
             <p>
               I&apos;m happiest when a problem is both technically deep and

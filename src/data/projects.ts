@@ -56,7 +56,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Why It Matters for Developer Tools",
-          body: "DesignRail treats AI-assisted implementation as a developer experience problem, not just a generation problem. The important layer is the review surface: what changed, why the mapping was proposed, whether it follows the design system, and what a human accepted or rejected before the result enters a codebase. That is the layer that turns model output into something a developer can trust, debug, and improve.",
+          body: "DesignRail treats AI-assisted implementation as a developer experience problem. The important layer is the review surface: what changed, why the mapping was proposed, whether it follows the design system, and what a human accepted or rejected before the result enters a codebase. That is the layer that turns model output into something a developer can trust, debug, and improve.",
         },
         {
           heading: "Status",
@@ -72,7 +72,7 @@ export const projects: Project[] = [
   {
     slug: "researchlog",
     title: "ResearchLog",
-    owner: "Proceris — closed source",
+    owner: "Proceris, closed source",
     description:
       "Full-stack R&D tax-credit documentation SaaS that maps real engineering work to IRS Section 41 evidence. Ingests GitHub PR and issue activity, classifies work with Claude at the pull-request level to keep model spend bounded, and keeps reviewer overrides tenant-scoped with Supabase RLS.",
     tags: ["Angular", "TypeScript", "NestJS", "Supabase", "Inngest"],
@@ -102,7 +102,7 @@ export const projects: Project[] = [
   {
     slug: "sfds",
     title: "SFDS",
-    owner: "State Farm — closed source",
+    owner: "State Farm, closed source",
     description:
       "State Farm's canonical enterprise design system and migration target for statefarm.com. I led sf-ui, a framework-agnostic Lit/Web Components library with 70+ primitives, plus the Figma Variables → W3C token pipeline and npm/CDN release governance for 1000+ engineers and designers.",
     tags: ["Web Components", "TypeScript", "Design Tokens", "npm + CDN"],
@@ -175,9 +175,134 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "agent-readiness-kit",
+    title: "agent-readiness-kit",
+    owner: "Open source",
+    description:
+      "TypeScript CLI and library that scores whether a repository is ready for coding agents. Audits project instructions, skill structure, deterministic gates, mock/offline defaults, AI boundaries, CI coverage, docs, and release hygiene, with a design-system preset for token and visual-review workflows.",
+    tags: ["TypeScript", "CLI", "Agent Workflows", "CI", "GitHub Actions"],
+    repoUrl: "https://github.com/connordibble/agent-readiness-kit",
+    links: [
+      {
+        label: "View package on npm",
+        href: "https://www.npmjs.com/package/agent-readiness-kit",
+      },
+    ],
+    detail: {
+      headline:
+        "A practical readiness audit for repos that want coding agents to work from explicit instructions, repeatable checks, and reviewable boundaries.",
+      sections: [
+        {
+          heading: "Problem",
+          body: "Coding agents work best when the repository tells them what matters and gives them one deterministic way to prove the work is finished. Many repos rely on tribal knowledge instead: the test command is implied, credentials are required for local flows, review boundaries live in a human's head, and agent instructions either do not exist or grow into context bloat. A codebase can be healthy for humans and still hard for an agent to operate in safely.",
+        },
+        {
+          heading: "Approach",
+          body: "agent-readiness-kit turns that operational contract into a score. The generic preset checks for root agent instructions, focused skill files, a single quality gate, secret scanning, mock/offline paths, AI review boundaries, CI coverage, package metadata, and copy-paste runnable docs. The design-system preset adds checks for token sources of truth, component contracts, accessibility signals, visual verification, human review workflows, and isolated external design input.",
+        },
+        {
+          heading: "Implementation",
+          body: "The package exposes both a CLI and a library API. It reads a project snapshot, runs weighted rules, and returns pass, warn, fail, or skip findings with evidence and recommendations. Output formats cover human text, stable JSON, GitHub Actions annotations, and shields.io badge payloads. CI can enforce a minimum score with --fail-under, while the init command scaffolds an AGENTS.md template and composes a check script from existing package scripts without overwriting existing files.",
+        },
+        {
+          heading: "Quality Bar",
+          body: "The repo dogfoods its own rubric and publishes a calibration table against real repositories, including its own 100/100 generic score and a design-system score for DesignRail. The local CI mirror runs secret checks, lint, typecheck, format checks, tests, coverage, build, and a dry-run package publish. Releases use semantic-release and npm provenance, keeping the tool's package contract as explicit as the project contracts it audits.",
+        },
+        {
+          heading: "Stack",
+          body: "TypeScript · Node.js CLI · Vitest · tsup · semantic-release · GitHub Actions · npm provenance",
+        },
+      ],
+    },
+  },
+  {
+    slug: "saturday-signal",
+    title: "Saturday Signal",
+    owner: "Open source",
+    description:
+      "Independent college-football fan intelligence platform with a Texas football reference deployment. Ingests fixture, official-link, team-note, and optional CFBD sources, then returns citation-backed chat answers with voice, source, and rumor guardrails.",
+    tags: ["Next.js", "TypeScript", "Drizzle", "RAG", "Playwright"],
+    repoUrl: "https://github.com/connordibble/SaturdaySignal",
+    detail: {
+      headline:
+        "A source-grounded college-football intelligence product, built as a reusable team platform with one polished Texas reference deployment.",
+      sections: [
+        {
+          heading: "Problem",
+          body: "College football fans want fast context before a game. The available signal is scattered across schedules, game notes, official links, data feeds, and rumor-heavy commentary. Saturday Signal explores a cleaner product boundary: a team-aware assistant that can brief a fan from trusted sources, cite what it knows, and stay honest when the current source set is thin.",
+        },
+        {
+          heading: "Product Boundary",
+          body: "The first MVP ships with Texas football as the reference deployment while keeping the platform shaped for future teams. Team identity, source policy, voice, protected-mark guidance, colors, aliases, and suggested prompts live in typed configuration. The product avoids official logos, mascot branding, and affiliation language, which keeps the project legally cleaner and forces the experience to stand on source quality instead of borrowed brand equity.",
+        },
+        {
+          heading: "Architecture",
+          body: "The Next.js app exposes a root Texas deployment and a canonical /teams/texas-football route, plus API routes for health, ingest, and chat. The ingest pipeline combines committed schedule fixtures, sample team notes, official links, and an optional CollegeFootballData adapter when CFBD_API_KEY is present. Source documents are normalized, de-duplicated, chunked, and retrieved with deterministic term and phrase scoring before the chat layer asks a provider for an answer.",
+        },
+        {
+          heading: "Guardrails",
+          body: "The chat path carries citations, freshness text, confidence, provider metadata, and a mode for every answer. Rumor, injury, betting, and message-board questions route through a static guardrail response instead of laundering untrusted claims. If a live LLM provider is unavailable, the app falls back to a deterministic mock provider so the product still returns a grounded answer from the retrieved context.",
+        },
+        {
+          heading: "Quality Bar",
+          body: "The release check combines lint, typecheck, unit tests, voice evals, build, ingest, and Playwright e2e coverage. Offline fixtures make the core flow runnable without private keys. Database smoke tests cover Drizzle migrations and seeding for teams, games, source documents, chunks, sessions, messages, and citations, including the expected warning path when the live CFBD key is absent.",
+        },
+        {
+          heading: "Stack",
+          body: "Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Drizzle · Postgres + pgvector · Anthropic/OpenAI adapters · Vitest · Playwright",
+        },
+      ],
+    },
+  },
+  {
+    slug: "dibble",
+    title: "dibble",
+    owner: "Open source",
+    description:
+      "Portable plugin, skill, and CLI collection for coding-agent guardrails. Packages design-token enforcement, supply-chain gates, agent-config audits, evidence-linked writing, UI verification, schema tooling, README audits, and marketplace validation for Claude Code, Codex, and CI.",
+    tags: ["Agent Skills", "CLI", "Codex", "Claude Code", "Node.js"],
+    repoUrl: "https://github.com/connordibble/dibble",
+    links: [
+      {
+        label: "View package on npm",
+        href: "https://www.npmjs.com/package/dibble",
+      },
+    ],
+    detail: {
+      headline:
+        "A catalog of focused agent skills and deterministic checkers that move project taste, safety rules, and evidence standards into the moment work happens.",
+      sections: [
+        {
+          heading: "Problem",
+          body: "Agent instructions are easy to ignore when they only live in prompt text. A model might ignore design tokens, summarize beyond the source, or suggest a plausible package name that does not belong in the repo. dibble starts from those failure modes and turns the recurring fixes into portable skills plus scripts that can fail locally or in CI.",
+        },
+        {
+          heading: "Catalog",
+          body: "The collection covers design-token enforcement and drift checks, package-install safety, agent-configuration audits, evidence-linked summaries, machine-prose linting, UI verification, Tailwind v4 token guidance, Zod-first tool schemas, README conversion audits, and plugin marketplace validation. Each plugin stays small enough to understand on its own, with its own README, skill files, scripts, and tests.",
+        },
+        {
+          heading: "Portability",
+          body: "Every plugin ships its knowledge as plain Agent Skill files and its enforcement as zero-dependency Node scripts. Claude Code gets marketplace metadata, hooks, and slash-command integrations where the host supports them. Codex gets a separate marketplace sidecar that installs the same portable skill layer while avoiding claims about Claude-only hook behavior. The npm package exposes a single npx dibble front door plus individual bins for each checker.",
+        },
+        {
+          heading: "Enforcement Pattern",
+          body: "The core design choice is to put deterministic logic in the same scripts the skills reference. tokenlock, install-gate, receipts, sloplint, zod-lint, responsive-smells, readme-audit, validate-marketplace, and validate-codex can run under an agent workflow or directly in CI. That keeps the rule an agent follows aligned with the rule the pipeline enforces.",
+        },
+        {
+          heading: "Quality Bar",
+          body: "The repo validates both its Claude marketplace and Codex sidecar on every push, runs the plugin checker tests across Node 20, 22, and 24, lints README and skill prose with strict sloplint, audits the root and plugin READMEs, and performs a package dry run. The catalog is dogfooded by the same marketplace-kit, no-slop, and validation tools it distributes.",
+        },
+        {
+          heading: "Stack",
+          body: "Node.js · Agent Skills · Claude Code plugin manifests · Codex plugin manifests · zero-dependency CLI checkers · GitHub Actions · semantic-release",
+        },
+      ],
+    },
+  },
+  {
     slug: "agent-convention-feedback",
     title: "Insurance Agent Feedback Platform",
-    owner: "State Farm — closed source",
+    owner: "State Farm, closed source",
     description:
       "Full-stack AI feedback platform commissioned by State Farm's EVP of enterprise technology. Went from concept to production in two months for its debut at agency convention, and the pilot earned backing to become the official support and feedback channel for all 10,000+ State Farm agents.",
     tags: ["Angular", "TypeScript", "Node.js", "AWS", "AI Workflows"],
@@ -187,7 +312,7 @@ export const projects: Project[] = [
       sections: [
         {
           heading: "Problem",
-          body: "State Farm leadership wanted a real read on what its 10,000+ agents experience across service, ECRM, underwriting, and agent-support workflows, and the existing channel was free-form feedback that oftentimes died in spreadsheets or manual review queues. The EVP of enterprise technology asked me and a small horizontal team to fix that in time for agency convention, which left roughly two months from concept through design to production.",
+          body: "State Farm leadership wanted a real read on what its 10,000+ agents experience across service, ECRM, underwriting, and agent-support workflows, and the existing channel was free-form feedback that often died in spreadsheets or manual review queues. The EVP of enterprise technology asked me and a small horizontal team to fix that in time for agency convention, which left roughly two months from concept through design to production.",
         },
         {
           heading: "Approach",
@@ -199,7 +324,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Impact",
-          body: "The reception from agents and from the executives team earned support to build on the pilot and make the platform the official support and feedback channel for the entire 10,000+ agency force. That scale-up is in progress now, taking the product from convention pilot to a standing channel, and the build set the pattern for blending human feedback, AI summarization, and reviewable evidence in internal workflows.",
+          body: "The reception from agents and the executive team earned support to build on the pilot and make the platform the official support and feedback channel for the entire 10,000+ agency force. That scale-up is in progress now, taking the product from convention pilot to a standing channel, and the build set the pattern for blending human feedback, AI summarization, and reviewable evidence in internal workflows.",
         },
         {
           heading: "Stack",
@@ -211,7 +336,7 @@ export const projects: Project[] = [
   {
     slug: "paceai",
     title: "PaceAI",
-    owner: "Proceris — closed source",
+    owner: "Proceris, closed source",
     description:
       "AI workflow that turns long-form workout video into timestamped equipment-control profiles. Combines video/audio ingestion, trainer-cue extraction, exercise-science reasoning, and a human review UI for partner OEM workflows.",
     tags: ["React", "Node.js", "Python", "Multimodal"],
@@ -247,3 +372,33 @@ export function getProjectBySlug(slug: string): Project | undefined {
 export function getDetailProjects(): Project[] {
   return projects.filter((p) => p.detail !== undefined);
 }
+
+function getProjectsBySlug(slugs: string[]): Project[] {
+  return slugs.map((slug) => {
+    const project = getProjectBySlug(slug);
+
+    if (!project) {
+      throw new Error(`Unknown project slug: ${slug}`);
+    }
+
+    return project;
+  });
+}
+
+export const homepageProjects = getProjectsBySlug([
+  "sfds",
+  "researchlog",
+  "dibble",
+]);
+
+export const projectIndexProjects = getProjectsBySlug([
+  "sfds",
+  "researchlog",
+  "dibble",
+  "designrail",
+  "agent-convention-feedback",
+  "agent-readiness-kit",
+  "zod-ai-tool",
+  "saturday-signal",
+  "paceai",
+]);

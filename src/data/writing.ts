@@ -242,12 +242,12 @@ export const writingPosts: WritingPost[] = [
               "Split the cache by owner before optimizing. Browser, edge, and origin expire for different reasons, and a lever that helps one tier can be irrelevant to another.",
               "Content hashing turns invalidation from coordination into arithmetic. The filename is the cache key, and the build system maintains it for free.",
               "Protect the stable component URLs consumers reference. The dependency files behind them can be immutable, and immutable files are the cheapest files there are.",
-              "Take the finops meeting. Predictable traffic is leverage, and engineering teams almost never cash it in.",
+              "Take the finops meeting. Predictable traffic is negotiating power, and engineering teams almost never cash it in.",
             ],
           },
           {
             type: "paragraph",
-            text: "Most of this is one build script, some cache headers, and a pricing conversation. The leverage came from running them in the right order.",
+            text: "Most of this is one build script, some cache headers, and a pricing conversation. The gain came from running them in the right order.",
           },
         ],
       },
@@ -525,7 +525,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "None of this is glamorous. Most of it is communication, documentation, and pipelines. That is roughly the point.",
+            text: "Most of this work is communication, documentation, and pipelines. That is roughly the point.",
           },
         ],
       },
