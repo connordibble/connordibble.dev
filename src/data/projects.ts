@@ -33,7 +33,7 @@ export const projects: Project[] = [
     title: "DesignRail",
     owner: "Open source",
     description:
-      "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Translates Figma component intent into Web Component mappings, validates compliance, and records human review decisions through a GraphQL API.",
+      "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Translates mock or optional Figma component intent into Web Component mappings, validates compliance, and records review, compliance, and export history through a GraphQL API.",
     tags: [
       "Developer Tools",
       "React",
@@ -52,15 +52,15 @@ export const projects: Project[] = [
         },
         {
           heading: "Approach",
-          body: "A pnpm monorepo with a React review UI, a Fastify and Apollo GraphQL API, and shared Zod schemas at every boundary. Mock Figma fixtures normalize into component intent, a deterministic mapper proposes Shoelace Web Component implementations, and a compliance agent reports accessibility, token, and variant findings alongside each mapping. Review decisions persist through the GraphQL API so mapping quality is auditable over time, and exports produce implementation-ready HTML, React examples, or agent-ready briefs.",
+          body: "A pnpm monorepo with a React review UI, a Fastify and Apollo GraphQL API, and shared Zod schemas at every boundary. Mock Figma fixtures normalize into component intent, a deterministic mapper proposes Shoelace Web Component implementations, and a compliance agent reports accessibility, token, and variant findings alongside each mapping. The review workspace keeps decision history and a component-grouped compliance timeline visible before export, so generated HTML, React examples, and agent briefs carry the review context that made them safe to use.",
         },
         {
           heading: "Why It Matters for Developer Tools",
-          body: "DesignRail treats AI-assisted implementation as a developer experience problem, not just a generation problem. The important layer is the review surface: what changed, why the mapping was proposed, whether it follows the design system, and what a human accepted or rejected before the result enters a codebase. That is the layer that turns model output into something a developer can trust, debug, and improve.",
+          body: "DesignRail treats AI-assisted implementation as a developer experience problem, not just a generation problem. The important layer is the review surface: what changed, why the mapping was proposed, whether it follows the design system, what a human changed, and which compliance findings still matter. That is the layer that turns model output into something a developer can trust, debug, and improve.",
         },
         {
           heading: "Status",
-          body: "Early and in active development. The Phase 1 contract is in place: shared schemas, the GraphQL API, SQLite persistence, recorded review decisions, and a Button-first mapping path with more components staged behind it. The repo is run like production software anyway: CI quality gates covering secrets, mock-mode, types, lint, and tests, conventional commits with release planning, and ADRs in the docs site. It is the same problem I work on at enterprise scale, rebuilt in the open where the contracts and checks can be shown.",
+          body: "Early and in active development. The public path runs on generic Button, Input, and Card fixtures with no private credentials required. The GraphQL contract now covers per-mapping decision history and a cross-example compliance ledger, with API and web tests around both. The repo is run like production software anyway: quality gates cover secrets, mock-mode, types, lint, format, tests, GraphQL, database drift, compliance review, and design verification. It is the same problem I work on at enterprise scale, rebuilt in the open where the contracts and checks can be shown.",
         },
         {
           heading: "Stack",
