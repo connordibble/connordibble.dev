@@ -83,6 +83,204 @@ export type WritingPost = {
 
 export const writingPosts: WritingPost[] = [
   {
+    slug: "agentic-software-needs-a-design-system",
+    title: "Agentic Software Needs a Design System",
+    subtitle:
+      "The governance questions agent builders are asking now are the ones enterprise design systems have been answering for years: primitives, constraints, docs, permissions, review, and release discipline.",
+    summary:
+      "Why an AI agent should be treated as another contributor to a governed platform, and how design-system mechanisms map one for one onto agentic equivalents.",
+    date: "2026-07-07",
+    displayDate: "July 2026",
+    readTime: "9 min read",
+    featured: true,
+    topics: ["AI Tooling", "Platform Engineering", "Design Systems"],
+    related: [
+      { kind: "writing", slug: "from-snippets-to-shadow-dom" },
+      { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
+      { kind: "project", slug: "sfds" },
+    ],
+    sections: [
+      {
+        heading: "The Same Problem, Faster",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Enterprise design systems solved a version of the agent problem before agents arrived.",
+          },
+          {
+            type: "paragraph",
+            text: "The surfaces look nothing alike. A design system governs buttons, form fields, tokens, and page patterns. An agentic system governs tools, prompts, schemas, and generated artifacts. Underneath, both answer one question: how do many contributors move fast without turning shared quality into local taste? For a design system the contributors are a thousand engineers. For an agentic system they are models, and the models are faster.",
+          },
+          {
+            type: "paragraph",
+            text: "I led engineering on an enterprise design system for close to three years and have spent the time since building agent workflows on both sides of that boundary. The pattern is hard to unsee. Every governance mechanism the design system needed has a direct agentic equivalent, and skipping one produces the same failure it produced for UI work.",
+          },
+          {
+            type: "paragraph",
+            text: "Agentic software needs a design system. Not the UI kind: the operating layer the UI kind taught us to build.",
+          },
+        ],
+      },
+      {
+        heading: "The Agent Is Another Contributor",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The design system I worked on replaced a copy-paste library. Teams pasted HTML from a docs site, edited it locally, and kept shipping. The pages still looked close enough, so the drift stayed quiet until source-side fixes stopped applying cleanly, and by the time discovery started, whole forks of the system had grown in different areas. I wrote that story up separately; the short version is that ungoverned contribution forked the platform.",
+            links: [
+              {
+                text: "wrote that story up separately",
+                href: "/writing/from-snippets-to-shadow-dom",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Agents reproduce that failure through a different door. They produce reasonable-looking code, configuration, mappings, and summaries that sit just outside the supported path. The output compiles. It passes a glance. The drift surfaces later, when a platform fix does not apply, a validator flags an API that never existed, or a reviewer cannot reconstruct why an artifact exists. A busy engineer routes around a bad component API; an agent does the same thing to your platform at generation speed. Speed only makes the drift arrive sooner.",
+          },
+          {
+            type: "paragraph",
+            text: "The conclusion I keep landing on is to treat the agent as another contributor to a governed system. Contributors need primitives, current docs, clear permissions, repeatable checks, and a review path. The design system's mechanisms map onto agentic equivalents almost row by row.",
+          },
+          {
+            type: "figure",
+            variant: "governance-map",
+            caption:
+              "The mapping I actually use. For each row, an agentic system either has the equivalent or it has a gap with a name.",
+          },
+        ],
+      },
+      {
+        heading: "Primitives and Constraints",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "SFDS moved governance into the component boundary. Shadow DOM took the markup engineers used to edit and put it inside the component, where the platform team controls it. Consumers got a smaller API, and being almost right stopped being possible in most of the ways that used to matter.",
+          },
+          {
+            type: "paragraph",
+            text: "The agentic equivalents are tools and schemas. A model should not have to infer every possible operation from raw text when the product can expose a small set of safe actions. It should not generate arbitrary UI when a design-system component exists, and it should not hand back free-form JSON when a schema can define the shape. I keep a small open-source package, zod-ai-tool, for the narrowest version of this: the provider's tool definition and the application's runtime validation derive from one Zod schema, so the two contracts cannot drift apart. DesignRail applies the same move to design-to-code, where the mapper proposes from a governed set of Web Component mappings instead of writing whatever frontend code seems plausible.",
+          },
+          {
+            type: "paragraph",
+            text: "Narrow surfaces are sometimes read as distrust of the model. The motive is different: a narrow surface is what makes the useful path legible enough for the model to find it.",
+          },
+        ],
+      },
+      {
+        heading: "Docs Are Part of the Runtime",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "For human consumers, docs describe the system. For agents, docs are closer to configuration: whatever the agent can read and obey at task time is the behavior you get. When I explored giving agents design-system context, the version that survived was live docs plus small installable skills, with a heavier retrieval platform built first and then retired. A skill teaches where the docs live, which component APIs are authoritative, and which rules are non-negotiable. It does not copy component APIs into a second document, because a second document is a fork with better intentions.",
+            links: [
+              {
+                text: "live docs plus small installable skills",
+                href: "/writing/teaching-ai-agents-to-use-a-design-system",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The design-system discipline carries over unchanged. Versioned docs let a team on last quarter's release read last quarter's truth, and the same applies to agent guidance pinned against a component version. A thin skill is easier to keep true than a clever one.",
+          },
+        ],
+      },
+      {
+        heading: "Permissions Need Product Meaning",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Design systems run on permissions that rarely get called that. Consumers set supported props and nothing else. The platform team changes internals. Designers change tokens through a reviewed pipeline. Deprecation windows say how long old behavior stays safe. Nobody calls this an authorization model, but that is what it is.",
+          },
+          {
+            type: "paragraph",
+            text: "Agentic systems need theirs stated just as concretely. Which actions may the agent take without approval? Which produce drafts, and which write durable state? Which outputs require a human decision before anything downstream may read them? ResearchLog draws one of those lines in the database itself: a background job may write a fresh classification, and it may not overwrite a human override, because the guard travels inside the write statement. The permission is enforced as a WHERE clause rather than remembered as a convention.",
+            links: [
+              {
+                text: "ResearchLog draws one of those lines in the database itself",
+                href: "/writing/when-the-model-is-a-draft",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "That is what a permission with product meaning looks like. It protects the data the workflow exists to capture, and it holds for every caller, including the one added years later by someone who never read the design discussion.",
+          },
+        ],
+      },
+      {
+        heading: "Review Is the Governance Surface",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Design review, accessibility review, and release review all exist because source alone does not carry enough context. Someone has to decide whether an artifact is acceptable inside the system, and they need the surrounding evidence to decide well.",
+          },
+          {
+            type: "paragraph",
+            text: "Generated artifacts need the same surface: what the agent proposed, what it consumed, which checks passed, which failed, and what a human decided. DesignRail persists exactly that object for every component mapping, and the argument for building review surfaces this way is its own essay. The design-system version of the lesson is older and simpler. A platform that cannot show why an artifact was accepted will eventually be asked to defend one it cannot explain.",
+          },
+        ],
+      },
+      {
+        heading: "Release Discipline for Behavior",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "SFDS treats a careless major version against a thousand-plus consumers as a reliability event, so releases are versioned, deprecations get announced windows, and docs version alongside the code. Agent workflows need the same discipline for a sneakier reason: behavior can break with no API change at all.",
+          },
+          {
+            type: "figure",
+            variant: "behavior-breaking-changes",
+            caption:
+              "Changes that pass typecheck and break consumers anyway. Each one deserves release notes, tests, and a rollback path.",
+          },
+          {
+            type: "paragraph",
+            text: "A prompt edit changes every summary downstream. A schema tightening rejects arguments that passed yesterday. A mapper improvement changes which component the same design node receives. These are breaking changes by any consumer-facing definition, and most teams ship them with less ceremony than a patch release. The practices that fix this are not new. The feedback platform I shipped ran GitOps deploys with a rollback path during its convention pilot, and DesignRail runs CI gates and ADRs while it is still early. Neither practice waited for the workflow to become important. That is the point: the discipline is cheapest before anyone depends on you.",
+          },
+        ],
+      },
+      {
+        heading: "What I Would Carry Forward",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Reduced to a sentence: give agents the governed path a good design system gives engineers, and name the gaps using the same words. The longer version:",
+          },
+          {
+            type: "list",
+            items: [
+              "Treat the agent as a contributor, not a feature. Contributors need primitives, docs, permissions, and review, and an agent missing one will route around the platform like any busy engineer.",
+              "Make the supported action surface smaller than the raw capability surface. Tools, schemas, and component APIs shrink the space of plausible mistakes.",
+              "Keep docs live and guidance thin. Anything that copies the source of truth becomes a second source of truth on a delay.",
+              "Give permissions product meaning, and enforce the ones that protect human judgment in the layer every write passes through.",
+              "Review generated artifacts with the evidence attached, and persist the decisions. The corrections are where the platform learns.",
+              "Version behavior. Prompts, schemas, mappers, and validator rules can all break consumers without breaking the build.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Most of this is unglamorous: contracts, docs, pipelines, and review queues. That was true of the design system too, and it is why the lesson transfers.",
+          },
+        ],
+      },
+      {
+        heading: "The Broader Point",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Agentic software is usually discussed as an autonomy problem: how much should the system do on its own? The operating question is governance. What can the system do, under which constraints, with whose approval, and with what record left behind?",
+          },
+          {
+            type: "paragraph",
+            text: "Enterprise UI platforms spent years learning to package decisions into primitives, write the supported path down, validate what can be validated, and put humans where judgment lives. Agentic systems get to start from that inheritance instead of rediscovering it one incident at a time.",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "success-was-the-incident",
     title: "Success Was the Incident",
     subtitle:
