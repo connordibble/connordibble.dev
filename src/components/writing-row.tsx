@@ -8,11 +8,19 @@ export type WritingRowPost = {
   readTime: string;
 };
 
-export function WritingRow({ post }: { post: WritingRowPost }) {
+type WritingRowProps = {
+  post: WritingRowPost;
+  compact?: boolean;
+};
+
+export function WritingRow({ post, compact = false }: WritingRowProps) {
   return (
     <Link
       href={`/writing/${post.slug}`}
-      className="writing-row-link surface-link block rounded-sm px-3 py-6"
+      className={[
+        "writing-row-link surface-link block rounded-sm px-3",
+        compact ? "py-4" : "py-6",
+      ].join(" ")}
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
         <h3 className="writing-row-title flex items-center gap-2 text-section-title font-medium text-text text-pretty transition-colors duration-150">
@@ -28,7 +36,12 @@ export function WritingRow({ post }: { post: WritingRowPost }) {
           {post.displayDate} · {post.readTime}
         </p>
       </div>
-      <p className="mt-3 max-w-3xl text-body-small text-text-muted leading-relaxed text-pretty">
+      <p
+        className={[
+          "text-body-small text-text-muted leading-relaxed text-pretty",
+          compact ? "mt-2 max-w-2xl" : "mt-3 max-w-3xl",
+        ].join(" ")}
+      >
         {post.summary}
       </p>
     </Link>
