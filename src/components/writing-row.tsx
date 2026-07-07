@@ -12,14 +12,14 @@ export function WritingRow({ post }: { post: WritingRowPost }) {
   return (
     <Link
       href={`/writing/${post.slug}`}
-      className="writing-row-link block px-2 py-6 transition-colors duration-150"
+      className="writing-row-link surface-link block rounded-sm px-3 py-6"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
         <h3 className="writing-row-title flex items-center gap-2 text-section-title font-medium text-text text-pretty transition-colors duration-150">
           <span>{post.title}</span>
           <span
             aria-hidden
-            className="writing-row-arrow font-mono text-body-small text-text-muted opacity-0 transition-all duration-200 ease-out"
+            className="writing-row-arrow font-mono text-body-small text-text-muted opacity-0 transition-[opacity,transform,color] duration-200"
           >
             →
           </span>

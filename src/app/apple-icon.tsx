@@ -18,26 +18,40 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
+          overflow: "hidden",
+          borderRadius: 36,
         }}
       >
-        {/* The CD arc mark, matching the favicon and hero watermark. */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 7,
+            border: "1px solid #2d251f",
+            borderRadius: 31,
+          }}
+        />
+        {/* The CD monogram, matching the favicon and hero watermark. */}
         <svg
-          width={118}
-          height={118}
+          width={180}
+          height={180}
           viewBox="0 0 512 512"
           fill="none"
-          strokeWidth={44}
-          strokeLinecap="round"
+          strokeWidth={38}
+          strokeLinecap="butt"
           strokeLinejoin="round"
         >
-          <path
-            d="M278 160H214C160.981 160 120 200.981 120 256C120 311.019 160.981 352 214 352H278"
-            stroke="#f0ece6"
-          />
-          <path
-            d="M260 160V352H304C357.019 352 392 311.019 392 256C392 200.981 357.019 160 304 160H260"
-            stroke="#c97a45"
-          />
+          <g transform="translate(256 256) scale(1.17) translate(-256 -256)">
+            <path
+              d="M278 166H216C164 166 126 204 126 256C126 308 164 346 216 346H278"
+              stroke="#f0ece6"
+            />
+            <path d="M262 166V346" stroke="#c97a45" />
+            <path
+              d="M262 166H306C358 166 386 204 386 256C386 308 358 346 306 346H262"
+              stroke="#f0ece6"
+            />
+          </g>
         </svg>
       </div>
     ),

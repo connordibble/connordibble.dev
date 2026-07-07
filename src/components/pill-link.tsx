@@ -8,7 +8,7 @@ type PillLinkProps = {
 };
 
 const className =
-  "pill-link inline-flex items-center gap-2 rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text transition-colors duration-150";
+  "pill-link surface-link inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-sm border border-border bg-panel px-4 py-2 font-mono text-caption text-text";
 
 export function PillLink({ href, label, external, ariaLabel }: PillLinkProps) {
   const labelContent = (

@@ -27,12 +27,12 @@ import {
 const SEARCH_DEBOUNCE_MS = 250;
 
 const fieldClass =
-  "h-10 w-full rounded-sm border border-border bg-panel px-3 font-mono text-body-small text-text transition-colors duration-150 placeholder:text-text-subtle";
+  "min-h-11 w-full rounded-sm border border-border bg-panel px-3 font-mono text-body-small text-text transition-colors duration-150 placeholder:text-text-subtle";
 
 const selectClass = `${fieldClass} styled-select appearance-none pr-[2.25rem]`;
 
 const labelClass =
-  "font-mono text-caption uppercase tracking-[0.12em] text-text-subtle";
+  "font-mono text-caption text-text-subtle";
 
 function ChevronDownIcon({ className }: { className?: string }) {
   return (
@@ -75,7 +75,7 @@ type FacetOption = {
 /**
  * A multi-select facet rendered as exposed checkbox pills. Every value stays
  * visible with a live result count, so adding or removing one is a single
- * tap — no reopening a menu per selection.
+ * tap, with no need to reopen a menu per selection.
  */
 function FacetGroup({
   legend,
@@ -104,6 +104,7 @@ function FacetGroup({
             >
               <input
                 type="checkbox"
+                name={`${legend.toLowerCase()}[]`}
                 checked={checked}
                 onChange={() => onToggle(option.value)}
                 className="facet-pill-input sr-only"
@@ -416,9 +417,11 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             <span className={labelClass}>Search</span>
             <input
               type="search"
+              name="q"
+              autoComplete="off"
               value={q}
               onChange={(event) => onSearchChange(event.target.value)}
-              placeholder="Title, topic, project"
+              placeholder="Title, topic, or project…"
               className={fieldClass}
             />
           </label>
@@ -426,6 +429,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             <span className={labelClass}>Sort</span>
             <SelectField>
               <select
+                name="sort"
                 value={sort}
                 onPointerDown={closeOpenSelectOnTriggerTap}
                 onChange={(event) =>
@@ -446,7 +450,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             aria-expanded={filtersOpen}
             aria-controls="writing-filters"
             onClick={() => setFiltersOpen((open) => !open)}
-            className="pill-link flex h-10 items-center gap-2 rounded-sm border border-border bg-panel px-3 font-mono text-body-small text-text transition-colors duration-150"
+            className="pill-link flex min-h-11 items-center gap-2 rounded-sm border border-border bg-panel px-3 font-mono text-body-small text-text transition-colors duration-150"
           >
             <span>Filters</span>
             {narrowingCount > 0 ? (
@@ -457,7 +461,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             <span
               aria-hidden
               className={[
-                "block font-mono text-caption text-text-subtle transition-transform duration-200 ease-out",
+                "block font-mono text-caption text-text-subtle transition-transform duration-200",
                 filtersOpen ? "rotate-90" : "",
               ].join(" ")}
             >
@@ -471,18 +475,12 @@ export function WritingIndex({ posts }: WritingIndexProps) {
             <motion.div
               id="writing-filters"
               key="writing-filters"
-              initial={
-                shouldReduceMotion ? false : { height: 0, opacity: 0 }
-              }
-              animate={{ height: "auto", opacity: 1 }}
-              exit={
-                shouldReduceMotion
-                  ? { opacity: 0 }
-                  : { height: 0, opacity: 0 }
-              }
+              initial={shouldReduceMotion ? false : { opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
               transition={{
                 duration: shouldReduceMotion ? 0 : 0.2,
-                ease: "easeOut",
+                ease: [0.16, 1, 0.3, 1],
               }}
               className="overflow-hidden"
             >
@@ -514,6 +512,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                 <label className="flex w-fit cursor-pointer items-center gap-2">
                   <input
                     type="checkbox"
+                    name="featured"
                     checked={featured}
                     onChange={(event) =>
                       replaceParams({ featured: event.target.checked })
@@ -589,7 +588,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                         goToPage(page - 1);
                       }}
                       aria-label="Previous page"
-                      className="pill-link flex h-9 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-muted transition-colors duration-150"
+                      className="pill-link flex min-h-11 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-muted transition-colors duration-150"
                     >
                       <span aria-hidden>←</span>
                       <span>Prev</span>
@@ -597,7 +596,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                   ) : (
                     <span
                       aria-hidden
-                      className="flex h-9 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-subtle opacity-50"
+                      className="flex min-h-11 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-subtle opacity-50"
                     >
                       <span>←</span>
                       <span>Prev</span>
@@ -623,7 +622,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                         aria-label={`Page ${item}`}
                         aria-current={item === page ? "page" : undefined}
                         className={[
-                          "flex h-9 min-w-[2.25rem] items-center justify-center rounded-xs border px-1 font-mono text-caption transition-colors duration-150",
+                          "flex min-h-11 min-w-11 items-center justify-center rounded-xs border px-1 font-mono text-caption transition-colors duration-150",
                           item === page
                             ? "border-accent/60 bg-accent-soft text-text"
                             : "pill-link border-border bg-panel text-text-muted",
@@ -641,7 +640,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                         goToPage(page + 1);
                       }}
                       aria-label="Next page"
-                      className="pill-link flex h-9 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-muted transition-colors duration-150"
+                      className="pill-link flex min-h-11 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-muted transition-colors duration-150"
                     >
                       <span>Next</span>
                       <span aria-hidden>→</span>
@@ -649,7 +648,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                   ) : (
                     <span
                       aria-hidden
-                      className="flex h-9 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-subtle opacity-50"
+                      className="flex min-h-11 items-center gap-1.5 rounded-xs border border-border bg-panel px-2.5 font-mono text-caption text-text-subtle opacity-50"
                     >
                       <span>Next</span>
                       <span>→</span>
@@ -661,6 +660,7 @@ export function WritingIndex({ posts }: WritingIndexProps) {
                 <span className={labelClass}>Per page</span>
                 <SelectField>
                   <select
+                    name="per"
                     value={per}
                     onPointerDown={closeOpenSelectOnTriggerTap}
                     onChange={(event) => {

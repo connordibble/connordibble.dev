@@ -67,12 +67,20 @@ const groups: Group[] = [
 
 export function Skills() {
   return (
-    <section id="skills" className="container-wide py-12 sm:py-16">
-      <SectionLabel mark="grid">Skills</SectionLabel>
-      <dl className="mt-8 grid max-w-3xl grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
+    <section
+      id="skills"
+      className="container-wide site-section pt-12 pb-10 sm:pt-14 sm:pb-12"
+    >
+      <SectionLabel mark="grid" rule={false}>
+        Tools I reach for
+      </SectionLabel>
+      <dl className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {groups.map((group) => (
-          <div key={group.label}>
-            <dt className="font-mono text-caption uppercase tracking-[0.12em] text-text-subtle">
+          <div
+            key={group.label}
+            className="rounded-md border border-border bg-panel p-5"
+          >
+            <dt className="font-mono text-caption text-text">
               {group.label}
             </dt>
             <dd className="mt-2 font-mono text-caption text-text-muted leading-relaxed">
