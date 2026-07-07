@@ -17,6 +17,8 @@ const figures = {
   "cache-tiers": CacheTiersFigure,
   "cache-contract": CacheContractFigure,
   "traffic-result": TrafficResultFigure,
+  "governance-map": GovernanceMapFigure,
+  "behavior-breaking-changes": BehaviorBreakingChangesFigure,
 } satisfies Record<WritingFigureVariant, ComponentType>;
 
 export function WritingFigure({ variant, caption }: WritingFigureProps) {
@@ -397,5 +399,54 @@ function TrafficResultFigure() {
         </div>
       </div>
     </div>
+  );
+}
+
+function GovernanceMapFigure() {
+  return (
+    <FigureTable
+      keyPrefix="gm"
+      header={["Concern", "Design system", "Agentic system"]}
+      rows={[
+        ["Primitives", "Component APIs", "Tools and structured actions"],
+        ["Constraints", "Design tokens", "Schemas and output contracts"],
+        ["Guidance", "Versioned docs", "Skills and live instructions"],
+        ["Enforcement", "Compliance checks", "Deterministic validators"],
+        ["Judgment", "Design review", "Human approval of artifacts"],
+        ["Change", "Deprecation windows", "Versioned behavior changes"],
+        ["Learning", "Feedback channels", "Review outcomes and corrections"],
+      ]}
+    />
+  );
+}
+
+function BehaviorBreakingChangesFigure() {
+  return (
+    <FigureTable
+      keyPrefix="bbc"
+      header={["The change", "What it looks like", "What it can break"]}
+      rows={[
+        [
+          "Prompt update",
+          "No API change, no new types",
+          "Every summary downstream",
+        ],
+        [
+          "Tool schema change",
+          "A tidier contract",
+          "Arguments that used to pass",
+        ],
+        [
+          "Mapper improvement",
+          "A better default",
+          "Which component the same design node gets",
+        ],
+        [
+          "New validator rule",
+          "A stricter gate",
+          "Yesterday's accepted output",
+        ],
+      ]}
+    />
   );
 }
