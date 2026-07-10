@@ -4,13 +4,13 @@ import { PillLink } from "./pill-link";
 const currentWork = [
   {
     label: "Design system",
-    value: "SFDS · sf-ui component library",
+    value: "SFDS · enterprise design system",
     note: "1000+ engineers & designers",
   },
   {
     label: "Platform",
     value: "statefarm.com Digital Experience",
-    note: "8 product teams",
+    note: "8 teams · 40-50 engineers",
   },
   {
     label: "Open source",
@@ -39,11 +39,12 @@ export function Hero() {
           Design systems / platform engineering / AI tooling
         </p>
         <p className="mt-5 max-w-[41rem] text-body leading-relaxed text-text-muted text-pretty">
-          I steward SFDS, the design system serving 1000+ engineers and
-          designers, and lead the statefarm.com Digital Experience platform
-          across 8 product teams. My work lives in the design-engineering
-          handoff: component libraries, token pipelines, Figma tooling, and
-          the AI workflows that turn design intent into production code.
+          I set the technical direction for SFDS, the enterprise design system
+          serving 1000+ engineers and designers, and the statefarm.com Digital
+          Experience platform across 8 product teams. My work spans component
+          architecture, design-token pipelines, Figma tooling, cross-framework
+          integration, release governance, and the AI-assisted workflows that
+          carry design intent into production code.
         </p>
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <PillLink href="/writing" label="Writing" />

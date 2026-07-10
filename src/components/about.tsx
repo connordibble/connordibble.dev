@@ -10,14 +10,15 @@ export function About() {
       <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-12">
         <div className="space-y-5">
           <p className="max-w-[32rem] text-body leading-relaxed text-text">
-            At State Farm, I steward SFDS, the enterprise design system serving
-            1000+ engineers and designers, and lead the statefarm.com Digital
-            Experience platform across 8 product teams and 40-50 engineers.
+            At State Farm, I set the technical direction for SFDS, the
+            enterprise design system serving 1000+ engineers and designers, and
+            lead the statefarm.com Digital Experience platform across 8 product
+            teams and 40-50 engineers.
           </p>
           <p className="max-w-[34rem] text-body text-text-muted leading-relaxed text-pretty">
             The useful work sits between design intent, system contracts, and
             the teams that inherit both. I like problems that cross design
-            tooling, frontend architecture, APIs and data contracts, and the
+            tooling, frontend architecture, delivery infrastructure, and the
             operating model required to make a platform last.
           </p>
           <Link
