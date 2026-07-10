@@ -387,8 +387,8 @@ function getProjectsBySlug(slugs: string[]): Project[] {
 
 export const homepageProjects = getProjectsBySlug([
   "sfds",
+  "designrail",
   "agent-convention-feedback",
-  "agent-readiness-kit",
 ]);
 
 export const projectIndexProjects = getProjectsBySlug([

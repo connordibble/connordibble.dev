@@ -752,7 +752,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-06-09",
     displayDate: "June 2026",
     readTime: "8 min read",
-    featured: true,
+    featured: false,
     topics: ["AI Tooling", "Data Integrity", "Platform Engineering"],
     related: [
       { kind: "project", slug: "researchlog" },
@@ -942,7 +942,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-05-28",
     displayDate: "May 2026",
     readTime: "9 min read",
-    featured: false,
+    featured: true,
     topics: ["Design Systems", "AI Tooling", "Frontend Platform"],
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },

@@ -3,14 +3,19 @@ import { PillLink } from "./pill-link";
 
 const currentWork = [
   {
+    label: "Design system",
+    value: "SFDS · enterprise design system",
+    note: "1000+ engineers & designers",
+  },
+  {
     label: "Platform",
     value: "statefarm.com Digital Experience",
-    note: "Enterprise web platform",
+    note: "8 teams · 40-50 engineers",
   },
   {
     label: "Open source",
-    value: "dibble agent-tooling collection",
-    note: "Agent craft and checks",
+    value: "DesignRail design-to-code lab",
+    note: "Figma intent → reviewed components",
   },
   {
     label: "Independent lab",
@@ -31,13 +36,15 @@ export function Hero() {
           Connor Dibble
         </h1>
         <p className="mt-6 max-w-[34rem] text-balance font-mono text-caption text-accent">
-          Platform engineering / design systems / AI tooling
+          Design systems / platform engineering / AI tooling
         </p>
         <p className="mt-5 max-w-[41rem] text-body leading-relaxed text-text-muted text-pretty">
-          I lead the statefarm.com Digital Experience platform across 8 product
-          teams and steward SFDS for 1000+ engineers and designers. I also
-          build open-source agent tooling and small AI products where product
-          workflows need to become reliable software.
+          I set the technical direction for SFDS, the enterprise design system
+          serving 1000+ engineers and designers, and the statefarm.com Digital
+          Experience platform across 8 product teams. My work spans component
+          architecture, design-token pipelines, Figma tooling, cross-framework
+          integration, release governance, and the AI-assisted workflows that
+          carry design intent into production code.
         </p>
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <PillLink href="/writing" label="Writing" />

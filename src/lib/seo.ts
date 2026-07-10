@@ -3,12 +3,12 @@ import { SITE_URL } from "@/lib/site";
 
 export const siteName = "connordibble.dev";
 export const siteTitle =
-  "Connor Dibble | Senior Software Engineer, Platform Engineering & Design Systems";
+  "Connor Dibble | Senior Software Engineer, Design Systems & Platform Engineering";
 export const siteDescription =
-  "Senior software engineer leading enterprise web platforms, design systems, and AI tooling for software people can still reason about.";
+  "Senior software engineer leading enterprise design systems, web platforms, and AI tooling for software people can still reason about.";
 
 export const socialImageAlt =
-  "Connor Dibble | Platform engineering, design systems, and AI tooling";
+  "Connor Dibble | Design systems, platform engineering, and AI tooling";
 
 const socialImage = {
   url: "/opengraph-image",
