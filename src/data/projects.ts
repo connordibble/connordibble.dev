@@ -209,6 +209,10 @@ export const projects: Project[] = [
           body: "The repo dogfoods its own rubric and publishes a calibration table against real repositories, including its own 100/100 generic score and a design-system score for DesignRail. The local CI mirror runs secret checks, lint, typecheck, format checks, tests, coverage, build, and a dry-run package publish. Releases use semantic-release and npm provenance, keeping the tool's package contract as explicit as the project contracts it audits.",
         },
         {
+          heading: "First Field Test: 48 to 100",
+          body: "The rubric got its first field test on zod-ai-tool, my own published npm package. It scored 48/100. The repo had a twelve-leg CI matrix, enforced coverage thresholds, and a thorough CONTRIBUTING guide, and the gaps were still real: no agent entry point, no single check command, no secret scanning, and a semantic-release setup where a mislabeled fix: commit publishes an npm version. The knowledge existed for human contributors; nothing placed it where an agent starts. The init command scaffolded AGENTS.md and a check script and moved the score to 82. The remaining 18 points were the actual engineering: filling the instructions with the repo's real rules, writing two skill files for the workflows that repeat, and wiring in a secrets scan. The new gate failed its first run by flagging the scanner I had just added, which is the job description. An A/B test with fresh agents against both states measured the difference: nine files of archaeology to reconstruct the finishing workflow before, one entry-point file and one gate command after.",
+        },
+        {
           heading: "Stack",
           body: "TypeScript · Node.js CLI · Vitest · tsup · semantic-release · GitHub Actions · npm provenance",
         },
