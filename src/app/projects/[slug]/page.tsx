@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Nav } from "@/components/nav";
@@ -28,6 +29,8 @@ export async function generateMetadata({
     title: `${project.title} | Connor Dibble`,
     description: project.detail.headline,
     path: `/projects/${project.slug}`,
+    imagePath: `/projects/${project.slug}/opengraph-image`,
+    imageAlt: `${project.title} project by Connor Dibble`,
   });
 }
 
@@ -142,6 +145,29 @@ export default async function ProjectDetailPage({
               </div>
             ) : null}
           </header>
+
+          {detail.proof ? (
+            <figure className="mt-12 max-w-5xl">
+              <a
+                href={detail.proof.src}
+                className="surface-link block overflow-hidden rounded-md border border-border bg-panel"
+                aria-label={`Open the full-size ${title} product image`}
+              >
+                <Image
+                  src={detail.proof.src}
+                  width={1728}
+                  height={1040}
+                  sizes="(max-width: 880px) 92vw, 880px"
+                  alt={detail.proof.alt}
+                  className="h-auto w-full"
+                  priority
+                />
+              </a>
+              <figcaption className="mt-3 max-w-[65ch] font-mono text-caption leading-relaxed text-text-subtle">
+                {detail.proof.caption}
+              </figcaption>
+            </figure>
+          ) : null}
 
           <div className="mt-12 max-w-3xl space-y-10">
             {detail.sections.map((section) => (

@@ -10,17 +10,20 @@ export const siteDescription =
 export const socialImageAlt =
   "Connor Dibble | Design systems, platform engineering, and AI tooling";
 
-const socialImage = {
-  url: "/opengraph-image",
-  width: 1200,
-  height: 630,
-  alt: socialImageAlt,
-};
-
-const twitterImage = {
-  url: "/twitter-image",
-  alt: socialImageAlt,
-};
+function socialImages(path = "/opengraph-image", alt = socialImageAlt) {
+  return {
+    openGraph: {
+      url: path,
+      width: 1200,
+      height: 630,
+      alt,
+    },
+    twitter: {
+      url: path === "/opengraph-image" ? "/twitter-image" : path,
+      alt,
+    },
+  };
+}
 
 const personNode = {
   "@type": "Person",
@@ -85,11 +88,16 @@ export function pageMetadata({
   title,
   description,
   path,
+  imagePath,
+  imageAlt,
 }: {
   title: string;
   description: string;
   path: string;
+  imagePath?: string;
+  imageAlt?: string;
 }): Metadata {
+  const images = socialImages(imagePath, imageAlt);
   return {
     title,
     description,
@@ -103,13 +111,13 @@ export function pageMetadata({
       siteName,
       locale: "en_US",
       type: "website",
-      images: [socialImage],
+      images: [images.openGraph],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [twitterImage],
+      images: [images.twitter],
     },
   };
 }
@@ -120,15 +128,20 @@ export function articleMetadata({
   path,
   publishedTime,
   tags,
+  imagePath,
+  imageAlt,
 }: {
   title: string;
   description: string;
   path: string;
   publishedTime: string;
   tags: string[];
+  imagePath?: string;
+  imageAlt?: string;
 }): Metadata {
+  const images = socialImages(imagePath, imageAlt);
   return {
-    ...pageMetadata({ title, description, path }),
+    ...pageMetadata({ title, description, path, imagePath, imageAlt }),
     openGraph: {
       title,
       description,
@@ -139,13 +152,13 @@ export function articleMetadata({
       publishedTime,
       authors: ["Connor Dibble"],
       tags,
-      images: [socialImage],
+      images: [images.openGraph],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [twitterImage],
+      images: [images.twitter],
     },
   };
 }
