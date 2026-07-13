@@ -2,6 +2,7 @@
  * pre-emit critique: P5 H4 E4 S5 R5 V4
  */
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
 
 /**
  * Shared Open Graph card for project and writing detail pages. Same visual
@@ -25,35 +26,23 @@ const palette = {
   accent: "#c97a45",
 } as const;
 
-// Geist from the official package CDN. Fetched rather than read from disk so
-// the route also works if it ever runs in the Cloudflare Worker runtime,
-// which has no Node filesystem access to the source tree.
-const FONT_BASE = "https://cdn.jsdelivr.net/npm/geist@1.7.2/dist/fonts";
-const FONT_FILES = {
-  regular: `${FONT_BASE}/geist-sans/Geist-Regular.ttf`,
-  medium: `${FONT_BASE}/geist-sans/Geist-Medium.ttf`,
-  mono: `${FONT_BASE}/geist-mono/GeistMono-Regular.ttf`,
-};
-
-async function fetchFont(url: string) {
-  const res = await fetch(url, { cache: "force-cache" });
-  if (!res.ok) throw new Error(`Failed to load font ${url} (${res.status})`);
-  return res.arrayBuffer();
+async function readFont(path: string): Promise<ArrayBuffer> {
+  const font = await readFile(new URL(path, import.meta.url));
+  return font.buffer.slice(
+    font.byteOffset,
+    font.byteOffset + font.byteLength,
+  ) as ArrayBuffer;
 }
 
-/** All three weights, or null so the card still renders in the default face
- * instead of 500-ing the whole image. */
+const fontData = Promise.all([
+  readFont("../../assets/fonts/Geist-Regular.ttf"),
+  readFont("../../assets/fonts/Geist-Medium.ttf"),
+  readFont("../../assets/fonts/GeistMono-Regular.ttf"),
+]);
+
 async function loadFontData() {
-  try {
-    const [regular, medium, mono] = await Promise.all([
-      fetchFont(FONT_FILES.regular),
-      fetchFont(FONT_FILES.medium),
-      fetchFont(FONT_FILES.mono),
-    ]);
-    return { regular, medium, mono };
-  } catch {
-    return null;
-  }
+  const [regular, medium, mono] = await fontData;
+  return { regular, medium, mono };
 }
 
 function truncate(text: string, max: number): string {
@@ -68,20 +57,28 @@ export async function renderOgCard({
   kicker,
   title,
   subtitle,
+  projectSteps,
+  activeStep,
+  essayLabel,
 }: {
   variant: OgVariant;
   kicker: string;
   title: string;
   subtitle: string;
+  projectSteps?: [string, string, string];
+  activeStep?: 0 | 1 | 2;
+  essayLabel?: string;
 }) {
   const fonts = await loadFontData();
   const heading = truncate(title, 90);
   const sub = truncate(subtitle, 165);
   const titleSize =
     variant === "essay"
-      ? heading.length <= 36
+      ? heading.length <= 32
         ? 54
-        : 46
+        : heading.length <= 44
+          ? 44
+          : 38
       : heading.length <= 18
         ? 88
         : heading.length <= 36
@@ -99,7 +96,7 @@ export async function renderOgCard({
           overflow: "hidden",
           background: palette.canvas,
           color: palette.text,
-          fontFamily: fonts ? "Geist" : "sans-serif",
+          fontFamily: "Geist",
         }}
       >
         <div
@@ -111,27 +108,21 @@ export async function renderOgCard({
           }}
         />
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            width: "100%",
-            padding: "72px 86px 64px",
-            position: "relative",
-          }}
-        >
           <div
             style={{
               display: "flex",
+              position: "absolute",
+              top: 72,
+              left: 86,
+              right: 86,
               alignItems: "center",
               justifyContent: "space-between",
-              width: "100%",
+              height: 30,
             }}
           >
             <div
               style={{
-                fontFamily: fonts ? "Geist Mono" : "monospace",
+                fontFamily: "Geist Mono",
                 fontSize: 21,
                 letterSpacing: 3,
                 textTransform: "uppercase",
@@ -142,7 +133,7 @@ export async function renderOgCard({
             </div>
             <div
               style={{
-                fontFamily: fonts ? "Geist Mono" : "monospace",
+                fontFamily: "Geist Mono",
                 fontSize: 21,
                 color: palette.accent,
               }}
@@ -155,9 +146,12 @@ export async function renderOgCard({
             <div
               style={{
                 display: "flex",
+                position: "absolute",
+                top: 150,
+                left: 86,
+                right: 86,
                 alignItems: "center",
-                flexGrow: 1,
-                width: "100%",
+                height: 300,
                 gap: 56,
               }}
             >
@@ -202,7 +196,8 @@ export async function renderOgCard({
                   paddingLeft: 34,
                 }}
               >
-                {["Intent", "Review", "Export"].map((step, index) => (
+                {(projectSteps ?? ["Input", "Review", "Output"]).map(
+                  (step, index) => (
                   <div
                     key={step}
                     style={{
@@ -212,8 +207,11 @@ export async function renderOgCard({
                       minHeight: 64,
                       borderBottom:
                         index < 2 ? `1px solid ${palette.border}` : "none",
-                      color: index === 1 ? palette.text : palette.textSubtle,
-                      fontFamily: fonts ? "Geist Mono" : "monospace",
+                      color:
+                        index === (activeStep ?? 1)
+                          ? palette.text
+                          : palette.textSubtle,
+                      fontFamily: "Geist Mono",
                       fontSize: 19,
                     }}
                   >
@@ -223,21 +221,27 @@ export async function renderOgCard({
                         height: 9,
                         borderRadius: 999,
                         background:
-                          index === 1 ? palette.accent : palette.borderStrong,
+                          index === (activeStep ?? 1)
+                            ? palette.accent
+                            : palette.borderStrong,
                       }}
                     />
                     <div>{step}</div>
                   </div>
-                ))}
+                  ),
+                )}
               </div>
             </div>
           ) : (
             <div
               style={{
                 display: "flex",
+                position: "absolute",
+                top: 140,
+                left: 86,
+                right: 86,
                 alignItems: "center",
-                flexGrow: 1,
-                width: "100%",
+                height: 320,
               }}
             >
               <div
@@ -249,11 +253,11 @@ export async function renderOgCard({
                   width: 190,
                   padding: "76px 36px 58px 0",
                   borderRight: `1px solid ${palette.borderStrong}`,
-                  fontFamily: fonts ? "Geist Mono" : "monospace",
+                  fontFamily: "Geist Mono",
                 }}
               >
                 <div style={{ fontSize: 17, color: palette.textSubtle }}>
-                  FIELD NOTE
+                  {(essayLabel ?? "Field note").toUpperCase()}
                 </div>
                 <div
                   style={{
@@ -269,8 +273,9 @@ export async function renderOgCard({
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
-                  flexGrow: 1,
+                  width: 734,
                   paddingLeft: 52,
+                  overflow: "hidden",
                 }}
               >
                 <div
@@ -302,9 +307,13 @@ export async function renderOgCard({
           <div
             style={{
               display: "flex",
+              position: "absolute",
+              left: 86,
+              right: 86,
+              bottom: 64,
               alignItems: "center",
               gap: 16,
-              width: "100%",
+              height: 68,
               borderTop: `1px solid ${palette.border}`,
               paddingTop: 26,
             }}
@@ -334,20 +343,30 @@ export async function renderOgCard({
               Connor Dibble
             </div>
           </div>
-        </div>
       </div>
     ),
     {
       ...ogSize,
-      ...(fonts
-        ? {
-            fonts: [
-              { name: "Geist", data: fonts.regular, weight: 400 as const, style: "normal" as const },
-              { name: "Geist", data: fonts.medium, weight: 500 as const, style: "normal" as const },
-              { name: "Geist Mono", data: fonts.mono, weight: 400 as const, style: "normal" as const },
-            ],
-          }
-        : {}),
+      fonts: [
+        {
+          name: "Geist",
+          data: fonts.regular,
+          weight: 400,
+          style: "normal",
+        },
+        {
+          name: "Geist",
+          data: fonts.medium,
+          weight: 500,
+          style: "normal",
+        },
+        {
+          name: "Geist Mono",
+          data: fonts.mono,
+          weight: 400,
+          style: "normal",
+        },
+      ],
     },
   );
 }

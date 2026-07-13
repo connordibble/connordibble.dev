@@ -77,6 +77,8 @@ export type WritingPost = {
   readTime: string;
   featured: boolean;
   topics: string[];
+  socialCardLabel: string;
+  socialCardSubtitle: string;
   sections: WritingSection[];
   related?: RelatedRef[];
 };
@@ -94,6 +96,9 @@ export const writingPosts: WritingPost[] = [
     readTime: "9 min read",
     featured: true,
     topics: ["AI Tooling", "Platform Engineering", "Design Systems"],
+    socialCardLabel: "Governance map",
+    socialCardSubtitle:
+      "How design-system governance maps onto primitives, permissions, review, and release discipline for coding agents.",
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },
       { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
@@ -292,6 +297,9 @@ export const writingPosts: WritingPost[] = [
     readTime: "10 min read",
     featured: true,
     topics: ["Platform Engineering", "System Design", "Design Systems"],
+    socialCardLabel: "Cache incident",
+    socialCardSubtitle:
+      "How adoption turned a five-minute cache into a budget problem, and the architecture that cut delivery cost by two thirds.",
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },
       { kind: "project", slug: "sfds" },
@@ -476,6 +484,9 @@ export const writingPosts: WritingPost[] = [
     readTime: "13 min read",
     featured: true,
     topics: ["Design Systems", "Platform Engineering", "Technical Leadership"],
+    socialCardLabel: "System migration",
+    socialCardSubtitle:
+      "Replacing a copy-paste design system across 100+ product teams and five frameworks at State Farm.",
     related: [
       { kind: "writing", slug: "success-was-the-incident" },
       { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
@@ -754,6 +765,9 @@ export const writingPosts: WritingPost[] = [
     readTime: "8 min read",
     featured: false,
     topics: ["AI Tooling", "Data Integrity", "Platform Engineering"],
+    socialCardLabel: "Review boundary",
+    socialCardSubtitle:
+      "Where probabilistic output ends and durable product truth begins.",
     related: [
       { kind: "project", slug: "researchlog" },
       { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
@@ -944,6 +958,9 @@ export const writingPosts: WritingPost[] = [
     readTime: "9 min read",
     featured: true,
     topics: ["Design Systems", "AI Tooling", "Frontend Platform"],
+    socialCardLabel: "Agent context",
+    socialCardSubtitle:
+      "Why live docs, small skills, and deterministic checks beat a search index for production UI work.",
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },
       { kind: "project", slug: "designrail" },

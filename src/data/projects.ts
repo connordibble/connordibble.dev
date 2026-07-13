@@ -9,6 +9,12 @@ export type ProjectProof = {
   caption: string;
 };
 
+export type ProjectSocialCard = {
+  steps: [string, string, string];
+  activeStep: 0 | 1 | 2;
+  summary: string;
+};
+
 export type ProjectLink = {
   label: string;
   href: string;
@@ -20,6 +26,7 @@ export type Project = {
   owner?: string;
   description: string;
   tags: string[];
+  socialCard: ProjectSocialCard;
   /** If set, the card links here (external). No detail page. */
   externalUrl?: string;
   /** If set, the detail page shows a source link to this repo. */
@@ -48,6 +55,12 @@ export const projects: Project[] = [
       "GraphQL",
       "Design Systems",
     ],
+    socialCard: {
+      steps: ["Intent", "Review", "Export"],
+      activeStep: 1,
+      summary:
+        "The missing review layer between design intent and AI-assisted code generation.",
+    },
     repoUrl: "https://github.com/connordibble/DesignRail",
     links: [
       {
@@ -95,6 +108,12 @@ export const projects: Project[] = [
     description:
       "Full-stack R&D tax-credit documentation SaaS that maps real engineering work to IRS Section 41 evidence. Ingests GitHub PR and issue activity, classifies work with Claude at the pull-request level to keep model spend bounded, and keeps reviewer overrides tenant-scoped with Supabase RLS.",
     tags: ["Angular", "TypeScript", "NestJS", "Supabase", "Inngest"],
+    socialCard: {
+      steps: ["Ingest", "Classify", "Override"],
+      activeStep: 2,
+      summary:
+        "Maps real engineering work to IRS Section 41 evidence with tenant-scoped human overrides.",
+    },
     detail: {
       headline:
         "R&D tax credit documentation SaaS that maps real engineering work to the IRS Section 41 four-part test as it happens.",
@@ -125,6 +144,12 @@ export const projects: Project[] = [
     description:
       "State Farm's canonical enterprise design system and migration target for statefarm.com. I led sf-ui, a framework-agnostic Lit/Web Components library with 70+ primitives, plus the Figma Variables → W3C token pipeline and npm/CDN release governance for 1000+ engineers and designers.",
     tags: ["Web Components", "TypeScript", "Design Tokens", "npm + CDN"],
+    socialCard: {
+      steps: ["Tokens", "Components", "Release"],
+      activeStep: 1,
+      summary:
+        "State Farm's enterprise design system for 1000+ engineers and designers.",
+    },
     detail: {
       headline:
         "State Farm's canonical enterprise design system, used by 1000+ engineers and designers across one of the largest insurance companies in the US.",
@@ -155,6 +180,12 @@ export const projects: Project[] = [
     description:
       "Small TypeScript package that derives Anthropic, OpenAI, and Gemini tool definitions from one Zod schema, then validates model tool input with that same schema. Built for applications that talk directly to provider SDKs and need one contract instead of duplicated JSON Schema.",
     tags: ["TypeScript", "Zod", "OpenAI", "Anthropic", "Gemini"],
+    socialCard: {
+      steps: ["Schema", "Provider", "Validate"],
+      activeStep: 0,
+      summary:
+        "One Zod contract for provider tool schemas and runtime validation.",
+    },
     repoUrl: "https://github.com/connordibble/zod-ai-tool",
     links: [
       {
@@ -200,6 +231,12 @@ export const projects: Project[] = [
     description:
       "TypeScript CLI and library that scores whether a repository is ready for coding agents. Audits project instructions, skill structure, deterministic gates, mock/offline defaults, AI boundaries, CI coverage, docs, and release hygiene, with a design-system preset for token and visual-review workflows.",
     tags: ["TypeScript", "CLI", "Agent Workflows", "CI", "GitHub Actions"],
+    socialCard: {
+      steps: ["Inspect", "Score", "Enforce"],
+      activeStep: 1,
+      summary:
+        "A readiness audit for repositories that want coding agents to work from explicit, reviewable boundaries.",
+    },
     repoUrl: "https://github.com/connordibble/agent-readiness-kit",
     links: [
       {
@@ -241,6 +278,12 @@ export const projects: Project[] = [
     description:
       "Independent college-football fan intelligence platform with a Texas football reference deployment. Ingests fixture, official-link, team-note, and optional CFBD sources, then returns citation-backed chat answers with voice, source, and rumor guardrails.",
     tags: ["Next.js", "TypeScript", "Drizzle", "RAG", "Playwright"],
+    socialCard: {
+      steps: ["Sources", "Retrieve", "Answer"],
+      activeStep: 2,
+      summary:
+        "Source-grounded college-football intelligence with citations and rumor guardrails.",
+    },
     repoUrl: "https://github.com/connordibble/SaturdaySignal",
     detail: {
       headline:
@@ -280,6 +323,12 @@ export const projects: Project[] = [
     description:
       "Portable plugin, skill, and CLI collection for coding-agent guardrails. Packages design-token enforcement, supply-chain gates, agent-config audits, evidence-linked writing, UI verification, schema tooling, README audits, and marketplace validation for Claude Code, Codex, and CI.",
     tags: ["Agent Skills", "CLI", "Codex", "Claude Code", "Node.js"],
+    socialCard: {
+      steps: ["Audit", "Guard", "Verify"],
+      activeStep: 1,
+      summary:
+        "Portable agent skills and deterministic checkers for project taste, safety, and evidence.",
+    },
     repoUrl: "https://github.com/connordibble/dibble",
     links: [
       {
@@ -325,6 +374,12 @@ export const projects: Project[] = [
     description:
       "Full-stack AI feedback platform commissioned by State Farm's EVP of enterprise technology. Went from concept to production in two months for its debut at agency convention, and the pilot earned backing to become the official support and feedback channel for all 10,000+ State Farm agents.",
     tags: ["Angular", "TypeScript", "Node.js", "AWS", "AI Workflows"],
+    socialCard: {
+      steps: ["Signal", "Theme", "Route"],
+      activeStep: 1,
+      summary:
+        "Built from concept to production in two months, now backed for the full 10,000+ State Farm agency force.",
+    },
     detail: {
       headline:
         "Commissioned by State Farm's EVP of enterprise technology, built from concept to production in two months, and now backed to become the official support and feedback channel for all 10,000+ State Farm agents.",
@@ -359,6 +414,12 @@ export const projects: Project[] = [
     description:
       "AI workflow that turns long-form workout video into timestamped equipment-control profiles. Combines video/audio ingestion, trainer-cue extraction, exercise-science reasoning, and a human review UI for partner OEM workflows.",
     tags: ["React", "Node.js", "Python", "Multimodal"],
+    socialCard: {
+      steps: ["Ingest", "Draft", "Approve"],
+      activeStep: 2,
+      summary:
+        "Turns workout video into reviewed equipment-control profiles for connected fitness hardware.",
+    },
     detail: {
       headline:
         "Turns long-form workout video into timestamped equipment control profiles for connected fitness hardware.",

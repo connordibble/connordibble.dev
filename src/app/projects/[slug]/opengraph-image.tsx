@@ -20,6 +20,8 @@ export default async function Image({
     variant: "project",
     kicker: project?.owner ? `Project · ${project.owner}` : "Project",
     title: project?.title ?? "Projects",
-    subtitle: project?.detail?.headline ?? project?.description ?? "",
+    subtitle: project?.socialCard.summary ?? project?.description ?? "",
+    projectSteps: project?.socialCard.steps,
+    activeStep: project?.socialCard.activeStep,
   });
 }
