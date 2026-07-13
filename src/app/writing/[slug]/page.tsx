@@ -40,6 +40,8 @@ export async function generateMetadata({
     path: `/writing/${post.slug}`,
     publishedTime: post.date,
     tags: post.topics,
+    imagePath: `/writing/${post.slug}/opengraph-image`,
+    imageAlt: `${post.title} essay by Connor Dibble`,
   });
 }
 
@@ -68,7 +70,7 @@ export default async function WritingPostPage({
       "@type": "WebPage",
       "@id": articleUrl,
     },
-    image: absoluteUrl("/opengraph-image"),
+    image: absoluteUrl(`/writing/${post.slug}/opengraph-image`),
     author: {
       "@id": absoluteUrl("/#person"),
     },

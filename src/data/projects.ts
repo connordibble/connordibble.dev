@@ -3,6 +3,12 @@ export type ProjectDetailSection = {
   body: string;
 };
 
+export type ProjectProof = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
 export type ProjectLink = {
   label: string;
   href: string;
@@ -24,6 +30,7 @@ export type Project = {
   detail?: {
     headline: string;
     sections: ProjectDetailSection[];
+    proof?: ProjectProof;
   };
 };
 
@@ -33,38 +40,50 @@ export const projects: Project[] = [
     title: "DesignRail",
     owner: "Open source",
     description:
-      "Human-in-the-loop design-system mapping platform for AI-assisted implementation. Translates Figma component intent into Web Component mappings, validates compliance, and records human review decisions through a GraphQL API.",
+      "Human review gate for design-to-code workflows. It turns component intent into schema-backed proposals, surfaces compliance risk, and requires a recorded decision before export.",
     tags: [
       "Developer Tools",
       "React",
       "TypeScript",
       "GraphQL",
-      "Figma MCP",
+      "Design Systems",
     ],
     repoUrl: "https://github.com/connordibble/DesignRail",
+    links: [
+      {
+        label: "Watch the walkthrough",
+        href: "https://github.com/user-attachments/assets/c2dc1517-06e2-4830-b815-389d3bbdec30",
+      },
+    ],
     detail: {
       headline:
-        "A working lab for the design-to-code handoff problem: human review, deterministic checks, and a GraphQL contract between design intent and AI-assisted implementation.",
+        "A working reference implementation for the missing review layer between design intent and AI-assisted code generation.",
+      proof: {
+        src: "/projects/designrail-review.jpg",
+        alt: "DesignRail review workspace showing normalized Button intent, a proposed Shoelace mapping, the human decision gate, and compliance findings.",
+        caption:
+          "The review workspace keeps source intent, the proposed mapping, compliance findings, and the human decision in one auditable view.",
+      },
       sections: [
         {
           heading: "Problem",
-          body: "AI coding agents can implement designs fast, but the handoff is where quality dies: design intent gets flattened into markup, compliance issues surface after merge, and nobody records why a mapping decision was made. DesignRail explores the missing layer, a governed review step between Figma intent and implementation where humans accept, reject, or edit what automation proposes before anything is treated as export-ready.",
+          body: "AI coding agents can turn a mockup into code quickly, but speed does not preserve design intent. Component semantics get flattened into markup, accessibility and token problems surface late, and the reasoning behind a generated mapping disappears. DesignRail puts a review gate at that boundary. A developer can inspect, edit, accept, or reject the proposal before it becomes exportable code.",
         },
         {
-          heading: "Approach",
-          body: "A pnpm monorepo with a React review UI, a Fastify and Apollo GraphQL API, and shared Zod schemas at every boundary. Mock Figma fixtures normalize into component intent, a deterministic mapper proposes Shoelace Web Component implementations, and a compliance agent reports accessibility, token, and variant findings alongside each mapping. Review decisions persist through the GraphQL API so mapping quality is auditable over time, and exports produce implementation-ready HTML, React examples, or agent-ready briefs.",
+          heading: "Review Before Export",
+          body: "Public mock fixtures for Button, Input, and Card normalize into typed component intent. A deterministic mapper proposes Shoelace components with explicit props, slots, confidence, and rationale. Compliance findings sit beside the proposal with severity and remediation. Rejections require a reason, edits retain a field-level diff, and only accepted or edited mappings can produce HTML, React, or an Agent Brief.",
         },
         {
-          heading: "The Review Surface Is the Product",
-          body: "DesignRail treats AI-assisted implementation as a developer experience problem. The important layer is the review surface: what changed, why the mapping was proposed, whether it follows the design system, and what a human accepted or rejected before the result enters a codebase. That is the layer that turns model output into something a developer can trust, debug, and improve.",
+          heading: "The Contract",
+          body: "GraphQL owns the boundary between the React review console, the Fastify API, and SQLite persistence. Shared Zod schemas keep component intent, decisions, exports, and UI instrumentation aligned across packages. The selected example and workspace view also live in the URL, so a review state can be refreshed, shared, and restored without introducing client-side global state.",
         },
         {
-          heading: "Status",
-          body: "Early and in active development. The Phase 1 contract is in place: shared schemas, the GraphQL API, SQLite persistence, recorded review decisions, and a Button-first mapping path with more components staged behind it. The repo is run like production software anyway: CI quality gates covering secrets, mock-mode, types, lint, and tests, conventional commits with release planning, and ADRs in the docs site. It is the same problem I work on at enterprise scale, rebuilt in the open where the contracts and checks can be shown.",
+          heading: "Deliberate Boundary",
+          body: "The demo runs locally without a Figma token or external model. Mock mode keeps the full workflow public and repeatable, while the normalized intent contract leaves a clean seam for a live Figma adapter. SQLite is appropriate for the reference implementation. Authentication, multi-user ownership, hosted storage, and CI enforcement remain explicit production work rather than implied capabilities.",
         },
         {
           heading: "Stack",
-          body: "React · Vite · Fastify · Apollo GraphQL · Drizzle + SQLite · Zod · Shoelace Web Components · Astro Starlight docs · pnpm monorepo",
+          body: "React · Vite · Fastify · Apollo GraphQL · Drizzle + SQLite · Zod · Shoelace Web Components · Astro Starlight · pnpm",
         },
       ],
     },
