@@ -1,0 +1,37 @@
+Agent readiness: 100/100 (excellent)
+Preset: generic
+Root: /Users/connor/Engineering/zod-ai-tool
+
+Category scores:
+- Instructions: 100/100 (28/28)
+- Skills: 100/100 (10/10)
+- Deterministic Gates: 100/100 (20/20)
+- Safety: 100/100 (10/10)
+- AI Boundaries: 100/100 (10/10)
+- CI: 100/100 (8/8)
+- Release: 100/100 (8/8)
+- Docs: 100/100 (6/6)
+
+Findings:
+- [PASS] agent.instructions.present (12/12): Found AGENTS.md.
+    evidence: AGENTS.md - Root-level agent instructions found.
+- [PASS] agent.instructions.specificity (10/10): Instructions include mission, safety, finish checks, code standards.
+    evidence: AGENTS.md - mission
+    evidence: AGENTS.md - safety
+- [PASS] agent.instructions.bloat-control (6/6): Instruction size is focused at 54 non-empty lines.
+    evidence: AGENTS.md - Instruction file is neither empty nor sprawling.
+- [PASS] skills.structure (10/10): Found 2 skill file(s).
+    evidence: .agents/skills/add-provider/SKILL.md - Skill file found.
+    evidence: .agents/skills/conversion-compat/SKILL.md - Skill file found.
+- [PASS] deterministic.quality-gate (12/12): Gate covers lint, typecheck, test.
+    evidence: package.json - check script
+- [PASS] deterministic.secret-scan (8/8): Secret scanning appears to be wired into the repo.
+    evidence: package.json - secret script
+    evidence: scripts/no-secrets.mjs - Secret scanning file found.
+- [PASS] mock.offline-default (10/10): Docs describe a mock, offline, fixture, or demo path without requiring credentials.
+- [PASS] ai.boundary.human-loop (10/10): AI boundary docs include human review, confidence, schema validation, AI as suggestion.
+- [PASS] ci.readiness (8/8): CI covers install, lint, typecheck, test, build.
+    evidence: .github/workflows/ci.yml - Workflow found.
+- [PASS] release.package-metadata (8/8): package.json includes name, description, license, repository, bugs, engines, files, exports/bin, publishConfig.
+    evidence: package.json - Publish metadata present.
+- [PASS] docs.commands (6/6): README includes install, usage, CI.

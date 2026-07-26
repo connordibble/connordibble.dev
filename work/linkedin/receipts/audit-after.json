@@ -1,0 +1,227 @@
+{
+  "root": "/Users/connor/Engineering/zod-ai-tool",
+  "preset": "generic",
+  "score": 100,
+  "earned": 100,
+  "possible": 100,
+  "summary": "excellent",
+  "findings": [
+    {
+      "status": "pass",
+      "summary": "Found AGENTS.md.",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "message": "Root-level agent instructions found."
+        }
+      ],
+      "id": "agent.instructions.present",
+      "title": "Agent instructions are present",
+      "category": "Instructions",
+      "weight": 12,
+      "earned": 12
+    },
+    {
+      "status": "pass",
+      "summary": "Instructions include mission, safety, finish checks, code standards.",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "message": "mission"
+        },
+        {
+          "file": "AGENTS.md",
+          "message": "safety"
+        },
+        {
+          "file": "AGENTS.md",
+          "message": "finish checks"
+        },
+        {
+          "file": "AGENTS.md",
+          "message": "code standards"
+        }
+      ],
+      "id": "agent.instructions.specificity",
+      "title": "Instructions are project-specific",
+      "category": "Instructions",
+      "weight": 10,
+      "earned": 10
+    },
+    {
+      "status": "pass",
+      "summary": "Instruction size is focused at 54 non-empty lines.",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "message": "Instruction file is neither empty nor sprawling."
+        }
+      ],
+      "id": "agent.instructions.bloat-control",
+      "title": "Instructions avoid context bloat",
+      "category": "Instructions",
+      "weight": 6,
+      "earned": 6
+    },
+    {
+      "status": "pass",
+      "summary": "Found 2 skill file(s).",
+      "evidence": [
+        {
+          "file": ".agents/skills/add-provider/SKILL.md",
+          "message": "Skill file found."
+        },
+        {
+          "file": ".agents/skills/conversion-compat/SKILL.md",
+          "message": "Skill file found."
+        }
+      ],
+      "id": "skills.structure",
+      "title": "Specialized agent skills are separated",
+      "category": "Skills",
+      "weight": 10,
+      "earned": 10
+    },
+    {
+      "status": "pass",
+      "summary": "Gate covers lint, typecheck, test.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "message": "check script"
+        }
+      ],
+      "id": "deterministic.quality-gate",
+      "title": "Deterministic quality gate exists",
+      "category": "Deterministic Gates",
+      "weight": 12,
+      "earned": 12
+    },
+    {
+      "status": "pass",
+      "summary": "Secret scanning appears to be wired into the repo.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "message": "secret script"
+        },
+        {
+          "file": "scripts/no-secrets.mjs",
+          "message": "Secret scanning file found."
+        }
+      ],
+      "id": "deterministic.secret-scan",
+      "title": "Secret scanning is part of the gate",
+      "category": "Deterministic Gates",
+      "weight": 8,
+      "earned": 8
+    },
+    {
+      "status": "pass",
+      "summary": "Docs describe a mock, offline, fixture, or demo path without requiring credentials.",
+      "id": "mock.offline-default",
+      "title": "Mock or offline mode is the default path",
+      "category": "Safety",
+      "weight": 10,
+      "earned": 10
+    },
+    {
+      "status": "pass",
+      "summary": "AI boundary docs include human review, confidence, schema validation, AI as suggestion.",
+      "id": "ai.boundary.human-loop",
+      "title": "AI boundaries preserve human review",
+      "category": "AI Boundaries",
+      "weight": 10,
+      "earned": 10
+    },
+    {
+      "status": "pass",
+      "summary": "CI covers install, lint, typecheck, test, build.",
+      "evidence": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "message": "Workflow found."
+        }
+      ],
+      "id": "ci.readiness",
+      "title": "CI runs the important checks",
+      "category": "CI",
+      "weight": 8,
+      "earned": 8
+    },
+    {
+      "status": "pass",
+      "summary": "package.json includes name, description, license, repository, bugs, engines, files, exports/bin, publishConfig.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "message": "Publish metadata present."
+        }
+      ],
+      "id": "release.package-metadata",
+      "title": "Package metadata is publish-ready",
+      "category": "Release",
+      "weight": 8,
+      "earned": 8
+    },
+    {
+      "status": "pass",
+      "summary": "README includes install, usage, CI.",
+      "id": "docs.commands",
+      "title": "Docs contain runnable commands",
+      "category": "Docs",
+      "weight": 6,
+      "earned": 6
+    }
+  ],
+  "categories": [
+    {
+      "category": "Instructions",
+      "earned": 28,
+      "possible": 28,
+      "score": 100
+    },
+    {
+      "category": "Skills",
+      "earned": 10,
+      "possible": 10,
+      "score": 100
+    },
+    {
+      "category": "Deterministic Gates",
+      "earned": 20,
+      "possible": 20,
+      "score": 100
+    },
+    {
+      "category": "Safety",
+      "earned": 10,
+      "possible": 10,
+      "score": 100
+    },
+    {
+      "category": "AI Boundaries",
+      "earned": 10,
+      "possible": 10,
+      "score": 100
+    },
+    {
+      "category": "CI",
+      "earned": 8,
+      "possible": 8,
+      "score": 100
+    },
+    {
+      "category": "Release",
+      "earned": 8,
+      "possible": 8,
+      "score": 100
+    },
+    {
+      "category": "Docs",
+      "earned": 6,
+      "possible": 6,
+      "score": 100
+    }
+  ]
+}

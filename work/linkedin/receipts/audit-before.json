@@ -1,0 +1,177 @@
+{
+  "root": "/Users/connor/Engineering/zod-ai-tool",
+  "preset": "generic",
+  "score": 48,
+  "earned": 48,
+  "possible": 100,
+  "summary": "not ready yet",
+  "findings": [
+    {
+      "status": "fail",
+      "summary": "No AGENTS.md, CLAUDE.md, GEMINI.md, .cursorrules, .windsurfrules, .cursor/rules, or copilot-instructions file was found.",
+      "recommendation": "Add a concise AGENTS.md at the repo root with project mission, safety rules, and finishing checks.",
+      "id": "agent.instructions.present",
+      "title": "Agent instructions are present",
+      "category": "Instructions",
+      "weight": 12,
+      "earned": 0
+    },
+    {
+      "status": "fail",
+      "summary": "Instructions look too generic or too thin to guide an agent reliably.",
+      "recommendation": "Make the file specific to this repo: mission, architecture, safety boundaries, and exact commands.",
+      "id": "agent.instructions.specificity",
+      "title": "Instructions are project-specific",
+      "category": "Instructions",
+      "weight": 10,
+      "earned": 0
+    },
+    {
+      "status": "fail",
+      "summary": "Instructions are too short to establish reliable behavior.",
+      "recommendation": "Aim for a focused one-to-three page instruction file with links to deeper skills or docs.",
+      "id": "agent.instructions.bloat-control",
+      "title": "Instructions avoid context bloat",
+      "category": "Instructions",
+      "weight": 6,
+      "earned": 0
+    },
+    {
+      "status": "fail",
+      "summary": "No dedicated skill files were found.",
+      "recommendation": "Extract specialized instructions into skill files (for example .claude/skills/<name>/SKILL.md, agents/*.SKILL.md, or .cursor/rules) when the root instructions get dense.",
+      "id": "skills.structure",
+      "title": "Specialized agent skills are separated",
+      "category": "Skills",
+      "weight": 10,
+      "earned": 0
+    },
+    {
+      "status": "warn",
+      "summary": "Scripts mention lint, typecheck, test, but no single quality gate ties them together.",
+      "recommendation": "Add a `check` script or quality-gate hook that agents can run before finishing.",
+      "id": "deterministic.quality-gate",
+      "title": "Deterministic quality gate exists",
+      "category": "Deterministic Gates",
+      "weight": 12,
+      "earned": 6
+    },
+    {
+      "status": "fail",
+      "summary": "No secret scanning hook or script was found.",
+      "recommendation": "Add a secrets check before agent-authored changes can be committed or merged.",
+      "id": "deterministic.secret-scan",
+      "title": "Secret scanning is part of the gate",
+      "category": "Deterministic Gates",
+      "weight": 8,
+      "earned": 0
+    },
+    {
+      "status": "pass",
+      "summary": "Docs describe a mock, offline, fixture, or demo path without requiring credentials.",
+      "id": "mock.offline-default",
+      "title": "Mock or offline mode is the default path",
+      "category": "Safety",
+      "weight": 10,
+      "earned": 10
+    },
+    {
+      "status": "pass",
+      "summary": "AI boundary docs include human review, confidence, schema validation, AI as suggestion.",
+      "id": "ai.boundary.human-loop",
+      "title": "AI boundaries preserve human review",
+      "category": "AI Boundaries",
+      "weight": 10,
+      "earned": 10
+    },
+    {
+      "status": "pass",
+      "summary": "CI covers install, lint, typecheck, test, build.",
+      "evidence": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "message": "Workflow found."
+        }
+      ],
+      "id": "ci.readiness",
+      "title": "CI runs the important checks",
+      "category": "CI",
+      "weight": 8,
+      "earned": 8
+    },
+    {
+      "status": "pass",
+      "summary": "package.json includes name, description, license, repository, bugs, engines, files, exports/bin, publishConfig.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "message": "Publish metadata present."
+        }
+      ],
+      "id": "release.package-metadata",
+      "title": "Package metadata is publish-ready",
+      "category": "Release",
+      "weight": 8,
+      "earned": 8
+    },
+    {
+      "status": "pass",
+      "summary": "README includes install, usage, CI.",
+      "id": "docs.commands",
+      "title": "Docs contain runnable commands",
+      "category": "Docs",
+      "weight": 6,
+      "earned": 6
+    }
+  ],
+  "categories": [
+    {
+      "category": "Instructions",
+      "earned": 0,
+      "possible": 28,
+      "score": 0
+    },
+    {
+      "category": "Skills",
+      "earned": 0,
+      "possible": 10,
+      "score": 0
+    },
+    {
+      "category": "Deterministic Gates",
+      "earned": 6,
+      "possible": 20,
+      "score": 30
+    },
+    {
+      "category": "Safety",
+      "earned": 10,
+      "possible": 10,
+      "score": 100
+    },
+    {
+      "category": "AI Boundaries",
+      "earned": 10,
+      "possible": 10,
+      "score": 100
+    },
+    {
+      "category": "CI",
+      "earned": 8,
+      "possible": 8,
+      "score": 100
+    },
+    {
+      "category": "Release",
+      "earned": 8,
+      "possible": 8,
+      "score": 100
+    },
+    {
+      "category": "Docs",
+      "earned": 6,
+      "possible": 6,
+      "score": 100
+    }
+  ]
+}

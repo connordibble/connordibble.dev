@@ -1,0 +1,35 @@
+Agent readiness: 48/100 (not ready yet)
+Preset: generic
+Root: /Users/connor/Engineering/zod-ai-tool
+
+Category scores:
+- Instructions: 0/100 (0/28)
+- Skills: 0/100 (0/10)
+- Deterministic Gates: 30/100 (6/20)
+- Safety: 100/100 (10/10)
+- AI Boundaries: 100/100 (10/10)
+- CI: 100/100 (8/8)
+- Release: 100/100 (8/8)
+- Docs: 100/100 (6/6)
+
+Findings:
+- [FAIL] agent.instructions.present (0/12): No AGENTS.md, CLAUDE.md, GEMINI.md, .cursorrules, .windsurfrules, .cursor/rules, or copilot-instructions file was found.
+- [FAIL] agent.instructions.specificity (0/10): Instructions look too generic or too thin to guide an agent reliably.
+- [FAIL] agent.instructions.bloat-control (0/6): Instructions are too short to establish reliable behavior.
+- [FAIL] skills.structure (0/10): No dedicated skill files were found.
+- [WARN] deterministic.quality-gate (6/12): Scripts mention lint, typecheck, test, but no single quality gate ties them together.
+- [FAIL] deterministic.secret-scan (0/8): No secret scanning hook or script was found.
+- [PASS] mock.offline-default (10/10): Docs describe a mock, offline, fixture, or demo path without requiring credentials.
+- [PASS] ai.boundary.human-loop (10/10): AI boundary docs include human review, confidence, schema validation, AI as suggestion.
+- [PASS] ci.readiness (8/8): CI covers install, lint, typecheck, test, build.
+    evidence: .github/workflows/ci.yml - Workflow found.
+- [PASS] release.package-metadata (8/8): package.json includes name, description, license, repository, bugs, engines, files, exports/bin, publishConfig.
+    evidence: package.json - Publish metadata present.
+- [PASS] docs.commands (6/6): README includes install, usage, CI.
+
+Top recommendations:
+- agent.instructions.present: Add a concise AGENTS.md at the repo root with project mission, safety rules, and finishing checks.
+- agent.instructions.specificity: Make the file specific to this repo: mission, architecture, safety boundaries, and exact commands.
+- agent.instructions.bloat-control: Aim for a focused one-to-three page instruction file with links to deeper skills or docs.
+- skills.structure: Extract specialized instructions into skill files (for example .claude/skills/<name>/SKILL.md, agents/*.SKILL.md, or .cursor/rules) when the root instructions get dense.
+- deterministic.quality-gate: Add a `check` script or quality-gate hook that agents can run before finishing.
