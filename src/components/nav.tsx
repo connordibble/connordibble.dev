@@ -20,7 +20,8 @@ import {
 type Theme = "dark" | "light";
 type NavLink =
   | { href: string; label: string; type: "route" }
-  | { href: `/#${string}`; label: string; targetId: string; type: "section" };
+  | { href: `/#${string}`; label: string; targetId: string; type: "section" }
+  | { href: string; label: string; type: "external" };
 
 const themeStorageKey = "connordibble-theme";
 const themeChangeEvent = "connordibble-theme-change";
@@ -36,7 +37,7 @@ const links: NavLink[] = [
     targetId: "experience",
     type: "section",
   },
-  { href: "/#skills", label: "Skills", targetId: "skills", type: "section" },
+  { href: "/resume.pdf", label: "Resume", type: "external" },
   {
     href: "/#contact",
     label: "Contact",
@@ -156,21 +157,33 @@ export function Nav() {
             const active = isActiveRoute(link, pathname);
             return (
               <li key={link.label}>
-                <Link
-                  href={link.href}
-                  aria-current={active ? "page" : undefined}
-                  onClick={
-                    link.type === "section"
-                      ? (event) => handleSectionClick(event, link.targetId)
-                      : () => setOpen(false)
-                  }
-                  className={[
-                    "text-link whitespace-nowrap font-mono text-caption transition-colors duration-150",
-                    active ? "text-text" : "text-text-muted",
-                  ].join(" ")}
-                >
-                  {link.label}
-                </Link>
+                {link.type === "external" ? (
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
+                    className="text-link whitespace-nowrap font-mono text-caption text-text-muted transition-colors duration-150"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    onClick={
+                      link.type === "section"
+                        ? (event) => handleSectionClick(event, link.targetId)
+                        : () => setOpen(false)
+                    }
+                    className={[
+                      "text-link whitespace-nowrap font-mono text-caption transition-colors duration-150",
+                      active ? "text-text" : "text-text-muted",
+                    ].join(" ")}
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             );
           })}
@@ -221,20 +234,32 @@ export function Nav() {
                       open && !shouldReduceMotion ? 0.05 + i * 0.025 : 0,
                   }}
                 >
-                  <Link
-                    href={link.href}
-                    aria-current={
-                      isActiveRoute(link, pathname) ? "page" : undefined
-                    }
-                    onClick={
-                      link.type === "section"
-                        ? (event) => handleSectionClick(event, link.targetId)
-                        : () => setOpen(false)
-                    }
-                    className="text-link block whitespace-nowrap py-4 font-mono text-body text-text transition-colors duration-150"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.type === "external" ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setOpen(false)}
+                      className="text-link block whitespace-nowrap py-4 font-mono text-body text-text transition-colors duration-150"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      aria-current={
+                        isActiveRoute(link, pathname) ? "page" : undefined
+                      }
+                      onClick={
+                        link.type === "section"
+                          ? (event) => handleSectionClick(event, link.targetId)
+                          : () => setOpen(false)
+                      }
+                      className="text-link block whitespace-nowrap py-4 font-mono text-body text-text transition-colors duration-150"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </motion.li>
               ))}
             </ul>
