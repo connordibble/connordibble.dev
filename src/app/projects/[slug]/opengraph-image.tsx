@@ -19,7 +19,7 @@ export default async function Image({
   return renderOgCard({
     variant: "project",
     kicker: project?.owner ? `Project · ${project.owner}` : "Project",
-    title: project?.title ?? "Projects",
+    title: project?.socialCard.title ?? project?.title ?? "Projects",
     subtitle: project?.socialCard.summary ?? project?.description ?? "",
     projectSteps: project?.socialCard.steps,
     activeStep: project?.socialCard.activeStep,

@@ -10,6 +10,7 @@ export type ProjectProof = {
 };
 
 export type ProjectSocialCard = {
+  title?: string;
   steps: [string, string, string];
   activeStep: 0 | 1 | 2;
   summary: string;
@@ -332,10 +333,11 @@ export const projects: Project[] = [
       "Versioned catalog of 11 coding-agent plugins distributed through Claude Code, Codex, and npm. Portable Agent Skills pair with zero-dependency checks used in agent workflows and CI, with marketplace validation and automated releases.",
     tags: ["Agent Skills", "CLI", "Codex", "Claude Code", "Node.js"],
     socialCard: {
-      steps: ["Audit", "Guard", "Verify"],
+      title: "dibble: Agent Plugins and Guardrails",
+      steps: ["Context", "Guardrails", "Evals"],
       activeStep: 1,
       summary:
-        "Portable agent skills and deterministic checkers for project taste, safety, and evidence.",
+        "11 coding-agent plugins for context, guardrails, evals, and engineering workflows, distributed through Claude Code, Codex, npm, and CI.",
     },
     repoUrl: "https://github.com/connordibble/dibble",
     links: [

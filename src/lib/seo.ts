@@ -88,17 +88,23 @@ export function serializeJsonLd(data: unknown): string {
 export function pageMetadata({
   title,
   description,
+  socialTitle,
+  socialDescription,
   path,
   imagePath,
   imageAlt,
 }: {
   title: string;
   description: string;
+  socialTitle?: string;
+  socialDescription?: string;
   path: string;
   imagePath?: string;
   imageAlt?: string;
 }): Metadata {
   const images = socialImages(imagePath, imageAlt);
+  const shareTitle = socialTitle ?? title;
+  const shareDescription = socialDescription ?? description;
   return {
     title,
     description,
@@ -106,8 +112,8 @@ export function pageMetadata({
       canonical: path,
     },
     openGraph: {
-      title,
-      description,
+      title: shareTitle,
+      description: shareDescription,
       url: path,
       siteName,
       locale: "en_US",
@@ -116,8 +122,8 @@ export function pageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: shareTitle,
+      description: shareDescription,
       images: [images.twitter],
     },
   };
