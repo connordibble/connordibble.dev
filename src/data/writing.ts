@@ -482,7 +482,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-06-12",
     displayDate: "June 2026",
     readTime: "13 min read",
-    featured: true,
+    featured: false,
     topics: ["Design Systems", "Platform Engineering", "Technical Leadership"],
     socialCardLabel: "System migration",
     socialCardSubtitle:
@@ -668,7 +668,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "The mechanism that holds them together is a pipeline I built: a TypeScript Figma plugin that syncs Figma Variables into W3C-format design tokens in GitLab. A color, spacing, or variant decision made in Figma lands in the codebase as a typed, versioned artifact, reviewed like any other change. The token file is the contract between the two disciplines, and arguments about what a value should be happen before it merges rather than after it ships. It is also what makes the audience variants workable: the same pipeline that carries a brand color carries an agent-context density token, so design evolves the system’s surface without queueing behind engineering.",
+            text: "The mechanism that holds them together is a pipeline I built: a TypeScript Figma plugin that syncs Figma Variables into W3C-format design tokens in GitHub. A color, spacing, or variant decision made in Figma lands in the codebase as a typed, versioned artifact, reviewed like any other change. The token file is the contract between the two disciplines, and arguments about what a value should be happen before it merges rather than after it ships. It is also what makes the audience variants workable: the same pipeline that carries a brand color carries an agent-context density token, so design evolves the system’s surface without queueing behind engineering.",
           },
           {
             type: "paragraph",
@@ -689,7 +689,7 @@ export const writingPosts: WritingPost[] = [
               "Versioned docs with live examples, so the answer a team reads matches the release it runs.",
               "Per-framework migration guides that own the integration seams instead of hiding them.",
               "Deprecation windows long enough to plan a roadmap around.",
-              "Automated compliance checks, wired through GitLab webhooks, that catch drift before a human reviewer spends time on it.",
+              "Automated compliance checks, wired through GitHub webhooks, that catch drift before a human reviewer spends time on it.",
               "Weekly office hours, plus a network of design and engineering champions embedded across areas, so the system has advocates who sit closer to the work than we do.",
               "Feedback channels in the docs site that keep discovery running permanently instead of as a launch-phase activity.",
             ],
@@ -763,7 +763,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-06-09",
     displayDate: "June 2026",
     readTime: "8 min read",
-    featured: false,
+    featured: true,
     topics: ["AI Tooling", "Data Integrity", "Platform Engineering"],
     socialCardLabel: "Review boundary",
     socialCardSubtitle:
