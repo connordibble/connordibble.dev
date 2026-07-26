@@ -88,7 +88,7 @@ export default async function WritingPostPage({
     <>
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <article className="container-wide pt-32 pb-16 sm:pt-36 sm:pb-24">
+        <article className="container-wide pt-32 pb-16 sm:pt-36 sm:pb-24 lg:max-w-[74rem] lg:px-12">
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -103,7 +103,7 @@ export default async function WritingPostPage({
             ]}
           />
 
-          <header className="mt-6 max-w-3xl">
+          <header className="mt-6 max-w-4xl">
             <SectionLabel as="p" mark="asterisk">
               Essay
             </SectionLabel>
@@ -128,7 +128,7 @@ export default async function WritingPostPage({
             </ul>
           </header>
 
-          <div className="mt-14 max-w-3xl space-y-12">
+          <div className="mt-14 max-w-5xl space-y-12">
             {post.sections.map((section) => (
               <section key={section.heading}>
                 <h2 className="max-w-[65ch] text-section-title font-medium text-text">

@@ -36,9 +36,9 @@ export function RelatedReading({ items }: { items: RelatedItem[] }) {
   if (items.length === 0) return null;
 
   return (
-    <section className="mt-16 max-w-3xl border-t border-border pt-10">
+    <section className="mt-16 max-w-5xl border-t border-border pt-10">
       <SectionLabel mark="rings">Related</SectionLabel>
-      <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) =>
           item.external ? (
             <li key={item.href}>
