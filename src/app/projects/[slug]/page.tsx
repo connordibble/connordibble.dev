@@ -28,6 +28,8 @@ export async function generateMetadata({
   return pageMetadata({
     title: `${project.title} | Connor Dibble`,
     description: project.detail.headline,
+    socialTitle: project.socialCard.title,
+    socialDescription: project.socialCard.summary,
     path: `/projects/${project.slug}`,
     imagePath: `/projects/${project.slug}/opengraph-image`,
     imageAlt: `${project.title} project by Connor Dibble`,

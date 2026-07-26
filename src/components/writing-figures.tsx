@@ -28,6 +28,8 @@ const figures = {
   "behavior-breaking-changes": BehaviorBreakingChangesFigure,
   "media-to-profile": MediaToProfileFigure,
   "incline-review": InclineReviewFigure,
+  "prompt-allowlist": PromptAllowlistFigure,
+  "perf-budget-to-context-budget": PerfBudgetToContextBudgetFigure,
 } satisfies Record<WritingFigureVariant, ComponentType>;
 
 export function WritingFigure({ variant, caption }: WritingFigureProps) {
@@ -641,6 +643,60 @@ function MediaToProfileFigure() {
         accentItem="the partner's control schema"
       />
     </div>
+  );
+}
+
+function PromptAllowlistFigure() {
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2">
+      <Zone
+        label="What the API returns"
+        items={[
+          "full PR body",
+          "nested base/head payloads",
+          "repository objects",
+          "reviewer metadata",
+        ]}
+      />
+      <ZoneArrow />
+      <Zone
+        label="What crosses into the prompt"
+        emphasis
+        items={["title", "state", "capped body excerpt"]}
+        accentItem="an explicit allowlist"
+      />
+    </div>
+  );
+}
+
+function PerfBudgetToContextBudgetFigure() {
+  return (
+    <FigureTable
+      keyPrefix="pbcb"
+      header={["Concern", "Performance budget", "Context budget"]}
+      rows={[
+        [
+          "Limit",
+          "Size per route, enforced in CI",
+          "Tokens per workflow, enforced in review",
+        ],
+        [
+          "Regression",
+          "Bundle analysis when size jumps",
+          "Prompt diff when a job's spend jumps",
+        ],
+        [
+          "Deferral",
+          "Lazy-load what most users never see",
+          "Retrieve on demand what most runs never need",
+        ],
+        [
+          "Ownership",
+          "Budget owned by the team",
+          "Context shape reviewed like an API contract",
+        ],
+      ]}
+    />
   );
 }
 

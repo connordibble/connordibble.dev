@@ -1,7 +1,7 @@
 {
-  "last_scan": "2026-07-04",
+  "last_scan": "2026-07-26",
   "font_stack": {
-    "summary": "Geist + Geist Mono via next/font/google",
+    "summary": "Geist + Geist Mono via next/font/google, with a restrained editorial serif accent",
     "sources": ["package.json:15", "src/app/layout.tsx:2", "src/app/layout.tsx:8", "src/app/layout.tsx:14"]
   },
   "palette": {
@@ -9,7 +9,7 @@
     "sources": ["DESIGN.md:6", "src/app/globals.css:1", "tokens.css:1"]
   },
   "motion": {
-    "summary": "motion-on project; framer-motion is installed and used for nav/filter interactions",
+    "summary": "motion-on project; framer-motion is installed and used for nav/filter interactions with reduced-motion support",
     "sources": ["package.json:14", "src/components/nav.tsx:11"]
   },
   "spacing": {
@@ -21,5 +21,5 @@
     "sources": ["package.json:15", "package.json:16", "package.json:20", "src/app/layout.tsx:6"]
   },
   "preserve": ["font stack", "graphite/copper palette", "routes", "data-driven content", "theme toggle behavior", "navigation scroll behavior"],
-  "introduce": ["N5 floating pill navigation", "Ft5 statement footer", "Portfolio Grid index rhythm", "Long Document detail rhythm", "OKLCH tokens.css export"]
+  "introduce": ["developer-platform-first narrative", "multi-team scope above implementation details", "agent-context proof path", "targeted resume in primary navigation"]
 }

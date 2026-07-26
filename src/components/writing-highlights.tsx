@@ -21,8 +21,8 @@ export function WritingHighlights() {
             <SectionMark variant="grid" />
           </span>
           <p className="max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-            Longer-form notes on the decisions, tradeoffs, and costs behind the
-            work above.
+            Longer-form notes on platform distribution, agent boundaries,
+            context delivery, and the tradeoffs behind the work above.
           </p>
           <Link
             href="/writing"

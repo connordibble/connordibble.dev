@@ -1,0 +1,7 @@
+created AGENTS.md
+created package.json "check" script
+
+Agent readiness: 82/100 (ready with minor gaps)
+Next steps:
+- skills.structure: Extract specialized instructions into skill files (for example .claude/skills/<name>/SKILL.md, agents/*.SKILL.md, or .cursor/rules) when the root instructions get dense.
+- deterministic.secret-scan: Add a secrets check before agent-authored changes can be committed or merged.

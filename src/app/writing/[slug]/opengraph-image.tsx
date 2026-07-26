@@ -20,6 +20,7 @@ export default async function Image({
     variant: "essay",
     kicker: post ? `Essay · ${post.readTime}` : "Essay",
     title: post?.title ?? "Writing",
-    subtitle: post?.subtitle ?? "",
+    subtitle: post?.socialCardSubtitle ?? post?.subtitle ?? "",
+    essayLabel: post?.socialCardLabel,
   });
 }

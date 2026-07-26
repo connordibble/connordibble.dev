@@ -26,7 +26,9 @@ export type WritingFigureVariant =
   | "governance-map"
   | "behavior-breaking-changes"
   | "media-to-profile"
-  | "incline-review";
+  | "incline-review"
+  | "prompt-allowlist"
+  | "perf-budget-to-context-budget";
 
 export type InlineLink = {
   /** Exact substring of the paragraph text to turn into a link (first match). */
@@ -77,11 +79,205 @@ export type WritingPost = {
   readTime: string;
   featured: boolean;
   topics: string[];
+  socialCardLabel: string;
+  socialCardSubtitle: string;
   sections: WritingSection[];
   related?: RelatedRef[];
 };
 
 export const writingPosts: WritingPost[] = [
+  {
+    slug: "context-is-a-budget",
+    title: "Context Is a Budget",
+    subtitle:
+      "Frontend teams learned to treat kilobytes as spend. The same discipline, applied to what goes in a model's context window, and why caching is not a coupon.",
+    summary:
+      "Context engineering as a budgeting problem: allowlists at the prompt boundary, cost claims verified against usage data, and instruction files kept thin enough to stay true.",
+    date: "2026-07-26",
+    displayDate: "July 2026",
+    readTime: "7 min read",
+    featured: true,
+    topics: ["AI Tooling", "System Design", "Developer Productivity"],
+    socialCardLabel: "Context budget",
+    socialCardSubtitle:
+      "Every token costs money, latency, and attention. Treating the context window like a performance budget.",
+    related: [
+      { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
+      { kind: "project", slug: "researchlog" },
+      { kind: "project", slug: "dibble" },
+    ],
+    sections: [
+      {
+        heading: "A Track of Its Own",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A year ago the running joke was that prompt engineering would be dead by Christmas. This year the AI Engineer World's Fair gave context engineering a track of its own, and the room was full.",
+          },
+          {
+            type: "paragraph",
+            text: "Prompt engineering sounded like phrasing. Context engineering is a systems problem: deciding what an agent gets to see, from where, at what cost, with what freshness. The mental model that has served me best comes from somewhere unfashionable. Frontend performance budgets.",
+          },
+          {
+            type: "paragraph",
+            text: "Frontend teams learned years ago that a page doesn't get slow in one commit. It gets slow three kilobytes at a time, each one individually justifiable, until someone finally sets a performance budget and makes size a reviewable number. Context windows are on the same curve right now. Context is a budget, and most teams are spending it like it's free.",
+            links: [
+              {
+                text: "performance budget",
+                href: "https://web.dev/articles/performance-budgets-101",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Every Token Is Spend",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A token in the context window costs three ways: money, latency, and attention. The first two show up on invoices and traces. The third is the one teams miss. A model reads everything you send, including the junk, and the junk competes with the signal. Retrieval results that were almost relevant, boilerplate headers, the full JSON of an API response when the workflow needed four fields. The model doesn't get to skim. Whatever you put in the window, you have asked it to weigh.",
+          },
+          {
+            type: "paragraph",
+            text: "The attention cost has been measured. The Lost in the Middle results showed models retrieving facts reliably from the edges of a long context and missing the same facts parked in the middle, and that was on clean inputs. Filler does not sit in the window neutrally. It buys degradation.",
+            links: [
+              {
+                text: "Lost in the Middle",
+                href: "https://aclanthology.org/2024.tacl-1.9/",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The question worth asking is what the workflow actually needs, stated as an allowlist, with everything else excluded by default.",
+          },
+        ],
+      },
+      {
+        heading: "What Doesn't Belong in the Prompt",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "ResearchLog classifies development activity against the IRS four-part test, which means its prompts carry metadata about pull requests. The tempting version is to serialize what the GitHub API returns and let the model sort it out. The API returns a lot: full PR bodies, and nested base and head payloads that carry entire repository objects along for the ride.",
+          },
+          {
+            type: "paragraph",
+            text: "None of that survives into the prompt. Prompt metadata is built the way the export path builds its evidence files: from an explicit allowlist, never by spreading a raw object and trimming afterward. Titles, states, the fields the classification actually reasons about. The PR body is capped. The nested payloads never enter.",
+          },
+          {
+            type: "figure",
+            variant: "prompt-allowlist",
+            caption:
+              "The prompt is a contract surface. Raw API responses don't get to cross it.",
+          },
+          {
+            type: "paragraph",
+            text: "The allowlist matters for a second reason that has nothing to do with cost. Whatever enters the prompt becomes model input forever, in your logs and in every eval and replay that follows. A bounded prompt is easier to reason about the same way a bounded API response is. You can read one and say what the model knew.",
+          },
+        ],
+      },
+      {
+        heading: "Caching Is Not a Coupon",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Prompt caching is the line item everyone claims and few verify. ResearchLog sets cache_control on its system block, exactly the way the docs suggest, and it saves nothing. Caching covers the prefix up to the breakpoint, so putting it on the system block caches the tool schema plus the system prompt: a little under 400 tokens against a minimum cacheable prefix length of 1,024. Nothing errors. The flag is set, the prefix is too short, and both cache counters stay at zero.",
+            links: [
+              {
+                text: "minimum cacheable prefix length",
+                href: "https://platform.claude.com/docs/en/docs/build-with-claude/prompt-caching",
+              },
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "That is an embarrassing paragraph to write and a cheap lesson to learn. The billing surface has its own semantics, minimum cacheable sizes and prefix stability rules, and the only ground truth is usage metrics on real traffic. A comment in that file tells the next reader to check cache_read_input_tokens before claiming any savings. Nothing in the codebase logs it. The instruction to measure is not the measurement.",
+          },
+          {
+            type: "paragraph",
+            text: "Cost work in AI systems is observability work. If a team claims a caching win and cannot point at cache_read_input_tokens moving, they are describing an intention. The frontend version of this lesson took years: minified is not the same as small, and a budget you don't measure is a wish.",
+          },
+        ],
+      },
+      {
+        heading: "Thin Skills, Live Docs",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The other place context leaks is instructions. The pattern I keep returning to, in the design-system agent work and in dibble, my open-source collection of portable agent skills, is to keep the skill thin and point it at living truth.",
+            links: [
+              {
+                text: "the design-system agent work",
+                href: "/writing/teaching-ai-agents-to-use-a-design-system",
+              },
+              { text: "dibble", href: "/projects/dibble" },
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "A skill that copies component API tables into itself spends budget twice. It pays tokens on every run to carry the copy, and it pays drift forever because the copy rots the moment the source moves. The thin version teaches the agent where the docs live, which rules are load-bearing, and which validator has the final word. Truth stays in one place. The window carries directions to the source instead of a stale snapshot of it.",
+          },
+          {
+            type: "paragraph",
+            text: "The test I use for any instruction file: if this paragraph disappeared, would the agent's output change? If nobody can name the failure the paragraph prevents, it is dead weight the window pays for on every run.",
+          },
+        ],
+      },
+      {
+        heading: "Budgets Force Design",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A budget forces the design conversation teams were avoiding.",
+          },
+          {
+            type: "figure",
+            variant: "perf-budget-to-context-budget",
+            caption:
+              "A discipline frontend already paid to learn, transferring at par.",
+          },
+          {
+            type: "paragraph",
+            text: "When a workflow's prompt wants to grow past its ceiling, that pressure is information. Either the workflow is doing too many jobs, or the retrieval is compensating for docs that should be better, or someone is shipping the whole database because choosing fields felt like work. The budget doesn't answer the question. It refuses to let the question go unasked.",
+          },
+        ],
+      },
+      {
+        heading: "What I Would Carry Forward",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Reduced to a sentence: decide what enters the window the way you decide what crosses an API boundary, and verify cost claims against usage data rather than configuration. The longer version:",
+          },
+          {
+            type: "list",
+            items: [
+              "Build prompts from allowlists, never by trimming raw payloads. What you exclude by default cannot leak, bloat, or surprise you in a log.",
+              "Cap every free-text field that enters a prompt. User-shaped and API-shaped text grows until something bounds it.",
+              "Verify caching against usage metrics before claiming the savings. A cache_control flag with zero cache reads is a decoration.",
+              "Wire the check into the system rather than into a comment. A note telling the next reader to verify usage metrics is not the same as logging them.",
+              "Keep instruction files thin and pointed at live sources. A copied table is a second source of truth with a decay rate.",
+              "Watch token spend per workflow the way you watch bundle size per route. Regressions are cheap to catch early and expensive to excavate later.",
+              "Let the budget trigger design reviews. A prompt that keeps growing is a workflow asking to be split.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "The Broader Point",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Every platform generation relearns the same economics: the resource that feels infinite in the demo becomes the constraint in production. Memory, bandwidth, bundle size, and now the context window. The teams that handle it well are the ones that made the spend visible and gave someone the job of saying no.",
+          },
+          {
+            type: "paragraph",
+            text: "The work itself is unglamorous. Decide what each workflow needs, build the prompt from that list, and read the usage numbers rather than the configuration. That holds regardless of which model you are running this quarter.",
+          },
+        ],
+      },
+    ],
+  },
   {
     slug: "agentic-software-needs-a-design-system",
     title: "Agentic Software Needs a Design System",
@@ -94,6 +290,9 @@ export const writingPosts: WritingPost[] = [
     readTime: "9 min read",
     featured: true,
     topics: ["AI Tooling", "Platform Engineering", "Design Systems"],
+    socialCardLabel: "Governance map",
+    socialCardSubtitle:
+      "How design-system governance maps onto primitives, permissions, review, and release discipline for coding agents.",
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },
       { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
@@ -292,6 +491,9 @@ export const writingPosts: WritingPost[] = [
     readTime: "10 min read",
     featured: true,
     topics: ["Platform Engineering", "System Design", "Design Systems"],
+    socialCardLabel: "Cache incident",
+    socialCardSubtitle:
+      "How adoption turned a five-minute cache into a budget problem, and the architecture that cut delivery cost by two thirds.",
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },
       { kind: "project", slug: "sfds" },
@@ -474,8 +676,11 @@ export const writingPosts: WritingPost[] = [
     date: "2026-06-12",
     displayDate: "June 2026",
     readTime: "13 min read",
-    featured: true,
+    featured: false,
     topics: ["Design Systems", "Platform Engineering", "Technical Leadership"],
+    socialCardLabel: "System migration",
+    socialCardSubtitle:
+      "Replacing a copy-paste design system across 100+ product teams and five frameworks at State Farm.",
     related: [
       { kind: "writing", slug: "success-was-the-incident" },
       { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
@@ -657,7 +862,7 @@ export const writingPosts: WritingPost[] = [
           },
           {
             type: "paragraph",
-            text: "The mechanism that holds them together is a pipeline I built: a TypeScript Figma plugin that syncs Figma Variables into W3C-format design tokens in GitLab. A color, spacing, or variant decision made in Figma lands in the codebase as a typed, versioned artifact, reviewed like any other change. The token file is the contract between the two disciplines, and arguments about what a value should be happen before it merges rather than after it ships. It is also what makes the audience variants workable: the same pipeline that carries a brand color carries an agent-context density token, so design evolves the system’s surface without queueing behind engineering.",
+            text: "The mechanism that holds them together is a pipeline I built: a TypeScript Figma plugin that syncs Figma Variables into W3C-format design tokens in GitHub. A color, spacing, or variant decision made in Figma lands in the codebase as a typed, versioned artifact, reviewed like any other change. The token file is the contract between the two disciplines, and arguments about what a value should be happen before it merges rather than after it ships. It is also what makes the audience variants workable: the same pipeline that carries a brand color carries an agent-context density token, so design evolves the system’s surface without queueing behind engineering.",
           },
           {
             type: "paragraph",
@@ -678,7 +883,7 @@ export const writingPosts: WritingPost[] = [
               "Versioned docs with live examples, so the answer a team reads matches the release it runs.",
               "Per-framework migration guides that own the integration seams instead of hiding them.",
               "Deprecation windows long enough to plan a roadmap around.",
-              "Automated compliance checks, wired through GitLab webhooks, that catch drift before a human reviewer spends time on it.",
+              "Automated compliance checks, wired through GitHub webhooks, that catch drift before a human reviewer spends time on it.",
               "Weekly office hours, plus a network of design and engineering champions embedded across areas, so the system has advocates who sit closer to the work than we do.",
               "Feedback channels in the docs site that keep discovery running permanently instead of as a launch-phase activity.",
             ],
@@ -752,8 +957,11 @@ export const writingPosts: WritingPost[] = [
     date: "2026-06-09",
     displayDate: "June 2026",
     readTime: "8 min read",
-    featured: false,
+    featured: true,
     topics: ["AI Tooling", "Data Integrity", "Platform Engineering"],
+    socialCardLabel: "Review boundary",
+    socialCardSubtitle:
+      "Where probabilistic output ends and durable product truth begins.",
     related: [
       { kind: "project", slug: "researchlog" },
       { kind: "writing", slug: "teaching-ai-agents-to-use-a-design-system" },
@@ -944,6 +1152,9 @@ export const writingPosts: WritingPost[] = [
     readTime: "9 min read",
     featured: true,
     topics: ["Design Systems", "AI Tooling", "Frontend Platform"],
+    socialCardLabel: "Agent context",
+    socialCardSubtitle:
+      "Why live docs, small skills, and deterministic checks beat a search index for production UI work.",
     related: [
       { kind: "writing", slug: "from-snippets-to-shadow-dom" },
       { kind: "project", slug: "designrail" },

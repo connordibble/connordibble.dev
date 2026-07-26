@@ -10,16 +10,18 @@ export function About() {
       <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-12">
         <div className="space-y-5">
           <p className="max-w-[32rem] text-body leading-relaxed text-text">
-            At State Farm, I set the technical direction for SFDS, the
-            enterprise design system serving 1000+ engineers and designers, and
-            lead the statefarm.com Digital Experience platform across 8 product
-            teams and 40-50 engineers.
+            At State Farm, I set technical direction across the statefarm.com
+            Digital Experience suite: 8 product teams and 40–50 engineers.
+            SFDS is one of the main platforms inside that scope, carrying shared
+            architecture, documentation, release policy, and supported paths to
+            1000+ engineers and designers.
           </p>
           <p className="max-w-[34rem] text-body text-text-muted leading-relaxed text-pretty">
-            The useful work sits between design intent, system contracts, and
-            the teams that inherit both. I like problems that cross design
-            tooling, frontend architecture, delivery infrastructure, and the
-            operating model required to make a platform last.
+            The useful work sits between organizational knowledge, system
+            contracts, and the teams or agents that inherit both. I like
+            problems that cross product architecture, context delivery,
+            infrastructure, and the operating model required to make a platform
+            last.
           </p>
           <Link
             href="/about"
@@ -32,12 +34,11 @@ export function About() {
           </Link>
         </div>
         <p className="max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
-          My path here runs through React and Angular applications, Java and
-          Node.js services, event-driven systems, release governance, and
-          applied AI tooling. Through Proceris and open source, I stay close to
-          the full product loop: customer conversations, technical discovery,
-          implementation, and the checks that keep software understandable
-          after launch.
+          My path here runs through Node.js and Java services, event-driven
+          systems, frontend architecture, release governance, and applied AI.
+          Through Proceris and open source, I stay close to the full product
+          loop: customer conversations, technical discovery, implementation,
+          and the checks that keep the correct path explicit and reviewable.
         </p>
       </div>
     </section>

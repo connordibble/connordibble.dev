@@ -1,7 +1,7 @@
 ---
 version: 1.0
 name: connordibble.dev Design Direction
-description: 'Personal portfolio for a software engineer. The visual language is precise, minimal, and dark — built for technical credibility. Graphite surfaces, crisp type, a single muted accent, and generous whitespace. The site should feel like something a senior engineer built intentionally, not a template someone filled in.'
+description: 'Personal portfolio for a technical lead building developer platforms, governed agent context, and applied AI systems. The visual language is precise, minimal, and dark. Graphite surfaces, crisp type, a single muted accent, and generous whitespace create technical credibility without turning the site into a product landing page.'
 
 colors:
   accent: 'oklch(67% 0.125 55)'
@@ -59,7 +59,7 @@ spacing:
 
 # connordibble.dev Design Direction
 
-This site is a professional portfolio for a software engineer. It is not a marketing page, not a template, and not a showcase of UI tricks. Every design decision should reinforce one message: this person is a serious engineer with taste.
+This site is a professional portfolio for a technical lead. Every design decision should reinforce one message: Connor can set direction across teams, build the platform underneath the work, and make its operating context explicit enough for engineers and agents to use safely. Design systems are important evidence inside that story, not the boundary of the role.
 
 ## Product Feel
 
@@ -152,11 +152,11 @@ Home sections in order:
 
 1. **Hero** — name, role line, brief positioning statement, CTA links, and the current-work ledger
 2. **Projects** — 3 featured projects, restrained cards, stack tags capped
-3. **About** — split statement + prose, a human voice, not a resume summary
+3. **Experience**: spec-sheet rows with role/date left and impact right
 4. **Field notes** — featured essays as full-width ledger rows, linking to the index
-5. **Experience** — spec-sheet rows: role/date left, impact right
+5. **About**: split statement plus prose in a human voice, not a resume summary
 6. **Skills** — concise grouped panels, no skill bars or percentages
-7. **Contact** — email link, GitHub, LinkedIn. Nothing else.
+7. **Contact**: email, resume, GitHub, and LinkedIn links. Nothing else.
 
 ### Navigation
 
@@ -199,7 +199,7 @@ Use mono only where it carries meaning: tech stack tags, inline code, and any te
 
 - Name in display type, full weight
 - Role/title in caption treatment beneath the name
-- One sharp positioning line — not a paragraph
+- One concise positioning paragraph that establishes multi-team scope, platform ownership, and agent context
 - Up to three CTA links when each earns the fold. On this site: Writing,
   GitHub, and Resume are intentional because writing is a primary proof path.
 - No hero image, no avatar above the fold (optional: small avatar beside name)
@@ -210,7 +210,8 @@ Use mono only where it carries meaning: tech stack tags, inline code, and any te
 - Stack tags in mono caption, `panel` background, `border` outline
 - Link to live site or repo — not both unless both are meaningful
 - No screenshots unless they genuinely demonstrate the work
-- 2-column grid desktop, 1-column mobile
+- 1-column mobile, 2-column tablet, and 3-column large-screen grid for the
+  three featured homepage cards
 
 ### Experience
 

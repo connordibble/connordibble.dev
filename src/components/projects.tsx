@@ -17,8 +17,8 @@ export function Projects() {
               Selected work
             </SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              Enterprise platform scale, executive-backed AI product delivery,
-              and open-source readiness tooling for agent workflows.
+              Enterprise context delivery, portable plugin distribution, and
+              deterministic checks that keep agent output reviewable.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">
@@ -33,7 +33,7 @@ export function Projects() {
           </Link>
         </div>
       </div>
-      <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {homepageProjects.map((project, index) => (
           <li key={project.slug}>
             <ProjectCard

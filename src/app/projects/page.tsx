@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Projects | Connor Dibble",
   description:
-    "Enterprise platform, design-system, open-source agent tooling, and AI product work from Connor Dibble.",
+    "Enterprise developer platforms, governed agent workflows, public tooling, and applied AI systems from Connor Dibble.",
   path: "/projects",
 });
 
@@ -30,10 +30,11 @@ export default function ProjectsPage() {
             Projects
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
-            Enterprise platform, design-system, open-source agent tooling, and
-            AI product work. The platform and executive-facing systems sit
-            first; the open-source and product builds that follow are smaller
-            and run with the same discipline.
+            Enterprise developer platforms, governed agent workflows, public
+            tooling, and applied AI systems. The largest systems show technical
+            direction and adoption at organizational scale. The public builds
+            make the same context, validation, and operating boundaries visible
+            in code.
           </p>
         </section>
 

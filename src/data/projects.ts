@@ -9,6 +9,13 @@ export type ProjectProof = {
   caption: string;
 };
 
+export type ProjectSocialCard = {
+  title?: string;
+  steps: [string, string, string];
+  activeStep: 0 | 1 | 2;
+  summary: string;
+};
+
 export type ProjectLink = {
   label: string;
   href: string;
@@ -20,6 +27,7 @@ export type Project = {
   owner?: string;
   description: string;
   tags: string[];
+  socialCard: ProjectSocialCard;
   /** If set, the card links here (external). No detail page. */
   externalUrl?: string;
   /** If set, the detail page shows a source link to this repo. */
@@ -48,6 +56,12 @@ export const projects: Project[] = [
       "GraphQL",
       "Design Systems",
     ],
+    socialCard: {
+      steps: ["Intent", "Review", "Export"],
+      activeStep: 1,
+      summary:
+        "The missing review layer between design intent and AI-assisted code generation.",
+    },
     repoUrl: "https://github.com/connordibble/DesignRail",
     links: [
       {
@@ -95,6 +109,12 @@ export const projects: Project[] = [
     description:
       "Full-stack R&D tax-credit documentation SaaS that maps real engineering work to IRS Section 41 evidence. Ingests GitHub PR and issue activity, classifies work with Claude at the pull-request level to keep model spend bounded, and keeps reviewer overrides tenant-scoped with Supabase RLS.",
     tags: ["Angular", "TypeScript", "NestJS", "Supabase", "Inngest"],
+    socialCard: {
+      steps: ["Ingest", "Classify", "Override"],
+      activeStep: 2,
+      summary:
+        "Maps real engineering work to IRS Section 41 evidence with tenant-scoped human overrides.",
+    },
     detail: {
       headline:
         "R&D tax credit documentation SaaS that maps real engineering work to the IRS Section 41 four-part test as it happens.",
@@ -120,30 +140,44 @@ export const projects: Project[] = [
   },
   {
     slug: "sfds",
-    title: "SFDS",
+    title: "SFDS Developer Platform",
     owner: "State Farm, closed source",
     description:
-      "State Farm's canonical enterprise design system and migration target for statefarm.com. I led sf-ui, a framework-agnostic Lit/Web Components library with 70+ primitives, plus the Figma Variables → W3C token pipeline and npm/CDN release governance for 1000+ engineers and designers.",
+      "Governed enterprise developer platform that packages component contracts, live documentation, migration guidance, CI/CD, and release policy for 1000+ engineers and designers. I led sf-ui, the Figma-to-token pipeline, distribution, and adoption.",
     tags: ["Web Components", "TypeScript", "Design Tokens", "npm + CDN"],
+    socialCard: {
+      steps: ["Tokens", "Components", "Release"],
+      activeStep: 1,
+      summary:
+        "A governed developer platform used by 1000+ engineers and designers.",
+    },
     detail: {
       headline:
-        "State Farm's canonical enterprise design system, used by 1000+ engineers and designers across one of the largest insurance companies in the US.",
+        "A governed developer platform that distributes UI architecture, engineering standards, and migration context to 1000+ engineers and designers.",
       sections: [
         {
-          heading: "Problem",
+          heading: "The Platform Problem",
           body: "State Farm's frontend ecosystem spans hundreds of product teams shipping inconsistent UI across Angular, React, Next.js, JSP, and other frameworks. Past unification efforts didn't hold: brand drift and accessibility gaps compounded with every release, with duplicated engineering effort as the ongoing tax. The org needed a single framework-agnostic system any team could adopt without rewriting its stack.",
         },
         {
-          heading: "Approach",
-          body: "Architected sf-ui, a framework-agnostic Lit component library. The same <sf-button> renders identically inside an Angular shell, a React SPA, or a server-rendered page. Used Web Components and Shadow DOM to encapsulate behavior and styling while keeping the integration surface simple for product teams. Built a Figma Variables → W3C design token plugin in TypeScript so design changes flow into code as a typed pipeline. When adoption reached AEM's content-fragment pages, built a Node.js sidecar that server-renders shadow DOM (Declarative Shadow DOM) and hydrates on the client, so hundreds of unauthenticated CMS pages could adopt sf-ui without replacing the CMS model. Owned the npm publishing, CDN distribution, versioned docs, and release governance that lets the system ship like any other dependency.",
+          heading: "The Supported Path",
+          body: "Architected sf-ui as a framework-agnostic Lit and Web Components library. The same component contract works inside Angular, React, AEM, and server-rendered pages. A Node.js sidecar adds Declarative Shadow DOM and client hydration for hundreds of unauthenticated CMS pages, so teams can adopt the platform without replacing their product framework or content model.",
         },
         {
-          heading: "Impact",
-          body: "Named the official migration target for statefarm.com, with roughly 30% of the public Digital Experience estate migrated today across 10+ pages spanning public, internal, and agent-facing surfaces. 70+ primitives shipped, adopted across all eight Digital Experience product teams. The governance model (versioned releases, deprecation windows, compliance review) became a template for cross-org platform delivery.",
+          heading: "Context for Engineers and Agents",
+          body: "I first built the SFDS agent-context layer as a RAG system that ingested live documentation into a vector database and exposed retrieval through an MCP server. Live docs plus framework-specific SKILL.md files proved at least as effective for implementation guidance, so I led the replacement of the retrieval stack and removed its dedicated server, index, and ingestion path from the team's support surface. A deterministic CLI checks platform alignment, legacy usage, and accessibility risk; a GitHub review agent has used it across 50+ PRs.",
+        },
+        {
+          heading: "Distribution and Operations",
+          body: "Built the Figma Variables to W3C design-token pipeline and owned npm publishing, redundant CDN distribution, GitHub CI/CD, versioning, deprecation windows, and compliance review. Cache tiering and content-hashed builds cut request volume to a third of peak, with Dynatrace RUM alerting and live incident-bridge support protecting the shared production platform.",
+        },
+        {
+          heading: "Adoption",
+          body: "SFDS is the official migration target for statefarm.com, with governed distribution and a standard migration path for more than 100 teams. Its 70+ accessible primitives are used by 1000+ engineers and designers across React, Angular, AEM, and mixed frontend architectures. Weekly office hours and a design and engineering champion network support adoption without centralizing every implementation decision.",
         },
         {
           heading: "Stack",
-          body: "Lit · Web Components · TypeScript · Figma Plugin API · W3C Design Tokens · npm · CDN distribution · GitLab CI/CD",
+          body: "Lit · Web Components · TypeScript · Figma Plugin API · W3C Design Tokens · npm · CDN distribution · GitHub CI/CD",
         },
       ],
     },
@@ -155,6 +189,12 @@ export const projects: Project[] = [
     description:
       "Small TypeScript package that derives Anthropic, OpenAI, and Gemini tool definitions from one Zod schema, then validates model tool input with that same schema. Built for applications that talk directly to provider SDKs and need one contract instead of duplicated JSON Schema.",
     tags: ["TypeScript", "Zod", "OpenAI", "Anthropic", "Gemini"],
+    socialCard: {
+      steps: ["Schema", "Provider", "Validate"],
+      activeStep: 0,
+      summary:
+        "One Zod contract for provider tool schemas and runtime validation.",
+    },
     repoUrl: "https://github.com/connordibble/zod-ai-tool",
     links: [
       {
@@ -200,6 +240,12 @@ export const projects: Project[] = [
     description:
       "TypeScript CLI and library that scores whether a repository is ready for coding agents. Audits project instructions, skill structure, deterministic gates, mock/offline defaults, AI boundaries, CI coverage, docs, and release hygiene, with a design-system preset for token and visual-review workflows.",
     tags: ["TypeScript", "CLI", "Agent Workflows", "CI", "GitHub Actions"],
+    socialCard: {
+      steps: ["Inspect", "Score", "Enforce"],
+      activeStep: 1,
+      summary:
+        "A readiness audit for repositories that want coding agents to work from explicit, reviewable boundaries.",
+    },
     repoUrl: "https://github.com/connordibble/agent-readiness-kit",
     links: [
       {
@@ -245,6 +291,12 @@ export const projects: Project[] = [
     description:
       "Independent college-football fan intelligence platform with a Texas football reference deployment. Ingests fixture, official-link, team-note, and optional CFBD sources, then returns citation-backed chat answers with voice, source, and rumor guardrails.",
     tags: ["Next.js", "TypeScript", "Drizzle", "RAG", "Playwright"],
+    socialCard: {
+      steps: ["Sources", "Retrieve", "Answer"],
+      activeStep: 2,
+      summary:
+        "Source-grounded college-football intelligence with citations and rumor guardrails.",
+    },
     repoUrl: "https://github.com/connordibble/SaturdaySignal",
     detail: {
       headline:
@@ -282,8 +334,15 @@ export const projects: Project[] = [
     title: "dibble",
     owner: "Open source",
     description:
-      "Portable plugin, skill, and CLI collection for coding-agent guardrails. Packages design-token enforcement, supply-chain gates, agent-config audits, evidence-linked writing, UI verification, schema tooling, README audits, and marketplace validation for Claude Code, Codex, and CI.",
+      "Versioned catalog of 11 coding-agent plugins distributed through Claude Code, Codex, and npm. Portable Agent Skills pair with zero-dependency checks used in agent workflows and CI, with marketplace validation and automated releases.",
     tags: ["Agent Skills", "CLI", "Codex", "Claude Code", "Node.js"],
+    socialCard: {
+      title: "dibble: Agent Plugins and Guardrails",
+      steps: ["Context", "Guardrails", "Evals"],
+      activeStep: 1,
+      summary:
+        "11 coding-agent plugins for context, guardrails, evals, and engineering workflows, distributed through Claude Code, Codex, npm, and CI.",
+    },
     repoUrl: "https://github.com/connordibble/dibble",
     links: [
       {
@@ -293,7 +352,7 @@ export const projects: Project[] = [
     ],
     detail: {
       headline:
-        "A catalog of focused agent skills and deterministic checkers that move project taste, safety rules, and evidence standards into the moment work happens.",
+        "A versioned plugin catalog that packages agent guidance and deterministic checks once, then distributes them through Claude Code, Codex, npm, and CI.",
       sections: [
         {
           heading: "Problem",
@@ -301,11 +360,11 @@ export const projects: Project[] = [
         },
         {
           heading: "Catalog",
-          body: "The collection covers design-token enforcement and drift checks, package-install safety, agent-configuration audits, evidence-linked summaries, machine-prose linting, UI verification, Tailwind v4 token guidance, Zod-first tool schemas, README conversion audits, and plugin marketplace validation. Each plugin stays small enough to understand on its own, with its own README, skill files, scripts, and tests.",
+          body: "Eleven plugins cover design-token enforcement and drift checks, package-install safety, agent-configuration audits, evidence-linked summaries, machine-prose linting, UI verification, Tailwind v4 token guidance, Zod-first tool schemas, README conversion audits, and plugin marketplace validation. Each plugin stays small enough to understand on its own, with its own README and skill files plus scripts and tests where the plugin enforces a deterministic rule.",
         },
         {
           heading: "Portability",
-          body: "Every plugin ships its knowledge as plain Agent Skill files and its enforcement as zero-dependency Node scripts. Claude Code gets marketplace metadata, hooks, and slash-command integrations where the host supports them. Codex gets a separate marketplace sidecar that installs the same portable skill layer while avoiding claims about Claude-only hook behavior. The npm package exposes a single npx dibble front door plus individual bins for each checker.",
+          body: "Every plugin ships its knowledge as plain Agent Skill files. Plugins with deterministic enforcement package zero-dependency Node scripts that also run in CI. Claude Code gets marketplace metadata, hooks, and slash-command integrations where the host supports them. Codex gets a separate marketplace sidecar that installs the same portable skill layer while avoiding claims about Claude-only hook behavior. The npm package exposes a single npx dibble front door plus individual bins for each checker.",
         },
         {
           heading: "Enforcement Pattern",
@@ -327,11 +386,17 @@ export const projects: Project[] = [
     title: "Insurance Agent Feedback Platform",
     owner: "State Farm, closed source",
     description:
-      "Full-stack AI feedback platform commissioned by State Farm's EVP of enterprise technology. Went from concept to production in two months for its debut at agency convention, and the pilot earned backing to become the official support and feedback channel for all 10,000+ State Farm agents.",
+      "Executive-requested AI feedback platform delivered from concept to a live convention pilot in two months. It captured 800+ datapoints from 197 participants, kept source quotes traceable, and shipped with monitoring and GitOps rollback.",
     tags: ["Angular", "TypeScript", "Node.js", "AWS", "AI Workflows"],
+    socialCard: {
+      steps: ["Signal", "Theme", "Route"],
+      activeStep: 1,
+      summary:
+        "A two-month live pilot with 800+ datapoints from 197 participants.",
+    },
     detail: {
       headline:
-        "Commissioned by State Farm's EVP of enterprise technology, built from concept to production in two months, and now backed to become the official support and feedback channel for all 10,000+ State Farm agents.",
+        "An executive-requested AI feedback platform taken from concept to a monitored live pilot in two months, with traceable evidence behind every synthesized theme.",
       sections: [
         {
           heading: "Problem",
@@ -363,6 +428,12 @@ export const projects: Project[] = [
     description:
       "AI workflow that turns long-form workout video into timestamped equipment-control profiles. Combines video/audio ingestion, trainer-cue extraction, exercise-science reasoning, and a human review UI for partner OEM workflows.",
     tags: ["React", "Node.js", "Python", "Multimodal"],
+    socialCard: {
+      steps: ["Ingest", "Draft", "Approve"],
+      activeStep: 2,
+      summary:
+        "Turns workout video into reviewed equipment-control profiles for connected fitness hardware.",
+    },
     detail: {
       headline:
         "Turns long-form workout video into timestamped equipment control profiles for connected fitness hardware.",
@@ -410,18 +481,18 @@ function getProjectsBySlug(slugs: string[]): Project[] {
 
 export const homepageProjects = getProjectsBySlug([
   "sfds",
-  "designrail",
-  "agent-convention-feedback",
+  "dibble",
+  "agent-readiness-kit",
 ]);
 
 export const projectIndexProjects = getProjectsBySlug([
   "sfds",
-  "agent-convention-feedback",
-  "agent-readiness-kit",
-  "researchlog",
   "dibble",
-  "designrail",
+  "agent-readiness-kit",
+  "agent-convention-feedback",
+  "researchlog",
   "zod-ai-tool",
+  "designrail",
   "saturday-signal",
   "paceai",
 ]);

@@ -22,9 +22,9 @@ export default function Home() {
       <main id="main-content" tabIndex={-1} className="flex-1">
         <Hero />
         <Projects />
-        <About />
-        <WritingHighlights />
         <Experience />
+        <WritingHighlights />
+        <About />
         <Skills />
         <Contact />
       </main>

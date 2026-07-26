@@ -13,14 +13,14 @@ const roles: Role[] = [
     company: "State Farm",
     dates: "Mar 2026 – Present",
     description:
-      "Set technical direction across the statefarm.com Digital Experience suite: 8 product teams, 40–50 engineers, and an executive-backed migration toward 100% SFDS adoption. Shape GraphQL contracts, service-integration patterns, and AI tooling for customer-, agent-, and internal-facing workflows, including a Figma MCP pipeline that translates fully designed pages into sf-ui Web Component implementations. Validation tooling wired into local hooks and PR workflows has reviewed 50+ merge requests for design-system alignment and accessibility risk.",
+      "Set technical direction across the statefarm.com Digital Experience suite: 8 product teams and 40–50 engineers and analysts. Define shared architecture and standards, mentor engineers, and lead platform initiatives from discovery through adoption. Built the SFDS context layer first as a vector-backed RAG system exposed through MCP, then led its replacement with live docs and installable SKILL.md guidance when the simpler design proved at least as effective. Paired that context with deterministic validation, a GitHub review agent used across 50+ PRs, and a Figma MCP workflow that cut representative page builds from roughly two weeks to one day.",
   },
   {
     title: "Lead Software Engineer, State Farm Design System (SFDS)",
     company: "State Farm",
     dates: "May 2023 – Mar 2026",
     description:
-      "Led engineering for SFDS, State Farm's canonical enterprise design system. Architected sf-ui, a framework-agnostic Lit/Web Components library of 70+ primitives, and a Figma Variables → W3C design token plugin in TypeScript. Owned npm + CDN release governance for 1000+ engineers and designers.",
+      "Architected sf-ui as a governed Lit and Web Components developer platform with 70+ accessible primitives used by 1000+ engineers and designers. Established versioned documentation, npm and CDN delivery, GitHub CI/CD, deprecation windows, compliance reviews, adoption office hours, and a champion network across product teams.",
   },
   {
     title: "Software Engineer, Drive Safe & Save Telematics",
