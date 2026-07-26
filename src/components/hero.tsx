@@ -3,61 +3,67 @@ import { PillLink } from "./pill-link";
 
 const currentWork = [
   {
-    label: "Design system",
-    value: "SFDS · enterprise design system",
+    label: "Technical direction",
+    value: "statefarm.com Digital Experience",
+    note: "8 teams · 40–50 engineers",
+  },
+  {
+    label: "Enterprise platform",
+    value: "SFDS · governed delivery",
     note: "1000+ engineers & designers",
   },
   {
-    label: "Platform",
-    value: "statefarm.com Digital Experience",
-    note: "8 teams · 40-50 engineers",
+    label: "Agent context + evals",
+    value: "Docs · skills · deterministic CLI",
+    note: "50+ evaluated changes",
   },
   {
-    label: "Open source",
-    value: "DesignRail design-to-code lab",
-    note: "Figma intent → reviewed components",
-  },
-  {
-    label: "Independent lab",
-    value: "Proceris AI product work",
-    note: "Product discovery",
+    label: "AI workflow",
+    value: "Figma MCP → governed code",
+    note: "~2 weeks → ~1 day",
   },
 ];
 
 export function Hero() {
   return (
-    <section
-      id="top"
-      className="container-wide relative isolate pt-32 pb-8 sm:pt-36 sm:pb-10 lg:pt-40"
-    >
-      <BrandMark className="pointer-events-none absolute right-[-7rem] top-12 -z-10 h-[30rem] w-[30rem] text-border opacity-20 sm:right-[-10rem] sm:top-10 sm:h-[37rem] sm:w-[37rem] sm:opacity-25 lg:right-[-13rem] lg:top-4 lg:h-[43rem] lg:w-[43rem]" />
-      <div className="max-w-4xl">
-        <h1 className="font-editorial max-w-[12ch] text-[4rem] font-normal leading-[0.9] text-text text-pretty sm:text-[6rem] lg:text-[7rem]">
-          Connor Dibble
-        </h1>
-        <p className="mt-6 max-w-[34rem] text-balance font-mono text-caption text-accent">
-          Design systems / platform engineering / AI tooling
-        </p>
-        <p className="mt-5 max-w-[41rem] text-body leading-relaxed text-text-muted text-pretty">
-          I set the technical direction for SFDS, the enterprise design system
-          serving 1000+ engineers and designers, and the statefarm.com Digital
-          Experience platform across 8 product teams. My work spans component
-          architecture, design-token pipelines, Figma tooling, cross-framework
-          integration, release governance, and the AI-assisted workflows that
-          carry design intent into production code.
-        </p>
-        <div className="mt-7 flex flex-wrap items-center gap-3">
-          <PillLink href="/writing" label="Writing" />
-          <PillLink
-            href="https://github.com/connordibble"
-            label="GitHub"
-            external
-          />
-          <PillLink href="/resume.pdf" label="Resume" external />
+    <>
+      <section
+        id="top"
+        className="container-wide relative isolate pt-28 pb-40 sm:pt-32 sm:pb-44"
+      >
+        <BrandMark className="pointer-events-none absolute right-[-7rem] top-12 -z-10 h-[30rem] w-[30rem] text-border opacity-20 sm:right-[-10rem] sm:top-10 sm:h-[37rem] sm:w-[37rem] sm:opacity-25 lg:right-[-13rem] lg:top-4 lg:h-[43rem] lg:w-[43rem]" />
+        <div className="max-w-4xl">
+          <h1 className="font-editorial max-w-[12ch] text-[4rem] font-normal leading-[0.9] text-text text-pretty sm:text-[6rem] lg:text-[7rem]">
+            Connor Dibble
+          </h1>
+          <p className="mt-6 max-w-[34rem] text-balance font-mono text-caption text-accent">
+            Developer platforms / agent context / applied AI
+          </p>
+          <p className="mt-5 max-w-[41rem] text-body leading-relaxed text-text-muted text-pretty">
+            I set technical direction across eight product teams, mentor
+            engineers, and build the platforms, context, and quality gates that
+            help 40–50 engineers ship reviewable production code, including
+            agent-assisted implementations. The work also spans shared
+            architecture, release governance, live documentation, and
+            Figma-to-code workflows that carry platform intent into
+            implementation.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <PillLink href="/writing" label="Writing" />
+            <PillLink
+              href="https://github.com/connordibble"
+              label="GitHub"
+              external
+            />
+            <PillLink href="/resume.pdf" label="Resume" external />
+          </div>
         </div>
-      </div>
+      </section>
 
-      <aside className="mt-12 sm:mt-14" aria-labelledby="current-work-heading">
+      <aside
+        className="container-wide pb-8 sm:pb-10"
+        aria-labelledby="current-work-heading"
+      >
         <div className="pb-3">
           <h2
             id="current-work-heading"
@@ -85,6 +91,6 @@ export function Hero() {
           ))}
         </dl>
       </aside>
-    </section>
+    </>
   );
 }

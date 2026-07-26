@@ -9,14 +9,14 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "About | Connor Dibble",
   description:
-    "A more personal view of Connor Dibble’s engineering taste, working style, and interests beyond the portfolio.",
+    "Connor Dibble on technical direction, developer platforms, agent context, and the operating systems behind durable software.",
   path: "/about",
 });
 
 const notes = [
   {
     title: "Engineering Taste",
-    body: "I like boring force multipliers: clear boundaries, APIs that are hard to misuse, invariants enforced in the layer that can actually guarantee them, and delivery models that make the correct path the easiest one.",
+    body: "I like boring force multipliers: clear boundaries, APIs that are hard to misuse, context close to the work, invariants enforced in the layer that can guarantee them, and delivery models that make the correct path the easiest one.",
   },
   {
     title: "Working Style",
@@ -42,35 +42,33 @@ export default function AboutPage() {
           </h1>
           <div className="mt-6 max-w-[65ch] space-y-5 text-body text-text-muted leading-relaxed text-pretty">
             <p>
-              I lead the statefarm.com Digital Experience suite across 8
-              product teams and 40-50 engineers, and steward SFDS, an
-              enterprise design system used by 1000+ engineers and designers. I
-              started on customer-facing telematics products, working across
-              frontend applications, backend services, and event-driven
-              integrations before moving into platform work shared by many
-              products and teams. The through-line is finding the decisions that
-              help teams move faster without giving up reliability,
-              accessibility, or long-term control. A lot of that work is
-              teaching: per-framework migration guides, weekly office hours,
-              and a network of design and engineering champions embedded
-              across the org.
+              I set technical direction across the statefarm.com Digital
+              Experience suite: 8 product teams and 40–50 engineers and
+              analysts. SFDS is one of the main developer platforms inside that
+              scope, carrying shared architecture, documentation, release
+              policy, and supported implementation paths to 1000+ engineers and
+              designers. I lead platform initiatives from discovery through
+              adoption, mentor engineers, and help teams turn local solutions
+              into durable shared systems.
             </p>
             <p>
-              I’m happiest when a problem is both technically deep and
-              organizationally messy. I like tracing it far enough to find the
-              real constraint, whether it lives in a component boundary, a data
-              invariant, a delivery model, or the economics of a system at
-              scale. The implementation matters, but so do the discovery,
-              migration path, operating model, and explanation. Good platform
-              work has to make sense to the engineer integrating it, the
-              designer evolving it, and the leader deciding whether to trust
-              it.
+              I’m happiest when a problem is technically deep and
+              organizationally messy. I trace it far enough to find the real
+              constraint, whether it lives in a system contract, a data
+              invariant, missing repository context, a delivery model, or the
+              economics of a service at scale. The implementation matters, as
+              do the migration path, governance, observability, and explanation.
+              A platform earns trust when an engineer can integrate it, an agent
+              can follow its boundaries, and a leader can understand how it is
+              operated.
             </p>
             <p>
-              Through Proceris, I build small AI products and stay close to the
-              full product loop: finding a painful workflow, talking with
-              prospective users, building across the stack, and learning
-              whether an idea earns its way into someone’s work.
+              Through Proceris and public tools such as dibble and
+              agent-readiness-kit, I stay close to the full product loop:
+              finding a painful workflow, talking with prospective users,
+              building across the stack, and packaging the context and checks
+              that make AI-assisted work reviewable across agent environments
+              and CI.
             </p>
           </div>
         </section>

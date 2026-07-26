@@ -3,12 +3,12 @@ import { SITE_URL } from "@/lib/site";
 
 export const siteName = "connordibble.dev";
 export const siteTitle =
-  "Connor Dibble | Senior Software Engineer, Design Systems & Platform Engineering";
+  "Connor Dibble | Developer Platforms, Agent Context & Applied AI";
 export const siteDescription =
-  "Senior software engineer leading enterprise design systems, web platforms, and AI tooling for software people can still reason about.";
+  "Technical lead building enterprise developer platforms, governed agent context, and AI-assisted engineering systems across multiple product teams.";
 
 export const socialImageAlt =
-  "Connor Dibble | Design systems, platform engineering, and AI tooling";
+  "Connor Dibble | Developer platforms, agent context, and applied AI";
 
 function socialImages(path = "/opengraph-image", alt = socialImageAlt) {
   return {
@@ -45,11 +45,12 @@ const personNode = {
     "https://www.linkedin.com/in/connor-j-dibble",
   ],
   knowsAbout: [
-    "Platform engineering",
+    "Developer platforms",
+    "Agent context engineering",
+    "AI agent tooling",
+    "Developer productivity",
+    "Platform governance",
     "Design systems",
-    "AI tooling",
-    "Frontend architecture",
-    "Developer experience",
   ],
 };
 

@@ -15,7 +15,7 @@ import { toIndexPost, type WritingIndexPost } from "@/lib/writing-index";
 export const metadata: Metadata = pageMetadata({
   title: "Writing | Connor Dibble",
   description:
-    "Field notes and technical essays on platform decisions, design systems, and AI tooling.",
+    "Field notes and technical essays on developer platforms, agent context, system governance, and applied AI.",
   path: "/writing",
 });
 
@@ -54,9 +54,10 @@ export default function WritingPage() {
             Writing
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
-            Field notes and technical essays on the decisions behind platform
-            work: design systems, AI tooling, frontend architecture, and the
-            tradeoffs that don’t fit in a README.
+            Field notes and technical essays on developer platforms, agent
+            context, system governance, and applied AI. The details cover
+            design-system distribution, model boundaries, frontend
+            architecture, and the tradeoffs that do not fit in a README.
           </p>
         </section>
 
