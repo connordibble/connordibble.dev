@@ -31,7 +31,9 @@ export async function generateMetadata({
     socialTitle: project.socialCard.title,
     socialDescription: project.socialCard.summary,
     path: `/projects/${project.slug}`,
-    imagePath: `/projects/${project.slug}/opengraph-image`,
+    imagePath:
+      project.socialCard.imagePath ??
+      `/projects/${project.slug}/opengraph-image`,
     imageAlt: `${project.title} project by Connor Dibble`,
   });
 }

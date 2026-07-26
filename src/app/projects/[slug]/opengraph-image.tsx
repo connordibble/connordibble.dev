@@ -1,4 +1,4 @@
-import { getProjectBySlug } from "@/data/projects";
+import { getDetailProjects, getProjectBySlug } from "@/data/projects";
 import { ogSize, renderOgCard } from "@/lib/og-card";
 
 export const alt = "Project on connordibble.dev";
@@ -8,6 +8,11 @@ export const contentType = "image/png";
 // Prerender alongside the page's generateStaticParams; the route would
 // otherwise run in the Cloudflare Worker at request time.
 export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getDetailProjects().map((project) => ({ slug: project.slug }));
+}
 
 export default async function Image({
   params,

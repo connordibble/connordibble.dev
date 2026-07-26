@@ -11,6 +11,7 @@ export type ProjectProof = {
 
 export type ProjectSocialCard = {
   title?: string;
+  imagePath?: string;
   steps: [string, string, string];
   activeStep: 0 | 1 | 2;
   summary: string;
@@ -338,6 +339,7 @@ export const projects: Project[] = [
     tags: ["Agent Skills", "CLI", "Codex", "Claude Code", "Node.js"],
     socialCard: {
       title: "dibble: Agent Plugins and Guardrails",
+      imagePath: "/projects/dibble-social-card.png",
       steps: ["Context", "Guardrails", "Evals"],
       activeStep: 1,
       summary:

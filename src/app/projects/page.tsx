@@ -14,6 +14,34 @@ export const metadata: Metadata = pageMetadata({
   path: "/projects",
 });
 
+type ProjectIndexLayout = {
+  className: string;
+  prominence: "normal" | "featured";
+};
+
+const projectIndexLayout: Record<string, ProjectIndexLayout> = {
+  sfds: { className: "lg:col-span-7", prominence: "featured" },
+  dibble: { className: "lg:col-span-5", prominence: "normal" },
+  "agent-readiness-kit": {
+    className: "lg:col-span-5",
+    prominence: "normal",
+  },
+  "agent-convention-feedback": {
+    className: "lg:col-span-7",
+    prominence: "featured",
+  },
+  researchlog: { className: "lg:col-span-7", prominence: "featured" },
+  "zod-ai-tool": { className: "lg:col-span-5", prominence: "normal" },
+  designrail: { className: "lg:col-span-4", prominence: "normal" },
+  "saturday-signal": { className: "lg:col-span-4", prominence: "normal" },
+  paceai: { className: "lg:col-span-4", prominence: "normal" },
+};
+
+const defaultProjectLayout: ProjectIndexLayout = {
+  className: "lg:col-span-6",
+  prominence: "normal",
+};
+
 export default function ProjectsPage() {
   return (
     <>
@@ -41,23 +69,19 @@ export default function ProjectsPage() {
         <section className="container-wide pb-16 sm:pb-24">
           <SectionLabel mark="asterisk">Work index</SectionLabel>
           <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
-            {projectIndexProjects.map((project, index) => (
-              <li
-                key={project.slug}
-                className={
-                  index === 0
-                    ? "lg:col-span-7"
-                    : index === 1
-                      ? "lg:col-span-5"
-                      : "lg:col-span-6"
-                }
-              >
-                <ProjectCard
-                  project={project}
-                  prominence={index === 0 ? "featured" : "normal"}
-                />
-              </li>
-            ))}
+            {projectIndexProjects.map((project) => {
+              const layout =
+                projectIndexLayout[project.slug] ?? defaultProjectLayout;
+
+              return (
+                <li key={project.slug} className={layout.className}>
+                  <ProjectCard
+                    project={project}
+                    prominence={layout.prominence}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </section>
       </main>
