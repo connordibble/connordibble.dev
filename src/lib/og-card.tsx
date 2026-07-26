@@ -15,15 +15,17 @@ export const ogSize = { width: 1200, height: 630 };
 
 type OgVariant = "project" | "essay";
 
+// ImageResponse cannot resolve the site's CSS custom properties. These values
+// are fixed render-time equivalents of the locked graphite/copper tokens.
 const palette = {
-  canvas: "#0b0908",
-  panel: "#12100e",
-  border: "#2d251f",
-  borderStrong: "#493b31",
-  text: "#f0ece6",
-  textMuted: "#b4aaa0",
-  textSubtle: "#8d8379",
-  accent: "#c97a45",
+  canvas: "#0b0908", /* tokenlock-ignore */
+  panel: "#12100e", /* tokenlock-ignore */
+  border: "#2d251f", /* tokenlock-ignore */
+  borderStrong: "#493b31", /* tokenlock-ignore */
+  text: "#f0ece6", /* tokenlock-ignore */
+  textMuted: "#b4aaa0", /* tokenlock-ignore */
+  textSubtle: "#8d8379", /* tokenlock-ignore */
+  accent: "#c97a45", /* tokenlock-ignore */
 } as const;
 
 async function readFont(path: string): Promise<ArrayBuffer> {
