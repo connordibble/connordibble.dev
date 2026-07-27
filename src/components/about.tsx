@@ -12,9 +12,10 @@ export function About() {
           <p className="max-w-[32rem] text-body leading-relaxed text-text">
             At State Farm, I set technical direction across the statefarm.com
             Digital Experience suite: 8 product teams and 40–50 engineers.
-            SFDS is one of the main platforms inside that scope, carrying shared
-            architecture, documentation, release policy, and supported paths to
-            1000+ engineers and designers.
+            SFDS reaches beyond that area as the standard migration path for
+            more than 100 product teams, carrying shared architecture,
+            documentation, release policy, and supported paths to 1000+
+            engineers and designers.
           </p>
           <p className="max-w-[34rem] text-body text-text-muted leading-relaxed text-pretty">
             The useful work sits between organizational knowledge, system

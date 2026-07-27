@@ -13,7 +13,7 @@ const roles: Role[] = [
     company: "State Farm",
     dates: "Mar 2026 – Present",
     description:
-      "Set technical direction across the statefarm.com Digital Experience suite: 8 product teams and 40–50 engineers and analysts. Define shared architecture and standards, mentor engineers, and lead platform initiatives from discovery through adoption. Built the SFDS context layer first as a vector-backed RAG system exposed through MCP, then led its replacement with live docs and installable SKILL.md guidance when the simpler design proved at least as effective. Paired that context with deterministic validation, a GitHub review agent used across 50+ PRs, and a Figma MCP workflow that cut representative page builds from roughly two weeks to one day.",
+      "Set technical direction across the statefarm.com Digital Experience suite: 8 product teams and 40–50 engineers and analysts. Define shared architecture and standards, mentor engineers, and lead platform initiatives from discovery through adoption. Built the context layer for SFDS, a governed developer platform used by 1000+ engineers and designers, first as a vector-backed RAG system exposed through MCP, then led its replacement with live docs and installable SKILL.md guidance when the simpler design proved at least as effective. Paired that context with deterministic validation, a GitHub review agent used across 50+ PRs, and a Figma MCP workflow that cut representative page builds from roughly two weeks to one day.",
   },
   {
     title: "Lead Software Engineer, State Farm Design System (SFDS)",

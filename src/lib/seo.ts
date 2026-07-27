@@ -5,7 +5,7 @@ export const siteName = "connordibble.dev";
 export const siteTitle =
   "Connor Dibble | Developer Platforms, Agent Context & Applied AI";
 export const siteDescription =
-  "Technical lead building enterprise developer platforms, governed agent context, and AI-assisted engineering systems across multiple product teams.";
+  "Technical lead behind SFDS, a governed developer platform used by 1000+ engineers and designers, and agent-context systems across eight product teams.";
 
 export const socialImageAlt =
   "Connor Dibble | Developer platforms, agent context, and applied AI";

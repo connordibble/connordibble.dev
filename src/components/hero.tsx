@@ -9,7 +9,7 @@ const currentWork = [
   },
   {
     label: "Enterprise platform",
-    value: "SFDS · governed delivery",
+    value: "SFDS · 100+ product teams",
     note: "1000+ engineers & designers",
   },
   {
@@ -40,13 +40,14 @@ export function Hero() {
             Developer platforms / agent context / applied AI
           </p>
           <p className="mt-5 max-w-[41rem] text-body leading-relaxed text-text-muted text-pretty">
-            I set technical direction across eight product teams, mentor
-            engineers, and build the platforms, context, and quality gates that
-            help 40–50 engineers ship reviewable production code, including
-            agent-assisted implementations. The work also spans shared
-            architecture, release governance, live documentation, and
-            Figma-to-code workflows that carry platform intent into
-            implementation.
+            I build enterprise developer platforms, including SFDS, which
+            distributes shared architecture, documentation, and release policy
+            to 1000+ engineers and designers. Within the statefarm.com Digital
+            Experience suite, I set technical direction across eight product
+            teams and mentor 40–50 engineers and analysts. I also build the
+            context, deterministic quality gates, and Figma-to-code workflows
+            that keep agent-assisted implementations aligned with platform
+            intent.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <PillLink href="/writing" label="Writing" />

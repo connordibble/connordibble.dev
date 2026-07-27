@@ -44,12 +44,13 @@ export default function AboutPage() {
             <p>
               I set technical direction across the statefarm.com Digital
               Experience suite: 8 product teams and 40–50 engineers and
-              analysts. SFDS is one of the main developer platforms inside that
-              scope, carrying shared architecture, documentation, release
-              policy, and supported implementation paths to 1000+ engineers and
-              designers. I lead platform initiatives from discovery through
-              adoption, mentor engineers, and help teams turn local solutions
-              into durable shared systems.
+              analysts. SFDS reaches beyond that area as a governed developer
+              platform and the standard migration path for more than 100
+              product teams. It carries shared architecture, documentation,
+              release policy, and supported implementation paths to 1000+
+              engineers and designers. I lead platform initiatives from
+              discovery through adoption, mentor engineers, and help teams turn
+              local solutions into durable shared systems.
             </p>
             <p>
               I’m happiest when a problem is technically deep and
