@@ -2,7 +2,6 @@
  * pre-emit critique: P5 H4 E4 S5 R5 V4
  */
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
 
 /**
  * Shared Open Graph card for project and writing detail pages. Same visual
@@ -28,23 +27,32 @@ const palette = {
   accent: "#c97a45", /* tokenlock-ignore */
 } as const;
 
-async function readFont(path: string): Promise<ArrayBuffer> {
-  const font = await readFile(new URL(path, import.meta.url));
-  return font.buffer.slice(
-    font.byteOffset,
-    font.byteOffset + font.byteLength,
-  ) as ArrayBuffer;
+const FONT_BASE = "https://cdn.jsdelivr.net/npm/geist@1.7.2/dist/fonts";
+const FONT_FILES = {
+  regular: `${FONT_BASE}/geist-sans/Geist-Regular.ttf`,
+  medium: `${FONT_BASE}/geist-sans/Geist-Medium.ttf`,
+  mono: `${FONT_BASE}/geist-mono/GeistMono-Regular.ttf`,
+};
+
+async function fetchFont(url: string) {
+  const response = await fetch(url, { cache: "force-cache" });
+  if (!response.ok) {
+    throw new Error(`Failed to load font ${url} (${response.status})`);
+  }
+  return response.arrayBuffer();
 }
 
-const fontData = Promise.all([
-  readFont("../../assets/fonts/Geist-Regular.ttf"),
-  readFont("../../assets/fonts/Geist-Medium.ttf"),
-  readFont("../../assets/fonts/GeistMono-Regular.ttf"),
-]);
-
 async function loadFontData() {
-  const [regular, medium, mono] = await fontData;
-  return { regular, medium, mono };
+  try {
+    const [regular, medium, mono] = await Promise.all([
+      fetchFont(FONT_FILES.regular),
+      fetchFont(FONT_FILES.medium),
+      fetchFont(FONT_FILES.mono),
+    ]);
+    return { regular, medium, mono };
+  } catch {
+    return null;
+  }
 }
 
 function truncate(text: string, max: number): string {
@@ -98,7 +106,7 @@ export async function renderOgCard({
           overflow: "hidden",
           background: palette.canvas,
           color: palette.text,
-          fontFamily: "Geist",
+          fontFamily: fonts ? "Geist" : "sans-serif",
         }}
       >
         <div
@@ -124,7 +132,7 @@ export async function renderOgCard({
           >
             <div
               style={{
-                fontFamily: "Geist Mono",
+                fontFamily: fonts ? "Geist Mono" : "monospace",
                 fontSize: 21,
                 letterSpacing: 3,
                 textTransform: "uppercase",
@@ -213,7 +221,7 @@ export async function renderOgCard({
                         index === (activeStep ?? 1)
                           ? palette.text
                           : palette.textSubtle,
-                      fontFamily: "Geist Mono",
+                      fontFamily: fonts ? "Geist Mono" : "monospace",
                       fontSize: 19,
                     }}
                   >
@@ -255,7 +263,7 @@ export async function renderOgCard({
                   width: 190,
                   padding: "76px 36px 58px 0",
                   borderRight: `1px solid ${palette.borderStrong}`,
-                  fontFamily: "Geist Mono",
+                  fontFamily: fonts ? "Geist Mono" : "monospace",
                 }}
               >
                 <div style={{ fontSize: 17, color: palette.textSubtle }}>
@@ -349,26 +357,30 @@ export async function renderOgCard({
     ),
     {
       ...ogSize,
-      fonts: [
-        {
-          name: "Geist",
-          data: fonts.regular,
-          weight: 400,
-          style: "normal",
-        },
-        {
-          name: "Geist",
-          data: fonts.medium,
-          weight: 500,
-          style: "normal",
-        },
-        {
-          name: "Geist Mono",
-          data: fonts.mono,
-          weight: 400,
-          style: "normal",
-        },
-      ],
+      ...(fonts
+        ? {
+            fonts: [
+              {
+                name: "Geist",
+                data: fonts.regular,
+                weight: 400,
+                style: "normal",
+              },
+              {
+                name: "Geist",
+                data: fonts.medium,
+                weight: 500,
+                style: "normal",
+              },
+              {
+                name: "Geist Mono",
+                data: fonts.mono,
+                weight: 400,
+                style: "normal",
+              },
+            ],
+          }
+        : {}),
     },
   );
 }

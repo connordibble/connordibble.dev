@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/check-og-routes.mjs",
     "start": "next start",
     "lint": "eslint",
+    "check:og": "node scripts/check-og-routes.mjs",
     "check:prose": "node scripts/sloplint.mjs --strict src/data/*.ts src/components/*.tsx src/app/*.tsx src/app/*/*.tsx src/app/*/*/*.tsx"
   },
   "dependencies": {
