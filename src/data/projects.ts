@@ -378,7 +378,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Current Quality Bar",
-          body: "Release 1.2.1 is published to npm. The repository runs 148 tests across its deterministic scripts, enforces a 95% line-coverage floor with 95.61% currently reported, and adds focused branch floors for the three security-oriented checkers. Sixty behavioral cases cover all 12 skills across activation, missing context, non-activation, and unsafe edges. The catalog also lints its own prose, audits every README, validates both plugin formats, and performs a package dry run. External adoption is still the evidence it needs next.",
+          body: "Release 1.2.1 is published to npm. The repository runs 148 tests across its deterministic scripts, enforces a 95% line-coverage floor with 95.61% currently reported, and adds focused branch floors for the three security-oriented checkers. Sixty behavioral cases cover all 12 skills across 11 plugins; no-slop packages separate writing and voice skills. The catalog also lints its own prose, audits every README, validates both plugin formats, and performs a package dry run. External adoption is still the evidence it needs next.",
         },
         {
           heading: "Stack",
