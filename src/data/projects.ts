@@ -343,7 +343,7 @@ export const projects: Project[] = [
       steps: ["Trust", "Guide", "Verify"],
       activeStep: 1,
       summary:
-        "11 portable plugins that keep engineering context and checks consistent across Claude, GPT, hooks, CLI, and CI.",
+        "11 portable plugins that carry engineering context across Claude and GPT, with the same deterministic checks available through hooks, CLI, and CI.",
     },
     repoUrl: "https://github.com/connordibble/dibble",
     links: [
@@ -362,11 +362,11 @@ export const projects: Project[] = [
       sections: [
         {
           heading: "The Repeated Work",
-          body: "I use Claude and GPT for different parts of software work, but I kept carrying the same instructions between them: stay on the design system, check a package before installing it, derive tool schemas from Zod, render the UI before calling it done, and keep summaries tied to evidence. Prompt text alone was too easy to lose or ignore. dibble turns those recurring decisions into a versioned catalog that belongs to the engineering workflow instead of one model session.",
+          body: "I use Claude and GPT for different parts of software work, but I kept carrying the same instructions between them: stay on the design system, check a package before installing it, derive tool schemas from Zod, render the UI before calling it done, and keep summaries tied to evidence. Custom skills and instruction files helped, but copies drifted between tools. Rules that should return the same answer every time also needed a deterministic layer. dibble puts that guidance and those checks in one versioned catalog.",
         },
         {
           heading: "One Working Loop",
-          body: "The 11 plugins follow the same loop I use with an agent. install-gate, agent-audit, and plugin-inspector establish what a dependency, configuration, or plugin can execute. tokenlock, Tailwind guidance, Zod-first tools, and no-slop carry engineering standards into the work. design-verify, token-drift, receipts, and README checks ask for evidence before the result is accepted. A plugin can stand alone, but the catalog is designed around that full path from trusted input to verified output.",
+          body: "The 11 plugins follow one loop: trust the inputs, guide the work, and verify the result. install-gate checks an unfamiliar dependency before it enters the project. tokenlock keeps the implementation on the design system. design-verify asks for rendered evidence before the work is accepted. Each plugin stands alone, but the catalog covers the full path from trusted input to verified output.",
         },
         {
           heading: "The Contract Travels",
@@ -374,11 +374,11 @@ export const projects: Project[] = [
         },
         {
           heading: "Judgment and Enforcement",
-          body: "The boundary is deliberate. Skills carry judgment and context. Scripts handle rules that should return the same answer regardless of which model or person produced the work. The same checker can sit behind a hook, run from a terminal, and fail a build in CI. plugin-inspector applies that rule back to the catalog itself by validating both marketplace formats and reporting the execution, network, and installation authority each plugin declares.",
+          body: "The boundary is deliberate. Skills carry judgment and context. Scripts handle rules that should return the same answer regardless of which model or person produced the work. The same checker can sit behind a hook, run from a terminal, and fail a build in CI. Several of the design-system plugins came from leading engineering for a system used by 1000+ engineers and designers. plugin-inspector applies the same rule back to the catalog by validating both marketplace formats and reporting the authority each plugin declares.",
         },
         {
           heading: "Current Quality Bar",
-          body: "Release 1.2.1 is published to npm. The repository runs 148 tests across its deterministic scripts, enforces a 95% line-coverage floor with 95.61% currently reported, and adds focused branch floors for the three security-oriented checkers. Sixty behavioral cases cover all 12 skills across 11 plugins; no-slop packages separate writing and voice skills. The catalog also lints its own prose, audits every README, validates both plugin formats, and performs a package dry run. External adoption is still the evidence it needs next.",
+          body: "Release 1.2.1 is published to npm. CI runs 148 tests, enforces a 95% line-coverage floor with focused branch floors for the security-oriented checkers, and evaluates every skill against activation, missing-context, and unsafe-edge cases. The catalog also lints its own prose, audits every README, validates both plugin formats, and performs a package dry run. External adoption is still the evidence it needs next.",
         },
         {
           heading: "Stack",
