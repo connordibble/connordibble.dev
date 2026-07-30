@@ -335,15 +335,15 @@ export const projects: Project[] = [
     title: "dibble",
     owner: "Open source",
     description:
-      "Versioned catalog of 11 coding-agent plugins distributed through Claude Code, Codex, and npm. Portable Agent Skills pair with zero-dependency checks used in agent workflows and CI, with marketplace validation and automated releases.",
+      "The engineering contract I carry between Claude and GPT, packaged as 11 portable plugins. Skills carry working context between models; zero-dependency checks keep deterministic rules aligned across hooks, CLI, and CI.",
     tags: ["Agent Skills", "CLI", "Codex", "Claude Code", "Node.js"],
     socialCard: {
-      title: "dibble: Agent Plugins and Guardrails",
+      title: "dibble: The Engineering Contract That Travels",
       imagePath: "/projects/dibble-social-card.png",
-      steps: ["Context", "Guardrails", "Evals"],
+      steps: ["Trust", "Guide", "Verify"],
       activeStep: 1,
       summary:
-        "11 coding-agent plugins for context, guardrails, evals, and engineering workflows, distributed through Claude Code, Codex, npm, and CI.",
+        "11 portable plugins that keep engineering context and checks consistent across Claude, GPT, hooks, CLI, and CI.",
     },
     repoUrl: "https://github.com/connordibble/dibble",
     links: [
@@ -351,34 +351,38 @@ export const projects: Project[] = [
         label: "View package on npm",
         href: "https://www.npmjs.com/package/dibble",
       },
+      {
+        label: "Read the compatibility matrix",
+        href: "https://github.com/connordibble/dibble/blob/main/docs/compatibility.md",
+      },
     ],
     detail: {
       headline:
-        "A versioned plugin catalog that packages agent guidance and deterministic checks once, then distributes them through Claude Code, Codex, npm, and CI.",
+        "The engineering context I kept repeating to Claude and GPT, packaged once as portable skills and deterministic checks that travel through agent workflows, local CLI, and CI.",
       sections: [
         {
-          heading: "Problem",
-          body: "Agent instructions are easy to ignore when they only live in prompt text. A model might ignore design tokens, summarize beyond the source, or suggest a plausible package name that does not belong in the repo. dibble starts from those failure modes and turns the recurring fixes into portable skills plus scripts that can fail locally or in CI.",
+          heading: "The Repeated Work",
+          body: "I use Claude and GPT for different parts of software work, but I kept carrying the same instructions between them: stay on the design system, check a package before installing it, derive tool schemas from Zod, render the UI before calling it done, and keep summaries tied to evidence. Prompt text alone was too easy to lose or ignore. dibble turns those recurring decisions into a versioned catalog that belongs to the engineering workflow instead of one model session.",
         },
         {
-          heading: "Catalog",
-          body: "Eleven plugins cover design-token enforcement and drift checks, package-install safety, agent-configuration audits, evidence-linked summaries, machine-prose linting, UI verification, Tailwind v4 token guidance, Zod-first tool schemas, README conversion audits, and plugin marketplace validation. Each plugin stays small enough to understand on its own, with its own README and skill files plus scripts and tests where the plugin enforces a deterministic rule.",
+          heading: "One Working Loop",
+          body: "The 11 plugins follow the same loop I use with an agent. install-gate, agent-audit, and plugin-inspector establish what a dependency, configuration, or plugin can execute. tokenlock, Tailwind guidance, Zod-first tools, and no-slop carry engineering standards into the work. design-verify, token-drift, receipts, and README checks ask for evidence before the result is accepted. A plugin can stand alone, but the catalog is designed around that full path from trusted input to verified output.",
         },
         {
-          heading: "Portability",
-          body: "Every plugin ships its knowledge as plain Agent Skill files. Plugins with deterministic enforcement package zero-dependency Node scripts that also run in CI. Claude Code gets marketplace metadata, hooks, and slash-command integrations where the host supports them. Codex gets a separate marketplace sidecar that installs the same portable skill layer while avoiding claims about Claude-only hook behavior. The npm package exposes a single npx dibble front door plus individual bins for each checker.",
+          heading: "The Contract Travels",
+          body: "Every plugin ships its working context as a plain Agent Skill. Claude Code and Codex have native marketplace metadata, while the deterministic layer is a set of zero-dependency Node scripts available through npx dibble and individual CLI bins. tokenlock and install-gate also package command hooks for both hosts. Codex requires the user to inspect and trust each hook definition before it runs, and Claude-only slash commands remain documented as host-specific. The model can change. The engineering contract stays put.",
         },
         {
-          heading: "Enforcement Pattern",
-          body: "The core design choice is to put deterministic logic in the same scripts the skills reference. tokenlock, install-gate, receipts, sloplint, zod-lint, responsive-smells, readme-audit, validate-marketplace, and validate-codex can run under an agent workflow or directly in CI. That keeps the rule an agent follows aligned with the rule the pipeline enforces.",
+          heading: "Judgment and Enforcement",
+          body: "The boundary is deliberate. Skills carry judgment and context. Scripts handle rules that should return the same answer regardless of which model or person produced the work. The same checker can sit behind a hook, run from a terminal, and fail a build in CI. plugin-inspector applies that rule back to the catalog itself by validating both marketplace formats and reporting the execution, network, and installation authority each plugin declares.",
         },
         {
-          heading: "Quality Bar",
-          body: "The repo validates both its Claude marketplace and Codex sidecar on every push, runs the plugin checker tests across Node 20, 22, and 24, lints README and skill prose with strict sloplint, audits the root and plugin READMEs, and performs a package dry run. The catalog is dogfooded by the same marketplace-kit, no-slop, and validation tools it distributes.",
+          heading: "Current Quality Bar",
+          body: "Release 1.2.1 is published to npm. The repository runs 148 tests across its deterministic scripts, enforces a 95% line-coverage floor with 95.61% currently reported, and adds focused branch floors for the three security-oriented checkers. Sixty behavioral cases cover all 12 skills across activation, missing context, non-activation, and unsafe edges. The catalog also lints its own prose, audits every README, validates both plugin formats, and performs a package dry run. External adoption is still the evidence it needs next.",
         },
         {
           heading: "Stack",
-          body: "Node.js · Agent Skills · Claude Code plugin manifests · Codex plugin manifests · zero-dependency CLI checkers · GitHub Actions · semantic-release",
+          body: "Node.js · Agent Skills · Claude Code and Codex plugin manifests · zero-dependency CLI checkers · GitHub Actions · semantic-release",
         },
       ],
     },
