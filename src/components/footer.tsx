@@ -8,7 +8,7 @@ export function Footer({ rings = true }: { rings?: boolean }) {
       {rings ? <FooterRings /> : null}
       <div className="container-wide relative z-10 py-12 sm:py-16">
         <p className="max-w-4xl text-headline font-semibold leading-tight text-text text-balance">
-          Build platforms people can still reason about.
+          Build systems people can still reason about.
         </p>
         <div className="mt-6 flex flex-col gap-4 sm:mt-7 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-caption text-text-subtle">
