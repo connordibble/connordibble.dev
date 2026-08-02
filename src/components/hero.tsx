@@ -37,6 +37,9 @@ export function Hero() {
             Connor Dibble
           </h1>
           <p className="mt-6 max-w-[34rem] text-balance font-mono text-caption text-accent">
+            Senior Software Engineer / Digital Experience Platform Lead
+          </p>
+          <p className="mt-2 max-w-[34rem] text-balance font-mono text-caption text-text-subtle">
             Frontend platforms / technical direction / applied AI
           </p>
           <p className="mt-5 max-w-[41rem] text-body leading-relaxed text-text-muted text-pretty">

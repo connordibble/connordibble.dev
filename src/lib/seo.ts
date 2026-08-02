@@ -5,7 +5,7 @@ export const siteName = "connordibble.dev";
 export const siteTitle =
   "Connor Dibble | Frontend Platforms, Developer Productivity & Applied AI";
 export const siteDescription =
-  "Senior Technology Engineer and Digital Experience Platform Lead setting frontend direction across eight product teams and 50+ engineers, with SFDS used by 1000+ engineers and designers.";
+  "Senior Software Engineer and Digital Experience Platform Lead setting frontend direction across eight product teams and 50+ engineers, with SFDS used by 1000+ engineers and designers.";
 
 export const socialImageAlt =
   "Connor Dibble | Frontend platforms, developer productivity, and applied AI";
@@ -30,7 +30,7 @@ const personNode = {
   "@id": `${SITE_URL}/#person`,
   name: "Connor Dibble",
   url: SITE_URL,
-  jobTitle: "Senior Technology Engineer",
+  jobTitle: "Senior Software Engineer",
   worksFor: {
     "@type": "Organization",
     name: "State Farm",

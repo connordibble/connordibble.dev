@@ -4,14 +4,16 @@ type Role = {
   title: string;
   company: string;
   dates: string;
+  officialTitle?: string;
   description: string;
 };
 
 const roles: Role[] = [
   {
-    title: "Senior Technology Engineer, Digital Experience Platform Lead",
+    title: "Senior Software Engineer, Digital Experience Platform Lead",
     company: "State Farm",
     dates: "Mar 2026 – Present",
+    officialTitle: "Official State Farm title: Senior Technology Engineer",
     description:
       "Promoted from SFDS leadership into an expanded Digital Experience mandate. Set frontend technical direction across 8 product teams and 50+ engineers without reporting authority, aligning architecture, platform standards, and delivery improvements across customer-facing and internal experiences, with channel-specific patterns for web and mobile. Lead platform initiatives from discovery through adoption, mentor engineers as they grow into broader technical roles, and remain a senior escalation point for shared production concerns. In parallel, build AI-assisted development systems for the frontend platform: live documentation and skills, a deterministic compliance CLI that runs locally and in CI, and Figma-to-code workflows with human review.",
   },
@@ -53,6 +55,11 @@ export function Experience() {
               <p className="mt-2 font-mono text-caption text-text-subtle">
                 {role.company} / {role.dates}
               </p>
+              {role.officialTitle ? (
+                <p className="mt-1 font-mono text-caption text-text-subtle">
+                  {role.officialTitle}
+                </p>
+              ) : null}
             </div>
             <p className="text-body-small text-text-muted leading-relaxed text-pretty">
               {role.description}

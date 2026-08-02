@@ -10,10 +10,12 @@ export function About() {
       <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-12">
         <div className="space-y-5">
           <p className="max-w-[32rem] text-body leading-relaxed text-text">
-            At State Farm, I set technical direction across the statefarm.com
-            Digital Experience suite: 8 product teams and 50+ engineers.
-            SFDS reaches beyond that area as the standard migration path for
-            more than 100 product teams, carrying shared architecture,
+            At State Farm, I work as a Senior Software Engineer and Digital
+            Experience Platform Lead. My official internal title is Senior
+            Technology Engineer. I set technical direction across the
+            statefarm.com Digital Experience suite: 8 product teams and 50+
+            engineers. SFDS reaches beyond that area as the standard migration
+            path for more than 100 product teams, carrying shared architecture,
             documentation, release policy, and supported paths to 1000+
             engineers and designers. I work with design, product, platform, and
             mobile partners to keep shared principles coherent while leaving
