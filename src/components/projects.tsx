@@ -17,8 +17,9 @@ export function Projects() {
               Selected work
             </SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              Enterprise context delivery, portable plugin distribution, and
-              deterministic checks that keep agent output reviewable.
+              Frontend platforms, governed AI-assisted development, and the
+              delivery systems that help shared architecture survive contact
+              with many teams.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">

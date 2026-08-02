@@ -44,8 +44,8 @@ export function Contact() {
         </SectionLabel>
         <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
           The fastest route is email. I’m usually glad to talk through
-          developer platforms, agent context, governed AI workflows, or the
-          operating tradeoffs behind a build.
+          frontend platforms, AI-assisted development, governed workflows, or
+          the operating tradeoffs behind a build.
         </p>
         <ul className="mt-7 flex flex-wrap gap-3">
           {links.map((link) => (

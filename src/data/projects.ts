@@ -166,11 +166,11 @@ export const projects: Project[] = [
         },
         {
           heading: "Context for Engineers and Agents",
-          body: "I first built the SFDS agent-context layer as a RAG system that ingested live documentation into a vector database and exposed retrieval through an MCP server. Live docs plus framework-specific SKILL.md files proved at least as effective for implementation guidance, so I led the replacement of the retrieval stack and removed its dedicated server, index, and ingestion path from the team's support surface. A deterministic CLI checks platform alignment, legacy usage, and accessibility risk; a GitHub review agent has used it across 50+ PRs.",
+          body: "I first built the SFDS agent-context layer as a RAG system that ingested live documentation into a vector database and exposed retrieval through an MCP server. Live docs plus framework-specific SKILL.md files proved at least as effective for implementation guidance, so I led the replacement of the retrieval stack and removed its dedicated server, index, and ingestion path from the team's support surface. A deterministic CLI checks platform alignment, legacy usage, and accessibility risk, and can run locally or in CI alongside human review.",
         },
         {
           heading: "Distribution and Operations",
-          body: "Built the Figma Variables to W3C design-token pipeline and owned npm publishing, redundant CDN distribution, GitHub CI/CD, versioning, deprecation windows, and compliance review. Cache tiering and content-hashed builds cut request volume to a third of peak, with Dynatrace RUM alerting and live incident-bridge support protecting the shared production platform.",
+          body: "Built the Figma Variables to W3C design-token pipeline and owned npm publishing, redundant CDN distribution, CI/CD, versioning, deprecation windows, and compliance review. Cache tiering and content-hashed builds cut request volume to a third of peak, with Dynatrace RUM alerting and live incident-bridge support protecting the shared production platform.",
         },
         {
           heading: "Adoption",
@@ -178,7 +178,7 @@ export const projects: Project[] = [
         },
         {
           heading: "Stack",
-          body: "Lit · Web Components · TypeScript · Figma Plugin API · W3C Design Tokens · npm · CDN distribution · GitHub CI/CD",
+          body: "Lit · Web Components · TypeScript · Figma Plugin API · W3C Design Tokens · npm · CDN distribution · CI/CD",
         },
       ],
     },
@@ -487,8 +487,8 @@ function getProjectsBySlug(slugs: string[]): Project[] {
 
 export const homepageProjects = getProjectsBySlug([
   "sfds",
+  "designrail",
   "dibble",
-  "agent-readiness-kit",
 ]);
 
 export const projectIndexProjects = getProjectsBySlug([

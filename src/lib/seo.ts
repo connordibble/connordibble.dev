@@ -3,12 +3,12 @@ import { SITE_URL } from "@/lib/site";
 
 export const siteName = "connordibble.dev";
 export const siteTitle =
-  "Connor Dibble | Developer Platforms, Agent Context & Applied AI";
+  "Connor Dibble | Frontend Platforms, Developer Productivity & Applied AI";
 export const siteDescription =
-  "Technical lead behind SFDS, a governed developer platform used by 1000+ engineers and designers, and agent-context systems across eight product teams.";
+  "Senior Technology Engineer and Digital Experience Platform Lead setting frontend direction across eight product teams and 50+ engineers, with SFDS used by 1000+ engineers and designers.";
 
 export const socialImageAlt =
-  "Connor Dibble | Developer platforms, agent context, and applied AI";
+  "Connor Dibble | Frontend platforms, developer productivity, and applied AI";
 
 function socialImages(path = "/opengraph-image", alt = socialImageAlt) {
   return {
@@ -45,12 +45,13 @@ const personNode = {
     "https://www.linkedin.com/in/connor-j-dibble",
   ],
   knowsAbout: [
+    "Frontend platform architecture",
+    "Web Components",
+    "Design systems",
     "Developer platforms",
-    "Agent context engineering",
-    "AI agent tooling",
+    "AI-assisted developer workflows",
     "Developer productivity",
     "Platform governance",
-    "Design systems",
   ],
 };
 

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Connor Dibble | Developer platforms, agent context, and applied AI";
+  "Connor Dibble | Frontend platforms, developer productivity, and applied AI";
 
 export const size = {
   width: 1200,
@@ -149,8 +149,8 @@ export default async function OpenGraphImage() {
                 color: "#b4aaa0",
               }}
             >
-              Developer platforms, agent context, and applied AI systems for
-              software people can still reason about.
+              Frontend platforms, developer productivity, and applied AI systems
+              for software people can still reason about.
             </div>
           </div>
 
@@ -165,9 +165,9 @@ export default async function OpenGraphImage() {
             }}
           >
             {[
-              ["Technical direction", "8 teams · 40–50 engineers"],
+              ["Technical direction", "8 teams · 50+ engineers"],
               ["Enterprise platform", "SFDS · 1000+ engineers & designers"],
-              ["Agent context + evaluation", "Docs · skills · deterministic CLI"],
+              ["AI enablement", "Context · skills · deterministic gates"],
             ].map(([label, value], index) => (
               <div
                 key={label}

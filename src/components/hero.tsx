@@ -5,7 +5,7 @@ const currentWork = [
   {
     label: "Technical direction",
     value: "statefarm.com Digital Experience",
-    note: "8 teams · 40–50 engineers",
+    note: "8 teams · 50+ engineers",
   },
   {
     label: "Enterprise platform",
@@ -13,14 +13,14 @@ const currentWork = [
     note: "1000+ engineers & designers",
   },
   {
-    label: "Agent context + evals",
-    value: "Docs · skills · deterministic CLI",
-    note: "50+ evaluated changes",
+    label: "Frontend platform",
+    value: "Web Components · cross-framework architecture",
+    note: "Web + mobile alignment",
   },
   {
-    label: "AI workflow",
-    value: "Figma MCP → governed code",
-    note: "~2 weeks → ~1 day",
+    label: "AI enablement",
+    value: "Context · skills · deterministic gates",
+    note: "Local hooks · CI pipelines",
   },
 ];
 
@@ -37,16 +37,16 @@ export function Hero() {
             Connor Dibble
           </h1>
           <p className="mt-6 max-w-[34rem] text-balance font-mono text-caption text-accent">
-            Developer platforms / agent context / applied AI
+            Frontend platforms / technical direction / applied AI
           </p>
           <p className="mt-5 max-w-[41rem] text-body leading-relaxed text-text-muted text-pretty">
-            I build enterprise developer platforms, including SFDS, which
-            distributes shared architecture, documentation, and release policy
-            to 1000+ engineers and designers. Within the statefarm.com Digital
-            Experience suite, I set technical direction across eight product
-            teams and mentor 40–50 engineers and analysts. I also build the
-            context, deterministic quality gates, and Figma-to-code workflows
-            that keep agent-assisted implementations aligned with platform
+            I set frontend technical direction across the statefarm.com Digital
+            Experience suite: 8 product teams and 50+ engineers. I steward
+            SFDS, a governed developer platform used by 1000+ engineers and
+            designers, and help keep shared customer experiences coherent across
+            web, mobile, and internal surfaces. My current work also includes
+            AI-assisted development workflows and platform controls that help
+            teams use AI effectively without losing reviewability or system
             intent.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">

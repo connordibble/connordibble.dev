@@ -58,11 +58,10 @@ export default function ProjectsPage() {
             Projects
           </h1>
           <p className="mt-6 max-w-3xl text-body text-text-muted leading-relaxed text-pretty">
-            Enterprise developer platforms, governed agent workflows, public
-            tooling, and applied AI systems. The largest systems show technical
-            direction and adoption at organizational scale. The public builds
-            make the same context, validation, and operating boundaries visible
-            in code.
+            Frontend platforms, governed AI-assisted workflows, public tooling,
+            and applied AI systems. The largest systems show technical direction
+            and adoption at organizational scale. The public builds make the
+            same context, validation, and operating boundaries visible in code.
           </p>
         </section>
 

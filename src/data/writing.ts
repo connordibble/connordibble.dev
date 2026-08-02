@@ -96,7 +96,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-07-26",
     displayDate: "July 2026",
     readTime: "7 min read",
-    featured: true,
+    featured: false,
     topics: ["AI Tooling", "System Design", "Developer Productivity"],
     socialCardLabel: "Context budget",
     socialCardSubtitle:
@@ -288,7 +288,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-07-07",
     displayDate: "July 2026",
     readTime: "9 min read",
-    featured: true,
+    featured: false,
     topics: ["AI Tooling", "Platform Engineering", "Design Systems"],
     socialCardLabel: "Governance map",
     socialCardSubtitle:
@@ -676,7 +676,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-06-12",
     displayDate: "June 2026",
     readTime: "13 min read",
-    featured: false,
+    featured: true,
     topics: ["Design Systems", "Platform Engineering", "Technical Leadership"],
     socialCardLabel: "System migration",
     socialCardSubtitle:
@@ -957,7 +957,7 @@ export const writingPosts: WritingPost[] = [
     date: "2026-06-09",
     displayDate: "June 2026",
     readTime: "8 min read",
-    featured: true,
+    featured: false,
     topics: ["AI Tooling", "Data Integrity", "Platform Engineering"],
     socialCardLabel: "Review boundary",
     socialCardSubtitle:

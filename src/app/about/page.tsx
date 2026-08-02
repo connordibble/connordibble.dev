@@ -43,14 +43,16 @@ export default function AboutPage() {
           <div className="mt-6 max-w-[65ch] space-y-5 text-body text-text-muted leading-relaxed text-pretty">
             <p>
               I set technical direction across the statefarm.com Digital
-              Experience suite: 8 product teams and 40–50 engineers and
-              analysts. SFDS reaches beyond that area as a governed developer
-              platform and the standard migration path for more than 100
-              product teams. It carries shared architecture, documentation,
-              release policy, and supported implementation paths to 1000+
-              engineers and designers. I lead platform initiatives from
-              discovery through adoption, mentor engineers, and help teams turn
-              local solutions into durable shared systems.
+              Experience suite: 8 product teams and 50+ engineers. SFDS reaches
+              beyond that area as a governed developer platform and the standard
+              migration path for more than 100 product teams. It carries shared
+              architecture, documentation, release policy, and supported
+              implementation paths to 1000+ engineers and designers. I work with
+              design, product, platform, and mobile partners to keep shared
+              principles coherent while allowing each channel to respect its own
+              constraints. I lead platform initiatives from discovery through
+              adoption, mentor engineers, and help people grow into broader
+              technical responsibility.
             </p>
             <p>
               I’m happiest when a problem is technically deep and
