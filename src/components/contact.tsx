@@ -40,12 +40,11 @@ export function Contact() {
     <section id="contact" className="container-wide site-section pt-10 pb-12 sm:pt-12 sm:pb-14">
       <div>
         <SectionLabel mark="triangle" rule={false}>
-          Compare notes
+          Contact
         </SectionLabel>
         <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-          The fastest route is email. I’m usually glad to talk through
-          frontend platforms, AI-assisted development, governed workflows, or
-          the operating tradeoffs behind a build.
+          Email is fastest. I’m happy to talk about frontend platforms, design
+          systems, or AI-assisted development.
         </p>
         <ul className="mt-7 flex flex-wrap gap-3">
           {links.map((link) => (

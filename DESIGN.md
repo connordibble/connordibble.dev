@@ -139,8 +139,10 @@ viewport.
 
 Macrostructure family:
 
-- **Home and project indexes:** Portfolio Grid. The work is the proof; cards use
-  subtle span variation instead of uniform rows.
+- **Home and project indexes:** Portfolio Grid with a Workbench lead on the
+  homepage. The work is the proof: a real product capture can lead when it
+  demonstrates interaction or design-system judgment, while supporting cards
+  use subtle span variation instead of uniform rows.
 - **Writing index:** Ecosystem Index restrained to featured essays plus a
   filterable archive.
 - **Project and writing detail pages:** Long Document. Continuous prose, inline
@@ -151,12 +153,13 @@ Macrostructure family:
 Home sections in order:
 
 1. **Hero** — name, role line, brief positioning statement, CTA links, and the current-work ledger
-2. **Projects** — 3 featured projects, restrained cards, stack tags capped
-3. **Experience**: spec-sheet rows with role/date left and impact right
-4. **Field notes** — featured essays as full-width ledger rows, linking to the index
-5. **About**: split statement plus prose in a human voice, not a resume summary
-6. **Skills** — concise grouped panels, no skill bars or percentages
-7. **Contact**: email, resume, GitHub, and LinkedIn links. Nothing else.
+2. **Workbench lead** — one real product capture with a short review sequence and a case-study path
+3. **Projects** — 3 supporting projects, restrained cards, stack tags capped
+4. **Experience**: spec-sheet rows with role/date left and impact right
+5. **Field notes** — featured essays as full-width ledger rows, linking to the index
+6. **About**: split statement plus prose in a human voice, not a resume summary
+7. **Skills** — concise grouped panels, no skill bars or percentages
+8. **Contact**: email, resume, GitHub, and LinkedIn links. Nothing else.
 
 ### Navigation
 
@@ -210,8 +213,21 @@ Use mono only where it carries meaning: tech stack tags, inline code, and any te
 - Stack tags in mono caption, `panel` background, `border` outline
 - Link to live site or repo — not both unless both are meaningful
 - No screenshots unless they genuinely demonstrate the work
+- When a project has a finished identity artifact, use one as a single visual
+  interruption; never manufacture product chrome to fill the card
 - 1-column mobile, 2-column tablet, and 3-column large-screen grid for the
   three featured homepage cards
+- When project data includes a delivery sequence, show it as a compact three-step
+  process rail; use the accent only for the active step, with no extra icon layer
+
+### Workbench Lead
+
+- Use a real product capture when it demonstrates interaction, design-system
+  judgment, or an explicit human decision boundary.
+- Pair the image with a short, numbered sequence that explains what the viewer
+  is seeing; the image is evidence, not decoration.
+- Avoid fake browser chrome and avoid covering the important UI with labels on
+  small screens. Callouts are supplementary and disappear on mobile.
 
 ### Experience
 

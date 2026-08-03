@@ -13,23 +13,23 @@ const roles: Role[] = [
     title: "Senior Software Engineer, Digital Experience Platform Lead",
     company: "State Farm",
     dates: "Mar 2026 – Present",
-    officialTitle: "Official State Farm title: Senior Technology Engineer",
+    officialTitle: "Internal title: Senior Technology Engineer",
     description:
-      "Promoted from SFDS leadership into an expanded Digital Experience mandate. Set frontend technical direction across 8 product teams and 50+ engineers without reporting authority, aligning architecture, platform standards, and delivery improvements across customer-facing and internal experiences, with channel-specific patterns for web and mobile. Lead platform initiatives from discovery through adoption, mentor engineers as they grow into broader technical roles, and remain a senior escalation point for shared production concerns. In parallel, build AI-assisted development systems for the frontend platform: live documentation and skills, a deterministic compliance CLI that runs locally and in CI, and Figma-to-code workflows with human review.",
+      "Set frontend direction across 8 product teams and 50+ engineers. Lead platform work across statefarm.com and build AI-assisted development tools with live docs, deterministic checks, and human review.",
   },
   {
     title: "Lead Software Engineer I → II, State Farm Design System (SFDS)",
     company: "State Farm",
     dates: "May 2023 – Mar 2026",
     description:
-      "Architected sf-ui as a governed Lit and Web Components developer platform with 70+ accessible primitives used by 1000+ engineers and designers. Established versioned documentation, npm and CDN delivery, CI/CD, deprecation windows, compliance reviews, adoption office hours, and a champion network across product teams.",
+      "Built sf-ui, a Lit and Web Components platform with 70+ accessible primitives used by 1000+ engineers and designers. Owned documentation, delivery, release policy, and adoption.",
   },
   {
     title: "Software Engineer, Drive Safe & Save Telematics",
     company: "State Farm",
     dates: "May 2020 – May 2023",
     description:
-      "Built Node.js Lambda APIs and Java Spring backend services for the Drive Safe & Save telematics enrollment experience on statefarm.com. Owned frontend direction for the product suite across React apps and micro-frontends.",
+      "Built Node.js Lambda APIs and Java services for Drive Safe & Save enrollment. Led frontend direction across React apps and micro-frontends.",
   },
 ];
 

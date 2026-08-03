@@ -7,59 +7,43 @@ type Group = {
 
 const groups: Group[] = [
   {
-    label: "Frontend Platform",
+    label: "Frontend",
     items: [
       "TypeScript",
       "React",
-      "Angular",
       "Lit / Web Components",
       "Microfrontends",
-      "AEM",
-      "SSR / Hydration",
       "Accessibility",
     ],
   },
   {
-    label: "AI + Developer Productivity",
+    label: "AI + tooling",
     items: [
-      "Developer Platforms",
-      "Agent Context",
-      "Agent Skills",
+      "Developer platforms",
+      "Agent skills",
       "MCP",
-      "Structured AI Outputs",
-      "Deterministic Validation",
-      "Figma-to-Code Workflows",
-      "Human Review Boundaries",
+      "Deterministic checks",
+      "Figma-to-code",
     ],
   },
   {
-    label: "APIs + Delivery",
+    label: "APIs + delivery",
     items: [
       "Node.js",
       "Java",
       "GraphQL",
-      "REST",
-      "API Contract Design",
       "AWS",
-      "npm / CDN Delivery",
-      "Caching",
-      "GitOps",
       "CI/CD",
     ],
   },
   {
-    label: "Governance + Reliability",
+    label: "Systems",
     items: [
-      "Design Systems",
-      "Component API Design",
-      "Figma Plugin / API",
-      "W3C Design Tokens",
-      "Documentation Systems",
-      "Release Governance",
+      "Design systems",
+      "Design tokens",
+      "Documentation",
+      "Release governance",
       "Observability",
-      "Dynatrace RUM",
-      "AWS CloudWatch",
-      "Incident Response",
     ],
   },
 ];
@@ -71,7 +55,7 @@ export function Skills() {
       className="container-wide site-section pt-12 pb-10 sm:pt-14 sm:pb-12"
     >
       <SectionLabel mark="grid" rule={false}>
-        Tools I reach for
+        Tools
       </SectionLabel>
       <dl className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {groups.map((group) => (

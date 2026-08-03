@@ -49,7 +49,7 @@ export const projects: Project[] = [
     title: "DesignRail",
     owner: "Open source",
     description:
-      "Human review gate for design-to-code workflows. It turns component intent into schema-backed proposals, surfaces compliance risk, and requires a recorded decision before export.",
+      "Review step for design-to-code workflows. It maps component intent, surfaces findings, and requires a decision before export.",
     tags: [
       "Developer Tools",
       "React",
@@ -144,7 +144,7 @@ export const projects: Project[] = [
     title: "SFDS Developer Platform",
     owner: "State Farm, closed source",
     description:
-      "Governed enterprise developer platform that packages component contracts, live documentation, migration guidance, CI/CD, and release policy for 1000+ engineers and designers. I led sf-ui, the Figma-to-token pipeline, distribution, and adoption.",
+      "Developer platform for component contracts, documentation, migration guidance, release policy, and delivery to 1000+ engineers and designers.",
     tags: ["Web Components", "TypeScript", "Design Tokens", "npm + CDN"],
     socialCard: {
       steps: ["Tokens", "Components", "Release"],
@@ -335,11 +335,10 @@ export const projects: Project[] = [
     title: "dibble",
     owner: "Open source",
     description:
-      "The engineering contract I carry between Claude and GPT, packaged as 11 portable plugins. Skills carry working context between models; zero-dependency checks keep deterministic rules aligned across hooks, CLI, and CI.",
+      "11 portable plugins for carrying shared engineering rules between Claude and GPT, with deterministic checks in hooks, CLI, and CI.",
     tags: ["Agent Skills", "CLI", "Codex", "Claude Code", "Node.js"],
     socialCard: {
       title: "dibble: The Engineering Contract That Travels",
-      imagePath: "/projects/dibble-social-card.png",
       steps: ["Trust", "Guide", "Verify"],
       activeStep: 1,
       summary:

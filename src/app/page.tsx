@@ -1,5 +1,6 @@
 import { Nav } from "@/components/nav";
 import { Hero } from "@/components/hero";
+import { DesignRailWorkbench } from "@/components/designrail-workbench";
 import { About } from "@/components/about";
 import { Projects } from "@/components/projects";
 import { WritingHighlights } from "@/components/writing-highlights";
@@ -21,6 +22,7 @@ export default function Home() {
       <Nav />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <Hero />
+        <DesignRailWorkbench />
         <Projects />
         <Experience />
         <WritingHighlights />

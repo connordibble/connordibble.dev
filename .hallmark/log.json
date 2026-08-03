@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-02",
+    "scope": "home",
+    "genre": "modern-minimal",
+    "macrostructure": "Portfolio Grid + Workbench",
+    "theme": "graphite/copper",
+    "theme_axes": "dark / serif-display + geometric-sans / warm",
+    "enrichment": "F5 annotated screenshot + review trace + project process rails + identity artifact",
+    "nav": "N5 Floating pill",
+    "footer": "Ft5 Statement",
+    "brief": "Make the homepage visibly prove design-engineering craft for the Anthropic Design Engineer, Web role while preserving the platform-lead narrative."
+  },
+  {
     "date": "2026-07-26",
     "scope": "app",
     "genre": "modern-minimal",

@@ -15,14 +15,14 @@ export function WritingHighlights() {
       <div>
         <div className="grid gap-x-6 gap-y-4 sm:grid-cols-[minmax(0,1fr)_auto]">
           <div className="min-w-0">
-            <SectionLabel rule={false}>Field notes</SectionLabel>
+            <SectionLabel rule={false}>Writing</SectionLabel>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">
             <SectionMark variant="grid" />
           </span>
           <p className="max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-            Longer-form notes on platform distribution, agent boundaries,
-            context delivery, and the tradeoffs behind the work above.
+            Notes on frontend platforms, design systems, and AI-assisted
+            development.
           </p>
           <Link
             href="/writing"

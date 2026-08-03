@@ -17,9 +17,7 @@ export function Projects() {
               Selected work
             </SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              Frontend platforms, governed AI-assisted development, and the
-              delivery systems that help shared architecture survive contact
-              with many teams.
+              Platform work, design systems, and developer tools.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">
@@ -34,7 +32,7 @@ export function Projects() {
           </Link>
         </div>
       </div>
-      <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <ul className="project-card-grid mt-8 grid gap-4">
         {homepageProjects.map((project, index) => (
           <li key={project.slug}>
             <ProjectCard

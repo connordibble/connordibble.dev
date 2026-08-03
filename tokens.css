@@ -1,5 +1,5 @@
-/* Hallmark · genre: modern-minimal · macrostructure: Portfolio Grid + Long Document · design-system: DESIGN.md · designed-as-app
- * tone: technical · anchor hue: warm copper · theme: graphite/copper · enrichment: none · nav: N5 Floating pill · footer: Ft5 Statement
+/* Hallmark · genre: modern-minimal · macrostructure: Portfolio Grid + Workbench · design-system: DESIGN.md · designed-as-app
+ * tone: technical · anchor hue: warm copper · theme: graphite/copper · enrichment: F5 annotated screenshot + review trace · nav: N5 Floating pill · footer: Ft5 Statement
  * pre-emit critique: P5 H5 E5 S5 R5 V4
  */
 :root {
@@ -46,6 +46,7 @@
   --text-body: 1rem;
   --text-body-small: 0.875rem;
   --text-caption: 0.75rem;
+  --text-micro: 0.625rem;
   --text-code: 0.8125rem;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
