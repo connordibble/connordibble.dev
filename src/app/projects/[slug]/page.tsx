@@ -5,6 +5,10 @@ import { notFound } from "next/navigation";
 import { Nav } from "@/components/nav";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Footer } from "@/components/footer";
+import {
+  AgentConventionProjectPreview,
+  DesignRailProjectPreview,
+} from "@/components/project-visual-previews";
 import { SectionLabel } from "@/components/section-label";
 import { getDetailProjects, getProjectBySlug } from "@/data/projects";
 import { absoluteUrl, pageMetadata, serializeJsonLd } from "@/lib/seo";
@@ -150,7 +154,12 @@ export default async function ProjectDetailPage({
             ) : null}
           </header>
 
-          {detail.proof ? (
+          {slug === "designrail" ? <DesignRailProjectPreview /> : null}
+          {slug === "agent-convention-feedback" ? (
+            <AgentConventionProjectPreview />
+          ) : null}
+
+          {detail.proof && slug !== "designrail" ? (
             <figure className="mt-12 max-w-5xl">
               <a
                 href={detail.proof.src}
