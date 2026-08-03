@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site";
 
 export const siteName = "connordibble.dev";
 export const siteTitle =
-  "Connor Dibble | Frontend Platforms, Design Systems & Applied AI";
+  "Connor Dibble | Frontend Platforms, Developer Productivity & Applied AI";
 export const siteDescription =
   "Senior Software Engineer and Digital Experience Platform Lead setting frontend direction across eight product teams and 50+ engineers, with design systems, creative tooling, and applied AI workflows used by teams at scale.";
 

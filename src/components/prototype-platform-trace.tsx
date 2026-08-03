@@ -364,7 +364,7 @@ export function PrototypePlatformTrace() {
       </div>
 
       <p className="mt-5 max-w-[65ch] font-mono text-caption leading-relaxed text-text-subtle">
-        Evidence from <Link className="text-link" href="/projects/designrail">DesignRail</Link>, SFDS, and the <Link className="text-link" href="/projects/agent-convention-feedback">convention feedback pilot</Link>.
+        Evidence from <Link className="text-link" href="/projects/designrail">DesignRail</Link>, the <Link className="text-link" href="/projects/sfds">SFDS developer platform</Link>, and the <Link className="text-link" href="/projects/agent-convention-feedback">convention feedback pilot</Link>.
       </p>
     </section>
   );

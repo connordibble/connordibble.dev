@@ -428,6 +428,8 @@ body::before {
 }
 
 .platform-trace-stage-list {
+  --platform-trace-stage-tab-height: 2.75rem;
+  --platform-trace-stage-number-size: 1.5rem;
   position: relative;
   display: grid;
   gap: var(--space-2xs);
@@ -437,8 +439,12 @@ body::before {
 .platform-trace-stage-list::before {
   content: "";
   position: absolute;
-  inset-block: var(--space-md);
-  inset-inline-start: 0.75rem;
+  inset-block: calc(
+    (var(--platform-trace-stage-tab-height) - var(--platform-trace-stage-number-size)) / 2
+  );
+  inset-inline-start: calc(
+    var(--rule-hair) + var(--space-2xs) + (var(--platform-trace-stage-number-size) / 2)
+  );
   width: var(--rule-hair);
   background: var(--color-border-strong);
 }
@@ -450,7 +456,7 @@ body::before {
   grid-template-columns: 2.25rem minmax(0, 1fr);
   align-items: center;
   min-width: 0;
-  min-height: 2.75rem;
+  min-height: var(--platform-trace-stage-tab-height);
   width: 100%;
   padding: var(--space-xs) var(--space-sm) var(--space-xs) var(--space-2xs);
   border: var(--rule-hair) solid transparent;
@@ -466,9 +472,14 @@ body::before {
     color var(--dur-short) var(--ease-out);
 }
 
+.platform-trace-stage-tab:hover,
+.platform-trace-stage-tab:focus-visible {
+  background: var(--color-panel);
+}
+
 .platform-trace-stage-tab[data-active="true"] {
   border-color: var(--color-border-strong);
-  background: color-mix(in oklch, var(--color-accent-soft) 72%, transparent);
+  background: color-mix(in oklch, var(--color-accent-soft) 72%, var(--color-panel));
   color: var(--color-text);
 }
 
@@ -480,8 +491,8 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: var(--platform-trace-stage-number-size);
+  height: var(--platform-trace-stage-number-size);
   border: var(--rule-hair) solid var(--color-border-strong);
   border-radius: 999px;
   background: var(--color-panel);
