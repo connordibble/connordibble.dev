@@ -33,7 +33,7 @@ const projectIndexLayout: Record<string, ProjectIndexLayout> = {
   researchlog: { className: "lg:col-span-7", prominence: "featured" },
   "zod-ai-tool": { className: "lg:col-span-5", prominence: "normal" },
   designrail: { className: "lg:col-span-4", prominence: "normal" },
-  "saturday-signal": { className: "lg:col-span-4", prominence: "normal" },
+  "section-one": { className: "lg:col-span-4", prominence: "normal" },
   paceai: { className: "lg:col-span-4", prominence: "normal" },
 };
 

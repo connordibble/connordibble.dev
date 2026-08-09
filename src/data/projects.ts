@@ -286,34 +286,42 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "saturday-signal",
-    title: "Saturday Signal",
+    slug: "section-one",
+    title: "Section One",
     owner: "Open source",
     description:
-      "Independent college-football fan intelligence platform with a Texas football reference deployment. Ingests fixture, official-link, team-note, and optional CFBD sources, then returns citation-backed chat answers with voice, source, and rumor guardrails.",
+      "Independent college-football game-week desk, shipped as a team-portable platform. Two editions run from typed config, weekly news is graded against a written rubric before it publishes, and every answer carries the sources behind it.",
     tags: ["Next.js", "TypeScript", "Drizzle", "RAG", "Playwright"],
     socialCard: {
       steps: ["Sources", "Retrieve", "Answer"],
       activeStep: 2,
       summary:
-        "Source-grounded college-football intelligence with citations and rumor guardrails.",
+        "A source-grounded college-football desk with graded weekly news and cited answers.",
     },
-    repoUrl: "https://github.com/connordibble/SaturdaySignal",
+    repoUrl: "https://github.com/connordibble/SectionOne",
     detail: {
       headline:
-        "A source-grounded college-football intelligence product, built as a reusable team platform with a Texas reference deployment.",
+        "A source-grounded college-football desk, built as a team-portable platform and tested by shipping a second edition without a redesign.",
       sections: [
         {
           heading: "Problem",
-          body: "College football fans want fast context before a game. The available signal is scattered across schedules, game notes, official links, data feeds, and rumor-heavy commentary. Saturday Signal explores a cleaner product boundary: a team-aware assistant that can brief a fan from trusted sources, cite what it knows, and stay honest when the current source set is thin.",
+          body: "College football fans want fast context before a game. The available signal is scattered across schedules, game notes, official links, data feeds, and rumor-heavy commentary. Section One answers three questions for one team at a time: what matters this week, what to watch during the game, and what supports that read. A fan can already get a feed; what they cannot get is five things that actually matter, chosen by someone who knows which five.",
         },
         {
           heading: "Product Boundary",
-          body: "The first MVP ships with Texas football as the reference deployment while keeping the platform shaped for future teams. Team identity, source policy, voice, protected-mark guidance, colors, aliases, and suggested prompts live in typed configuration. The product avoids official logos, mascot branding, and affiliation language, which keeps the project legally cleaner and forces the experience to stand on source quality instead of borrowed brand equity.",
+          body: "Team identity, source policy, voice, protected-mark guidance, color anchors, aliases, and starter questions live in typed configuration. Components carry no team name, color, or matchup claim; if adding a team required changing a component, the boundary would be wrong. The product avoids official logos, mascot branding, and affiliation language, which keeps it legally cleaner and forces the experience to stand on source quality instead of borrowed brand equity.",
+        },
+        {
+          heading: "The Second Edition Test",
+          body: "A portability claim is worth what the second instance proves. Adding the Utah State edition alongside Texas cost two fixes and no redesign. The question classifier had reserved a single word for the team's name, which fit Texas and not Utah State, so anything team-shaped in shared logic now reads from config. And the structural dark belongs to the school when the school has one: only a primary too bright to be structure, as burnt orange is, gets a counterweight. Getting that backwards is what gave Utah State a brown masthead in its first draft.",
         },
         {
           heading: "Architecture",
-          body: "The Next.js app exposes a root Texas deployment and a canonical /teams/texas-football route, plus API routes for health, ingest, and chat. The ingest pipeline combines committed schedule fixtures, sample team notes, official links, and an optional CollegeFootballData adapter when CFBD_API_KEY is present. Source documents are normalized, de-duplicated, chunked, and retrieved with deterministic term and phrase scoring before the chat layer asks a provider for an answer.",
+          body: "The Next.js app serves a home route that takes team requests and a canonical /teams/[slug] edition for each enabled team, plus API routes for health, ingest, and chat. Schedules are build outputs, not hand-typed rows: pnpm schedule:build regenerates a fixture from CollegeFootballData so kickoff times, venues, and broadcast assignments come from the source. Documents are normalized, de-duplicated, and chunked, then retrieved by hybrid search that fuses deterministic lexical scoring with pgvector cosine search through reciprocal rank fusion. With no database or no seeded embeddings, vector search returns nothing and retrieval degrades to lexical rather than failing.",
+        },
+        {
+          heading: "Editorial Rules",
+          body: "The weekly sections are governed by written rules, not author discretion. Rankings are read from the team outward: most teams are unranked, so the list under the standing line is the ranked opponents on that team's own schedule, hardest first. News items are graded on impact, echo, and freshness, decayed by age, and filled under a cap of two per outlet with at least three distinct outlets and local reporting never outnumbered by national. Every item carries its outlet and links out; an item without a source is not publishable, and fixture tests enforce that instead of trusting the author.",
         },
         {
           heading: "Guardrails",
@@ -498,6 +506,6 @@ export const projectIndexProjects = getProjectsBySlug([
   "researchlog",
   "zod-ai-tool",
   "designrail",
-  "saturday-signal",
+  "section-one",
   "paceai",
 ]);
