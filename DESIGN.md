@@ -139,9 +139,8 @@ viewport.
 
 Macrostructure family:
 
-- **Home and project indexes:** Portfolio Grid with a Workbench lead on the
-  homepage. The work is the proof: a real product capture can lead when it
-  demonstrates interaction or design-system judgment, while supporting cards
+- **Home and project indexes:** Portfolio Grid with a concise engineering-practice
+  section on the homepage. Named projects support each claim. Supporting cards
   use subtle span variation instead of uniform rows.
 - **Writing index:** Ecosystem Index restrained to featured essays plus a
   filterable archive.
@@ -153,7 +152,7 @@ Macrostructure family:
 Home sections in order:
 
 1. **Hero** — name, role line, brief positioning statement, CTA links, and the current-work ledger
-2. **Workbench lead** — one real product capture with a short review sequence and a case-study path
+2. **Engineering practice** — visible examples of repository context, verification, product decisions, and measurement, each linked to its supporting project
 3. **Projects** — 3 supporting projects, restrained cards, stack tags capped
 4. **Experience**: spec-sheet rows with role/date left and impact right
 5. **Field notes** — featured essays as full-width ledger rows, linking to the index
@@ -220,7 +219,15 @@ Use mono only where it carries meaning: tech stack tags, inline code, and any te
 - When project data includes a delivery sequence, show it as a compact three-step
   process rail; use the accent only for the active step, with no extra icon layer
 
-### Workbench Lead
+### Engineering Practice
+
+- Keep the examples visible without tabs or a simulated workflow.
+- Use ordinary headings, short prose, and links to the project behind each claim.
+- Separate implemented behavior from planned measurements and future automation.
+- Do not combine metrics from different projects into one adoption story.
+- Omit fake artifacts and status badges. Real product captures belong with their case studies.
+
+### Product Captures
 
 - Use a real product capture when it demonstrates interaction, design-system
   judgment, or an explicit human decision boundary.
