@@ -45,7 +45,7 @@ function CardBody({ project, prominence }: ProjectCardProps) {
       </span>
       <header className="min-w-0 pr-6">
         <p className="project-card-signal font-mono text-caption text-text-subtle">
-          {prominence === "featured" ? "Platform lead" : "Selected work"}
+          {prominence === "featured" ? "Featured project" : "Selected work"}
         </p>
         <h3
           className={[

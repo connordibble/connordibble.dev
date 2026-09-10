@@ -28,7 +28,10 @@ export type WritingFigureVariant =
   | "media-to-profile"
   | "incline-review"
   | "prompt-allowlist"
-  | "perf-budget-to-context-budget";
+  | "perf-budget-to-context-budget"
+  // The Cost of the Next Team.
+  | "edition-update-paths"
+  | "edition-cost-model";
 
 export type InlineLink = {
   /** Exact substring of the paragraph text to turn into a link (first match). */
@@ -86,6 +89,254 @@ export type WritingPost = {
 };
 
 export const writingPosts: WritingPost[] = [
+  {
+    "slug": "the-cost-of-the-next-team",
+    "title": "The Cost of the Next Team",
+    "subtitle": "Building Section One around the recurring cost of trustworthy coverage, with a shared team platform, independently updated facts, and an explicit publication boundary.",
+    "summary": "Adding a team is an operating commitment. Section One separates reusable product machinery from editorial judgment so expansion can be evaluated in maintenance effort, reader usefulness, and the cost of correcting mistakes.",
+    "date": "2026-09-09",
+    "displayDate": "September 2026",
+    "readTime": "8 min read",
+    "featured": true,
+    "topics": [
+      "System Design",
+      "Applied AI",
+      "Product Engineering"
+    ],
+    "socialCardLabel": "The next team",
+    "socialCardSubtitle": "The recurring cost of trustworthy coverage.",
+    "sections": [
+      {
+        "heading": "Another Team Is Another Commitment",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "I built Section One to help a college football fan catch up before a game. A short briefing explains the developments worth following, connects them to the matchup, and sends the reader to the reporting behind the read. The engineering question arrived as soon as I wanted to cover another program: how much recurring attention does another team require?",
+            "links": [
+              {
+                "text": "Section One",
+                "href": "/projects/section-one"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "A new page is easy to demonstrate. Maintaining its usefulness through an ordinary week, and through a week when the information is incomplete, is a different commitment. That distinction now shapes the system. I want the shared software to absorb more of the routine maintenance as coverage grows, while keeping the editorial decisions visible enough to judge."
+          },
+          {
+            "type": "paragraph",
+            "text": "The current product is live, with assisted editorial production and automated supporting checks. I have not established that it can maintain a much larger set of programs unattended, or that a particular model makes the economics work. Those are operating results to earn. A reusable implementation gives me a way to run that test."
+          }
+        ]
+      },
+      {
+        "heading": "The Product Keeps the Problem Small",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The briefing has a specific job: make the next game easier to understand. A reader should be able to leave after a minute with useful context and links worth opening. Asking a question is optional."
+          },
+          {
+            "type": "paragraph",
+            "text": "That choice limits what the system has to generate. The shared edition presents a brief, a matchup view, and a schedule. Chat can answer follow-up questions and research information beyond the published edition, but the page does not depend on a fresh conversation to become useful. An edition can serve many readers from the same published content; an individual question has its own runtime cost."
+          },
+          {
+            "type": "paragraph",
+            "text": "It also creates a standard for deciding what belongs. A technically correct paragraph that does not help a fan understand the game can still be poor content. More text does not repair that problem. The product needs selection and explanation, with enough restraint to stop when the reader has what they came for."
+          }
+        ]
+      },
+      {
+        "heading": "Configuration Removes One Kind of Expansion Cost",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The website uses one implementation across programs. Team identity and presentation choices live in validated configuration. Adding a program should provide the inputs that implementation needs, rather than create another copy of the interface."
+          },
+          {
+            "type": "paragraph",
+            "text": "The benefit goes beyond the initial setup. A readability fix can reach every edition. The team switcher and shared navigation can discover another program through data. Tests can exercise the same contract for each enabled team instead of accumulating exceptions in application code."
+          },
+          {
+            "type": "paragraph",
+            "text": "Configuration cannot establish that a program has enough useful reporting to support a dependable briefing. It also cannot promise that the next week's coverage will be as straightforward as the first. I treat those as separate decisions. The software can be ready to render a team before the operation is ready to support it."
+          },
+          {
+            "type": "paragraph",
+            "text": "That distinction matters in platform work generally. A configuration option removes implementation work for the next customer. It does not automatically remove the responsibility that customer creates."
+          }
+        ]
+      },
+      {
+        "heading": "The Edition Is a Publication Boundary",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The public website consumes a defined edition package. It knows what it can render and where its links should lead. The editorial producer can evolve behind that contract without requiring the reader interface to understand how a draft was made."
+          },
+          {
+            "type": "paragraph",
+            "text": "I kept that boundary small. A more elaborate service architecture would add deployment and availability obligations before I had a consumer that required them. A versioned package lets the current system make its publication decision explicitly. A future consumer may justify another delivery mechanism; the contract gives that change somewhere to happen."
+          },
+          {
+            "type": "paragraph",
+            "text": "This also gives corrections a concrete object to replace. The app preserves the previous edition and refuses a replacement based on an outdated revision. If two edits start from the same version, the later writer has to reconcile with what was actually published. A successful import cannot quietly mean that somebody else's correction disappeared."
+          },
+          {
+            "type": "paragraph",
+            "text": "The cost is that a published edition is a snapshot. Its stability is useful, but it can age. The product has to represent that age honestly and handle information whose useful lifetime is shorter than the briefing's."
+          }
+        ]
+      },
+      {
+        "heading": "Facts and Briefings Have Different Clocks",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A ranking can change while the analysis of a matchup remains useful. A kickoff time can be unannounced even though the game has a known calendar date. These are ordinary domain conditions, and they should not force the system to regenerate its prose."
+          },
+          {
+            "type": "paragraph",
+            "text": "Section One handles schedule and poll information separately from the edition. Poll updates can reach the site through a verified data refresh without another editorial publication. Schedule records distinguish the calendar date from the kickoff time, so a missing time does not make an old game look permanently upcoming."
+          },
+          {
+            "type": "figure",
+            "variant": "edition-update-paths",
+            "caption": "The briefing and the fact view can change independently. Their publication and observation dates describe different events, even when the reader sees them on the same page."
+          },
+          {
+            "type": "paragraph",
+            "text": "Separate update paths introduce a coordination problem. The reader still sees one product, and an answer should not combine incompatible versions of its supporting information. Facts need consistent reads, while cached answers need to stop matching when the information behind them changes. Otherwise the refresh succeeds and the reader still receives the old answer."
+          },
+          {
+            "type": "paragraph",
+            "text": "There is also a limit to what a timestamp proves. Publishing an edition, observing a source, and learning that an event changed are different events. A newer date on one of them cannot establish that the others happened. Freshness has to describe an actual observation rather than a hopeful property of the page."
+          }
+        ]
+      },
+      {
+        "heading": "A Failure Policy Becomes Reader Experience",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "When a refresh fails validation, the system retains the last verified data. That keeps an upstream problem from replacing usable information with a partial result. It does not make the retained information current."
+          },
+          {
+            "type": "paragraph",
+            "text": "The interface therefore has a responsibility too. It shows the dates attached to supporting information and identifies a briefing that needs another review. It keeps a route to official game details available. A reader should be able to decide whether the published context is sufficient or whether they need a more recent source before making a plan."
+          },
+          {
+            "type": "paragraph",
+            "text": "Keeping the previous version has a cost: the site may remain older than I want. Hiding that age would transfer the cost to the reader. For a product meant to help someone prepare for a game, that would undermine the reason to open it."
+          },
+          {
+            "type": "paragraph",
+            "text": "Release checks exercise failure paths as well as successful publication. A page loading is weak evidence if the countdown points to a past game, the source link is unusable, or the correction was lost. Browser checks exercise the rendered result. They are evidence about the interface, and still leave the usefulness of the briefing to be evaluated with readers."
+          }
+        ]
+      },
+      {
+        "heading": "Expansion Needs an Honest Cost Model",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The easiest cost to discuss is inference spend. It is a real constraint, but it is only part of the cost of maintaining a team. A cheaper draft may require more correction. A quiet week may require more judgment than a week with an obvious lead story. A shared component may make another page inexpensive while doing nothing to reduce the attention its coverage needs."
+          },
+          {
+            "type": "paragraph",
+            "text": "An expansion decision needs to account for those differences. The table describes the measurements I need; it is not a report of savings already achieved."
+          },
+          {
+            "type": "figure",
+            "variant": "edition-cost-model",
+            "caption": "A measurement plan for expansion. These measures answer different questions; none is a substitute for evidence that the briefing helps readers."
+          },
+          {
+            "type": "paragraph",
+            "text": "Caching and repeatable checks give the system ways to avoid unnecessary work. They do not establish a reduction in total operating cost by themselves. A cached source can still need another look, and a passing check can still leave a difficult editorial decision. The accounting needs to include failed attempts and the time spent resolving them."
+          },
+          {
+            "type": "paragraph",
+            "text": "This is the same discipline I described in Context Is a Budget: a feature intended to save tokens is not evidence that it did. For Section One, the comparison has to hold the assignment and available evidence steady, then account for the resulting quality and correction effort. A lower price per model call is useful only if the rest of the operation remains acceptable.",
+            "links": [
+              {
+                "text": "Context Is a Budget",
+                "href": "/writing/context-is-a-budget"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Judgment Remains Part of the System",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Some checks have a definite answer. A package satisfies its structural contract or it does not. A source link has an admissible URL or it does not. Encoding those requirements makes them repeatable and keeps them from depending on an agent remembering every instruction."
+          },
+          {
+            "type": "paragraph",
+            "text": "Whether a source supports a sentence is a harder question. A sentence can contain the same number as its source and assign it to the wrong subject. It can turn a possibility into a confirmed event without changing any of the names. Structural validity cannot settle those questions, and a complete review form is not proof that the reviewer understood the reporting."
+          },
+          {
+            "type": "paragraph",
+            "text": "That limits the automation claim I can make today. The system supports editorial production and records enough of the process to inspect it. It does not eliminate judgment. I also want to preserve the kind of judgment that makes a briefing worth reading: recognizing a consequential development, explaining the football clearly, and leaving out material that adds little."
+          },
+          {
+            "type": "paragraph",
+            "text": "The next decision is how much of that responsibility a less expensive process can carry reliably. I would rather answer it with comparable editions and recorded corrections than choose a model first and explain the results afterward."
+          }
+        ]
+      },
+      {
+        "heading": "What I Would Carry Forward",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Build expansion around the recurring responsibility each new instance creates."
+          },
+          {
+            "type": "list",
+            "items": [
+              "Separate configuration from operating readiness, because a valid setup cannot establish that a team can be covered well.",
+              "Give publication a defined contract, so changes to production methods do not force changes to the reader experience.",
+              "Let facts update independently when their lifecycle requires it, and make dependent caches follow the change.",
+              "Preserve useful prior output when replacement fails, while showing readers the limits of its freshness.",
+              "Measure correction effort alongside compute, because cheaper generation can create more work elsewhere.",
+              "Keep editorial usefulness in the acceptance decision, because technically valid content can still waste a reader's time."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "The Broader Point",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "A reusable platform changes where expansion becomes expensive. It can remove duplicated interface work and make routine updates more predictable. That makes the remaining constraints easier to see: access to adequate information, judgment under uncertainty, and the attention required when the system gets something wrong."
+          },
+          {
+            "type": "paragraph",
+            "text": "Section One gives me a concrete way to study those constraints in a product people can use. The test is what it takes to keep another team useful after the first edition is published. That recurring commitment is the expansion decision I care about."
+          }
+        ]
+      }
+    ],
+    "related": [
+      {
+        "kind": "project",
+        "slug": "section-one"
+      },
+      {
+        "kind": "writing",
+        "slug": "context-is-a-budget"
+      },
+      {
+        "kind": "writing",
+        "slug": "when-the-model-is-a-draft"
+      }
+    ]
+  },
   {
     slug: "context-is-a-budget",
     title: "Context Is a Budget",

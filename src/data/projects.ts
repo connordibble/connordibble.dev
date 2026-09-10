@@ -286,57 +286,69 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "section-one",
-    title: "Section One",
-    owner: "Open source",
-    description:
-      "Independent college-football game-week desk, shipped as a team-portable platform. Two editions run from typed config, weekly news is graded against a written rubric before it publishes, and every answer carries the sources behind it.",
-    tags: ["Next.js", "TypeScript", "Drizzle", "RAG", "Playwright"],
-    socialCard: {
-      steps: ["Sources", "Retrieve", "Answer"],
-      activeStep: 2,
-      summary:
-        "A source-grounded college-football desk with graded weekly news and cited answers.",
-    },
-    repoUrl: "https://github.com/connordibble/SectionOne",
-    detail: {
-      headline:
-        "A source-grounded college-football desk, built as a team-portable platform and tested by shipping a second edition without a redesign.",
-      sections: [
-        {
-          heading: "Problem",
-          body: "College football fans want fast context before a game. The available signal is scattered across schedules, game notes, official links, data feeds, and rumor-heavy commentary. Section One answers three questions for one team at a time: what matters this week, what to watch during the game, and what supports that read. A fan can already get a feed; what they cannot get is five things that actually matter, chosen by someone who knows which five.",
-        },
-        {
-          heading: "Product Boundary",
-          body: "Team identity, source policy, voice, protected-mark guidance, color anchors, aliases, and starter questions live in typed configuration. Components carry no team name, color, or matchup claim; if adding a team required changing a component, the boundary would be wrong. The product avoids official logos, mascot branding, and affiliation language, which keeps it legally cleaner and forces the experience to stand on source quality instead of borrowed brand equity.",
-        },
-        {
-          heading: "The Second Edition Test",
-          body: "A portability claim is worth what the second instance proves. Adding the Utah State edition alongside Texas cost two fixes and no redesign. The question classifier had reserved a single word for the team's name, which fit Texas and not Utah State, so anything team-shaped in shared logic now reads from config. And the structural dark belongs to the school when the school has one: only a primary too bright to be structure, as burnt orange is, gets a counterweight. Getting that backwards is what gave Utah State a brown masthead in its first draft.",
-        },
-        {
-          heading: "Architecture",
-          body: "The Next.js app serves a home route that takes team requests and a canonical /teams/[slug] edition for each enabled team, plus API routes for health, ingest, and chat. Schedules are build outputs, not hand-typed rows: pnpm schedule:build regenerates a fixture from CollegeFootballData so kickoff times, venues, and broadcast assignments come from the source. Documents are normalized, de-duplicated, and chunked, then retrieved by hybrid search that fuses deterministic lexical scoring with pgvector cosine search through reciprocal rank fusion. With no database or no seeded embeddings, vector search returns nothing and retrieval degrades to lexical rather than failing.",
-        },
-        {
-          heading: "Editorial Rules",
-          body: "The weekly sections are governed by written rules, not author discretion. Rankings are read from the team outward: most teams are unranked, so the list under the standing line is the ranked opponents on that team's own schedule, hardest first. News items are graded on impact, echo, and freshness, decayed by age, and filled under a cap of two per outlet with at least three distinct outlets and local reporting never outnumbered by national. Every item carries its outlet and links out; an item without a source is not publishable, and fixture tests enforce that instead of trusting the author.",
-        },
-        {
-          heading: "Guardrails",
-          body: "The chat path carries citations, freshness text, confidence, provider metadata, and a mode for every answer. Rumor, injury, betting, and message-board questions route through a static guardrail response instead of laundering untrusted claims. If a live LLM provider is unavailable, the app falls back to a deterministic mock provider so the product still returns a grounded answer from the retrieved context.",
-        },
-        {
-          heading: "Quality Bar",
-          body: "The release check combines lint, typecheck, unit tests, voice evals, build, ingest, and Playwright e2e coverage. Offline fixtures make the core flow runnable without private keys. Database smoke tests cover Drizzle migrations and seeding for teams, games, source documents, chunks, sessions, messages, and citations, including the expected warning path when the live CFBD key is absent.",
-        },
-        {
-          heading: "Stack",
-          body: "Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Drizzle · Postgres + pgvector · Anthropic/OpenAI adapters · Vitest · Playwright",
-        },
+    "slug": "section-one",
+    "title": "Section One",
+    "owner": "Independent product",
+    "description": "A college-football desk serving four programs from one shared platform. Sourced weekly briefings and independently updated game facts help fans prepare for kickoff.",
+    "tags": [
+      "Next.js",
+      "TypeScript",
+      "Applied AI",
+      "Playwright"
+    ],
+    "socialCard": {
+      "steps": [
+        "Sources",
+        "Edition",
+        "Game day"
       ],
+      "activeStep": 1,
+      "summary": "Four programs on one shared platform, with sourced briefings and independently updated game facts."
     },
+    "repoUrl": "https://github.com/connordibble/SectionOne",
+    "links": [
+      {
+        "label": "Visit Section One",
+        "href": "https://www.sectiononesports.com"
+      },
+      {
+        "label": "Read the essay",
+        "href": "https://connordibble.dev/writing/the-cost-of-the-next-team"
+      }
+    ],
+    "detail": {
+      "headline": "I built Section One to help fans prepare for game day, then made the recurring cost of keeping another team useful the central engineering constraint.",
+      "sections": [
+        {
+          "heading": "The Reader’s Job",
+          "body": "A fan should be able to catch up before kickoff and find the reporting or official game information behind what they read. Section One brings a short weekly briefing, matchup context, and schedule information into one team page. Story links send readers to the original outlets; game details provide a path to the official schedule."
+        },
+        {
+          "heading": "Four Programs, One Platform",
+          "body": "Texas, Utah State, Ohio State, and LSU share the same application. Typed team data supplies identity, presentation, and schedule context. Adding a program uses a shared onboarding contract instead of a copied page. That proves a reusable product boundary. Each program still needs source coverage and editorial attention before its edition is useful."
+        },
+        {
+          "heading": "A Publication Boundary",
+          "body": "The application accepts a versioned edition through a defined contract. Editorial production can evolve separately from the reader experience. Publication checks the package, rejects a draft based on an outdated revision, and preserves the previous edition in an archive. Those checks protect the handoff; they cannot establish that a source supports every sentence."
+        },
+        {
+          "heading": "Different Information Ages Differently",
+          "body": "The weekly briefing and observed game facts have separate update paths. A poll can change while a published matchup explanation remains the same. The page distinguishes publication dates from source verification, and answer caching accounts for the fact snapshot. Failed fact refreshes preserve the last accepted data. An aging briefing carries a review notice and a link to official game details."
+        },
+        {
+          "heading": "Keeping Answers Accountable",
+          "body": "The question interface uses the selected team’s context and attaches sources to grounded answers. It distinguishes direct fact lookups from questions that require an explanation. Dates and uncertainty remain part of the answer: a plausible sentence is not evidence that a game time or player status has been confirmed."
+        },
+        {
+          "heading": "What I Can Claim Today",
+          "body": "The product is live, with assisted editorial production and independent fact refreshes. Shared validation and browser checks cover published content, links, and team presentation; the four programs have also been checked in production at mobile and desktop widths in both themes. Weekly curation still requires judgment. I have not established unattended publication or measured a reduction in model cost. The next test is whether another program can stay useful at a sustainable maintenance cost."
+        },
+        {
+          "heading": "Stack",
+          "body": "Next.js · React · TypeScript · Tailwind CSS · Zod · Drizzle · Postgres + pgvector · model provider adapters · Vitest · Playwright"
+        }
+      ]
+    }
   },
   {
     slug: "dibble",
@@ -493,9 +505,9 @@ function getProjectsBySlug(slugs: string[]): Project[] {
 }
 
 export const homepageProjects = getProjectsBySlug([
+  "section-one",
   "sfds",
   "designrail",
-  "dibble",
 ]);
 
 export const projectIndexProjects = getProjectsBySlug([

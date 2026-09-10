@@ -30,6 +30,8 @@ const figures = {
   "incline-review": InclineReviewFigure,
   "prompt-allowlist": PromptAllowlistFigure,
   "perf-budget-to-context-budget": PerfBudgetToContextBudgetFigure,
+  "edition-update-paths": EditionUpdatePathsFigure,
+  "edition-cost-model": EditionCostModelFigure,
 } satisfies Record<WritingFigureVariant, ComponentType>;
 
 export function WritingFigure({ variant, caption }: WritingFigureProps) {
@@ -721,5 +723,39 @@ function TrafficResultFigure() {
         </div>
       </div>
     </div>
+  );
+}
+
+
+// Conceptual figures for The Cost of the Next Team. No producer internals.
+function EditionUpdatePathsFigure() {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="flex-1 space-y-3">
+        <Zone label="Briefing" items={["Published edition", "Reporting with context"]} />
+        <Zone label="Facts" items={["Observed data", "Schedule and rankings"]} />
+      </div>
+      <ZoneArrow />
+      <Zone
+        label="Shared team page"
+        items={["Brief · Matchup · Schedule"]}
+        accentItem="Dates remain visible"
+      />
+    </div>
+  );
+}
+
+function EditionCostModelFigure() {
+  return (
+    <FigureTable
+      keyPrefix="edition-cost"
+      header={["Measure", "What it tells me", "What it misses"]}
+      rows={[
+        ["Model usage", "Cost of attempts, including retries", "Editing and verification time"],
+        ["Operator time", "Effort to publish and maintain coverage", "Whether readers value it"],
+        ["Corrections", "Where published output needed repair", "Errors nobody reported"],
+        ["Reader return", "Whether people choose to come back", "Which mechanism caused it"],
+      ]}
+    />
   );
 }

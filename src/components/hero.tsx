@@ -3,6 +3,12 @@ import { BrandMark } from "./brand-mark";
 
 const currentWork = [
   {
+    label: "Independent product",
+    value: "Section One · college-football desk",
+    note: "4 programs · shared platform",
+    href: "/projects/section-one",
+  },
+  {
     label: "Technical direction",
     value: "statefarm.com Digital Experience",
     note: "8 teams · 50+ engineers",
@@ -109,7 +115,11 @@ export function Hero() {
                 {item.label}
               </dt>
               <dd className="min-w-0 text-body-small text-text">
-                {item.value}
+                {item.href ? (
+                  <Link href={item.href} className="text-link inline-flex min-h-11 items-center">
+                    {item.value}
+                  </Link>
+                ) : item.value}
               </dd>
               <dd className="min-w-0 font-mono text-caption text-text-subtle">
                 {item.note}

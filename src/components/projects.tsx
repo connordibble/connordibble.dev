@@ -17,7 +17,7 @@ export function Projects() {
               Selected work
             </SectionLabel>
             <p className="mt-5 max-w-2xl text-body-small leading-relaxed text-text-muted text-pretty">
-              Platform work, design systems, and developer tools.
+              Independent products and the platforms behind them.
             </p>
           </div>
           <span className="hidden justify-self-end pt-1 sm:block">
